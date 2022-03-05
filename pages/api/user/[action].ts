@@ -50,28 +50,34 @@ export default async function handler(
 
 async function singUp(req: NextApiRequest, res: NextApiResponse) {
   await dbConnect();
-  if (!req.body.password) {
-    return res.status(400).json({ message: "Password not given" });
-  }
-  bcrypt.hash(req.body.password, 10, async (err, hash) => {
-    if (err) {
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-    const newUser = new user({ ...req.body, password: hash });
-    if (newUser.validateSync()) {
-      console.log("Schema validation error");
-      res.status(400).json({ error: "Bad request" });
-      return;
-    }
-    try {
-      const createdUser = await newUser.save();
-      req.body = { userId: createdUser._id };
-      generateToken(req);
-      res.status(201).json(req.body);
-    } catch (err) {
-      console.log("Error when creating user");
-      console.log(err);
-      res.status(500).json({ message: "Internal Server Error" });
+  user.findOne({ email: req.body.email }, (err: any, user: any) => {
+    if (!user) {
+      if (!req.body.password) {
+        return res.status(400).json({ message: "Password not given" });
+      }
+      bcrypt.hash(req.body.password, 10, async (err, hash) => {
+        if (err) {
+          return res.status(500).json({ message: "Internal Server Error" });
+        }
+        const newUser = new user({ ...req.body, password: hash });
+        if (newUser.validateSync()) {
+          console.log("Schema validation error");
+          res.status(400).json({ error: "Bad request" });
+          return;
+        }
+        try {
+          const createdUser = await newUser.save();
+          req.body = { userId: createdUser._id };
+          generateToken(req);
+          res.status(201).json(req.body);
+        } catch (err) {
+          console.log("Error when creating user");
+          console.log(err);
+          res.status(500).json({ message: "Internal Server Error" });
+        }
+      });
+    } else {
+      return res.status(400).json({ message: "Email already exists" });
     }
   });
 }
