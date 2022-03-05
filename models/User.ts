@@ -10,6 +10,13 @@ const UserSchema = new mongoose.Schema({
     required: true,
     match: /^[a-zA-Z0-9]+$/,
   },
+  email: {
+    type: String,
+    required: true,
+    match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+    unique: true,
+  },
+  password: { type: String, required: true },
 });
 
 export default mongoose.models.User || mongoose.model<User>("User", UserSchema);
