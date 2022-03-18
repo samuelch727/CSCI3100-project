@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^2.10.3",
+    "aws-amplify": "^4.3.16",
     "bcrypt": "^5.0.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.4",
