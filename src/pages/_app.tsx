@@ -5,6 +5,8 @@ import awsconfig from "../aws-exports";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
+Amplify.configure(awsconfig);
+
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
 }

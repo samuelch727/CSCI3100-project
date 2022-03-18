@@ -9,9 +9,6 @@ export const onCreateCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -22,9 +19,6 @@ export const onUpdateCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -35,9 +29,6 @@ export const onDeleteCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -52,9 +43,6 @@ export const onCreateTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -69,9 +57,6 @@ export const onUpdateTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -86,9 +71,42 @@ export const onDeleteTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    }
+  }
+`;
+export const onCreateDoc = /* GraphQL */ `
+  subscription OnCreateDoc {
+    onCreateDoc {
+      id
+      docURL
+      docType
+      projectID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateDoc = /* GraphQL */ `
+  subscription OnUpdateDoc {
+    onUpdateDoc {
+      id
+      docURL
+      docType
+      projectID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteDoc = /* GraphQL */ `
+  subscription OnDeleteDoc {
+    onDeleteDoc {
+      id
+      docURL
+      docType
+      projectID
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -104,12 +122,8 @@ export const onCreateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       projectName
       language
@@ -127,27 +141,17 @@ export const onCreateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       projectCodeId
       owner
     }
@@ -165,12 +169,8 @@ export const onUpdateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       projectName
       language
@@ -188,27 +188,17 @@ export const onUpdateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       projectCodeId
       owner
     }
@@ -226,12 +216,8 @@ export const onDeleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       projectName
       language
@@ -249,74 +235,19 @@ export const onDeleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       projectCodeId
       owner
-    }
-  }
-`;
-export const onCreateDoc = /* GraphQL */ `
-  subscription OnCreateDoc {
-    onCreateDoc {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onUpdateDoc = /* GraphQL */ `
-  subscription OnUpdateDoc {
-    onUpdateDoc {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onDeleteDoc = /* GraphQL */ `
-  subscription OnDeleteDoc {
-    onDeleteDoc {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

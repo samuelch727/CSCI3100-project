@@ -9,9 +9,6 @@ export const getCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -27,39 +24,8 @@ export const listCodes = /* GraphQL */ `
         codeURL
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncCodes = /* GraphQL */ `
-  query SyncCodes(
-    $filter: ModelCodeFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncCodes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        codeURL
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -74,9 +40,6 @@ export const getTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -96,200 +59,8 @@ export const listTodos = /* GraphQL */ `
         projectID
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncTodos = /* GraphQL */ `
-  query SyncTodos(
-    $filter: ModelTodoFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncTodos(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        todoURL
-        todoTitle
-        lineNumber
-        Check
-        projectID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getProject = /* GraphQL */ `
-  query GetProject($id: ID!) {
-    getProject(id: $id) {
-      id
-      documents {
-        items {
-          id
-          docURL
-          docType
-          projectID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      projectName
-      language
-      code
-      todo
-      runResult
-      createTime
-      Todos {
-        items {
-          id
-          todoURL
-          todoTitle
-          lineNumber
-          Check
-          projectID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      Code {
-        id
-        codeURL
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      projectCodeId
-      owner
-    }
-  }
-`;
-export const listProjects = /* GraphQL */ `
-  query ListProjects(
-    $filter: ModelProjectFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        documents {
-          nextToken
-          startedAt
-        }
-        projectName
-        language
-        code
-        todo
-        runResult
-        createTime
-        Todos {
-          nextToken
-          startedAt
-        }
-        Code {
-          id
-          codeURL
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        projectCodeId
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncProjects = /* GraphQL */ `
-  query SyncProjects(
-    $filter: ModelProjectFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncProjects(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        documents {
-          nextToken
-          startedAt
-        }
-        projectName
-        language
-        code
-        todo
-        runResult
-        createTime
-        Todos {
-          nextToken
-          startedAt
-        }
-        Code {
-          id
-          codeURL
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        projectCodeId
-        owner
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -302,9 +73,6 @@ export const getDoc = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -322,41 +90,91 @@ export const listDocs = /* GraphQL */ `
         projectID
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
   }
 `;
-export const syncDocs = /* GraphQL */ `
-  query SyncDocs(
-    $filter: ModelDocFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncDocs(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
+export const getProject = /* GraphQL */ `
+  query GetProject($id: ID!) {
+    getProject(id: $id) {
+      id
+      documents {
+        items {
+          id
+          docURL
+          docType
+          projectID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      projectName
+      language
+      code
+      todo
+      runResult
+      createTime
+      Todos {
+        items {
+          id
+          todoURL
+          todoTitle
+          lineNumber
+          Check
+          projectID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Code {
         id
-        docURL
-        docType
-        projectID
+        codeURL
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
+      }
+      createdAt
+      updatedAt
+      projectCodeId
+      owner
+    }
+  }
+`;
+export const listProjects = /* GraphQL */ `
+  query ListProjects(
+    $filter: ModelProjectFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        documents {
+          nextToken
+        }
+        projectName
+        language
+        code
+        todo
+        runResult
+        createTime
+        Todos {
+          nextToken
+        }
+        Code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
       }
       nextToken
-      startedAt
     }
   }
 `;

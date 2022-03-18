@@ -12,9 +12,6 @@ export const createCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -28,9 +25,6 @@ export const updateCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -44,9 +38,6 @@ export const deleteCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -64,9 +55,6 @@ export const createTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -84,9 +72,6 @@ export const updateTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -104,9 +89,51 @@ export const deleteTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    }
+  }
+`;
+export const createDoc = /* GraphQL */ `
+  mutation CreateDoc(
+    $input: CreateDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    createDoc(input: $input, condition: $condition) {
+      id
+      docURL
+      docType
+      projectID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateDoc = /* GraphQL */ `
+  mutation UpdateDoc(
+    $input: UpdateDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    updateDoc(input: $input, condition: $condition) {
+      id
+      docURL
+      docType
+      projectID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteDoc = /* GraphQL */ `
+  mutation DeleteDoc(
+    $input: DeleteDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    deleteDoc(input: $input, condition: $condition) {
+      id
+      docURL
+      docType
+      projectID
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -125,12 +152,8 @@ export const createProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       projectName
       language
@@ -148,27 +171,17 @@ export const createProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       projectCodeId
       owner
     }
@@ -189,12 +202,8 @@ export const updateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       projectName
       language
@@ -212,27 +221,17 @@ export const updateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       projectCodeId
       owner
     }
@@ -253,12 +252,8 @@ export const deleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       projectName
       language
@@ -276,83 +271,19 @@ export const deleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       projectCodeId
       owner
-    }
-  }
-`;
-export const createDoc = /* GraphQL */ `
-  mutation CreateDoc(
-    $input: CreateDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    createDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const updateDoc = /* GraphQL */ `
-  mutation UpdateDoc(
-    $input: UpdateDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    updateDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const deleteDoc = /* GraphQL */ `
-  mutation DeleteDoc(
-    $input: DeleteDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    deleteDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
