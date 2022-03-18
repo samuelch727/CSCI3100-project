@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3csci3100projectstorageaededc65",
+  "bucketName": "csci3100project-storage-aededc65",
+  "policyUUID": "3bcdd9cb",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

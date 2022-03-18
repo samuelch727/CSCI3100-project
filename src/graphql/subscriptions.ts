@@ -2,234 +2,321 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateBlog = /* GraphQL */ `
-  subscription OnCreateBlog {
-    onCreateBlog {
+export const onCreateCode = /* GraphQL */ `
+  subscription OnCreateCode {
+    onCreateCode {
       id
-      name
-      posts {
+      codeURL
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateCode = /* GraphQL */ `
+  subscription OnUpdateCode {
+    onUpdateCode {
+      id
+      codeURL
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteCode = /* GraphQL */ `
+  subscription OnDeleteCode {
+    onDeleteCode {
+      id
+      codeURL
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onCreateTodo = /* GraphQL */ `
+  subscription OnCreateTodo {
+    onCreateTodo {
+      id
+      todoURL
+      todoTitle
+      lineNumber
+      Check
+      projectID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateTodo = /* GraphQL */ `
+  subscription OnUpdateTodo {
+    onUpdateTodo {
+      id
+      todoURL
+      todoTitle
+      lineNumber
+      Check
+      projectID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteTodo = /* GraphQL */ `
+  subscription OnDeleteTodo {
+    onDeleteTodo {
+      id
+      todoURL
+      todoTitle
+      lineNumber
+      Check
+      projectID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onCreateProject = /* GraphQL */ `
+  subscription OnCreateProject($owner: String) {
+    onCreateProject(owner: $owner) {
+      id
+      documents {
         items {
           id
-          title
+          docURL
+          docType
+          projectID
           createdAt
           updatedAt
-          blogPostsId
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateBlog = /* GraphQL */ `
-  subscription OnUpdateBlog {
-    onUpdateBlog {
-      id
-      name
-      posts {
+      projectName
+      language
+      code
+      todo
+      runResult
+      createTime
+      Todos {
         items {
           id
-          title
+          todoURL
+          todoTitle
+          lineNumber
+          Check
+          projectID
           createdAt
           updatedAt
-          blogPostsId
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
+      }
+      Code {
+        id
+        codeURL
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      projectCodeId
+      owner
     }
   }
 `;
-export const onDeleteBlog = /* GraphQL */ `
-  subscription OnDeleteBlog {
-    onDeleteBlog {
+export const onUpdateProject = /* GraphQL */ `
+  subscription OnUpdateProject($owner: String) {
+    onUpdateProject(owner: $owner) {
       id
-      name
-      posts {
+      documents {
         items {
           id
-          title
+          docURL
+          docType
+          projectID
           createdAt
           updatedAt
-          blogPostsId
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost {
-    onCreatePost {
-      id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
+      projectName
+      language
+      code
+      todo
+      runResult
+      createTime
+      Todos {
         items {
           id
-          content
+          todoURL
+          todoTitle
+          lineNumber
+          Check
+          projectID
           createdAt
           updatedAt
-          postCommentsId
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
+      }
+      Code {
+        id
+        codeURL
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       createdAt
       updatedAt
-      blogPostsId
+      _version
+      _deleted
+      _lastChangedAt
+      projectCodeId
+      owner
     }
   }
 `;
-export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost {
-    onUpdatePost {
+export const onDeleteProject = /* GraphQL */ `
+  subscription OnDeleteProject($owner: String) {
+    onDeleteProject(owner: $owner) {
       id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
+      documents {
         items {
           id
-          content
+          docURL
+          docType
+          projectID
           createdAt
           updatedAt
-          postCommentsId
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
-      blogPostsId
-    }
-  }
-`;
-export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost {
-    onDeletePost {
-      id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
+      projectName
+      language
+      code
+      todo
+      runResult
+      createTime
+      Todos {
         items {
           id
-          content
+          todoURL
+          todoTitle
+          lineNumber
+          Check
+          projectID
           createdAt
           updatedAt
-          postCommentsId
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
+      }
+      Code {
+        id
+        codeURL
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       createdAt
       updatedAt
-      blogPostsId
+      _version
+      _deleted
+      _lastChangedAt
+      projectCodeId
+      owner
     }
   }
 `;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment {
-    onCreateComment {
+export const onCreateDoc = /* GraphQL */ `
+  subscription OnCreateDoc {
+    onCreateDoc {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-      }
-      content
+      docURL
+      docType
+      projectID
       createdAt
       updatedAt
-      postCommentsId
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment {
-    onUpdateComment {
+export const onUpdateDoc = /* GraphQL */ `
+  subscription OnUpdateDoc {
+    onUpdateDoc {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-      }
-      content
+      docURL
+      docType
+      projectID
       createdAt
       updatedAt
-      postCommentsId
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment {
-    onDeleteComment {
+export const onDeleteDoc = /* GraphQL */ `
+  subscription OnDeleteDoc {
+    onDeleteDoc {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-      }
-      content
+      docURL
+      docType
+      projectID
       createdAt
       updatedAt
-      postCommentsId
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;

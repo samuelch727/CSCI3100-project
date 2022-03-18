@@ -2,152 +2,361 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getBlog = /* GraphQL */ `
-  query GetBlog($id: ID!) {
-    getBlog(id: $id) {
+export const getCode = /* GraphQL */ `
+  query GetCode($id: ID!) {
+    getCode(id: $id) {
       id
-      name
-      posts {
+      codeURL
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listCodes = /* GraphQL */ `
+  query ListCodes(
+    $filter: ModelCodeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCodes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        codeURL
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCodes = /* GraphQL */ `
+  query SyncCodes(
+    $filter: ModelCodeFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCodes(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        codeURL
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getTodo = /* GraphQL */ `
+  query GetTodo($id: ID!) {
+    getTodo(id: $id) {
+      id
+      todoURL
+      todoTitle
+      lineNumber
+      Check
+      projectID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listTodos = /* GraphQL */ `
+  query ListTodos(
+    $filter: ModelTodoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        todoURL
+        todoTitle
+        lineNumber
+        Check
+        projectID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncTodos = /* GraphQL */ `
+  query SyncTodos(
+    $filter: ModelTodoFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncTodos(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        todoURL
+        todoTitle
+        lineNumber
+        Check
+        projectID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getProject = /* GraphQL */ `
+  query GetProject($id: ID!) {
+    getProject(id: $id) {
+      id
+      documents {
         items {
           id
-          title
+          docURL
+          docType
+          projectID
           createdAt
           updatedAt
-          blogPostsId
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listBlogs = /* GraphQL */ `
-  query ListBlogs(
-    $filter: ModelBlogFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getPost = /* GraphQL */ `
-  query GetPost($id: ID!) {
-    getPost(id: $id) {
-      id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
+      projectName
+      language
+      code
+      todo
+      runResult
+      createTime
+      Todos {
         items {
           id
-          content
+          todoURL
+          todoTitle
+          lineNumber
+          Check
+          projectID
           createdAt
           updatedAt
-          postCommentsId
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
+      }
+      Code {
+        id
+        codeURL
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       createdAt
       updatedAt
-      blogPostsId
+      _version
+      _deleted
+      _lastChangedAt
+      projectCodeId
+      owner
     }
   }
 `;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
+export const listProjects = /* GraphQL */ `
+  query ListProjects(
+    $filter: ModelProjectFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
-        blog {
+        documents {
+          nextToken
+          startedAt
+        }
+        projectName
+        language
+        code
+        todo
+        runResult
+        createTime
+        Todos {
+          nextToken
+          startedAt
+        }
+        Code {
           id
-          name
+          codeURL
           createdAt
           updatedAt
-        }
-        comments {
-          nextToken
+          _version
+          _deleted
+          _lastChangedAt
         }
         createdAt
         updatedAt
-        blogPostsId
+        _version
+        _deleted
+        _lastChangedAt
+        projectCodeId
+        owner
       }
       nextToken
+      startedAt
     }
   }
 `;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
+export const syncProjects = /* GraphQL */ `
+  query SyncProjects(
+    $filter: ModelProjectFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncProjects(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        documents {
+          nextToken
+          startedAt
+        }
+        projectName
+        language
+        code
+        todo
+        runResult
+        createTime
+        Todos {
+          nextToken
+          startedAt
+        }
+        Code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        projectCodeId
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getDoc = /* GraphQL */ `
+  query GetDoc($id: ID!) {
+    getDoc(id: $id) {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-      }
-      content
+      docURL
+      docType
+      projectID
       createdAt
       updatedAt
-      postCommentsId
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
+export const listDocs = /* GraphQL */ `
+  query ListDocs(
+    $filter: ModelDocFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listDocs(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        post {
-          id
-          title
-          createdAt
-          updatedAt
-          blogPostsId
-        }
-        content
+        docURL
+        docType
+        projectID
         createdAt
         updatedAt
-        postCommentsId
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncDocs = /* GraphQL */ `
+  query SyncDocs(
+    $filter: ModelDocFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncDocs(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        docURL
+        docType
+        projectID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
