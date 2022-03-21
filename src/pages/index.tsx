@@ -2,8 +2,12 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import { Auth } from "aws-amplify";
 
 const Home: NextPage = () => {
+  Auth.currentAuthenticatedUser().then((user) => {
+    console.log(user);
+  });
   return (
     <div className={styles.container}>
       <Head>
