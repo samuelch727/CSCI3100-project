@@ -7,8 +7,11 @@ export const getCode = /* GraphQL */ `
     getCode(id: $id) {
       id
       codeURL
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -22,8 +25,11 @@ export const listCodes = /* GraphQL */ `
       items {
         id
         codeURL
+        grpsCanAccess
+        isPublic
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -36,10 +42,13 @@ export const getTodo = /* GraphQL */ `
       todoURL
       todoTitle
       lineNumber
-      Check
+      check
       projectID
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -55,41 +64,13 @@ export const listTodos = /* GraphQL */ `
         todoURL
         todoTitle
         lineNumber
-        Check
+        check
         projectID
+        grpsCanAccess
+        isPublic
         createdAt
         updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getDoc = /* GraphQL */ `
-  query GetDoc($id: ID!) {
-    getDoc(id: $id) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listDocs = /* GraphQL */ `
-  query ListDocs(
-    $filter: ModelDocFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listDocs(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        docURL
-        docType
-        projectID
-        createdAt
-        updatedAt
+        owner
       }
       nextToken
     }
@@ -105,8 +86,11 @@ export const getProject = /* GraphQL */ `
           docURL
           docType
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -116,24 +100,32 @@ export const getProject = /* GraphQL */ `
       todo
       runResult
       createTime
+      grpsCanAccess
+      isPublic
       Todos {
         items {
           id
           todoURL
           todoTitle
           lineNumber
-          Check
+          check
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       Code {
         id
         codeURL
+        grpsCanAccess
+        isPublic
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
@@ -160,18 +152,60 @@ export const listProjects = /* GraphQL */ `
         todo
         runResult
         createTime
+        grpsCanAccess
+        isPublic
         Todos {
           nextToken
         }
         Code {
           id
           codeURL
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         createdAt
         updatedAt
         projectCodeId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getDoc = /* GraphQL */ `
+  query GetDoc($id: ID!) {
+    getDoc(id: $id) {
+      id
+      docURL
+      docType
+      projectID
+      grpsCanAccess
+      isPublic
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listDocs = /* GraphQL */ `
+  query ListDocs(
+    $filter: ModelDocFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDocs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        docURL
+        docType
+        projectID
+        grpsCanAccess
+        isPublic
+        createdAt
+        updatedAt
         owner
       }
       nextToken

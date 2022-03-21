@@ -3,110 +3,92 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateCode = /* GraphQL */ `
-  subscription OnCreateCode {
-    onCreateCode {
+  subscription OnCreateCode($owner: String) {
+    onCreateCode(owner: $owner) {
       id
       codeURL
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateCode = /* GraphQL */ `
-  subscription OnUpdateCode {
-    onUpdateCode {
+  subscription OnUpdateCode($owner: String) {
+    onUpdateCode(owner: $owner) {
       id
       codeURL
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteCode = /* GraphQL */ `
-  subscription OnDeleteCode {
-    onDeleteCode {
+  subscription OnDeleteCode($owner: String) {
+    onDeleteCode(owner: $owner) {
       id
       codeURL
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo {
-    onCreateTodo {
+  subscription OnCreateTodo($owner: String) {
+    onCreateTodo(owner: $owner) {
       id
       todoURL
       todoTitle
       lineNumber
-      Check
+      check
       projectID
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo {
-    onUpdateTodo {
+  subscription OnUpdateTodo($owner: String) {
+    onUpdateTodo(owner: $owner) {
       id
       todoURL
       todoTitle
       lineNumber
-      Check
+      check
       projectID
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo {
-    onDeleteTodo {
+  subscription OnDeleteTodo($owner: String) {
+    onDeleteTodo(owner: $owner) {
       id
       todoURL
       todoTitle
       lineNumber
-      Check
+      check
       projectID
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
-    }
-  }
-`;
-export const onCreateDoc = /* GraphQL */ `
-  subscription OnCreateDoc {
-    onCreateDoc {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateDoc = /* GraphQL */ `
-  subscription OnUpdateDoc {
-    onUpdateDoc {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteDoc = /* GraphQL */ `
-  subscription OnDeleteDoc {
-    onDeleteDoc {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
+      owner
     }
   }
 `;
@@ -120,8 +102,11 @@ export const onCreateProject = /* GraphQL */ `
           docURL
           docType
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -131,24 +116,32 @@ export const onCreateProject = /* GraphQL */ `
       todo
       runResult
       createTime
+      grpsCanAccess
+      isPublic
       Todos {
         items {
           id
           todoURL
           todoTitle
           lineNumber
-          Check
+          check
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       Code {
         id
         codeURL
+        grpsCanAccess
+        isPublic
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
@@ -167,8 +160,11 @@ export const onUpdateProject = /* GraphQL */ `
           docURL
           docType
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -178,24 +174,32 @@ export const onUpdateProject = /* GraphQL */ `
       todo
       runResult
       createTime
+      grpsCanAccess
+      isPublic
       Todos {
         items {
           id
           todoURL
           todoTitle
           lineNumber
-          Check
+          check
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       Code {
         id
         codeURL
+        grpsCanAccess
+        isPublic
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
@@ -214,8 +218,11 @@ export const onDeleteProject = /* GraphQL */ `
           docURL
           docType
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -225,28 +232,81 @@ export const onDeleteProject = /* GraphQL */ `
       todo
       runResult
       createTime
+      grpsCanAccess
+      isPublic
       Todos {
         items {
           id
           todoURL
           todoTitle
           lineNumber
-          Check
+          check
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       Code {
         id
         codeURL
+        grpsCanAccess
+        isPublic
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
       projectCodeId
+      owner
+    }
+  }
+`;
+export const onCreateDoc = /* GraphQL */ `
+  subscription OnCreateDoc($owner: String) {
+    onCreateDoc(owner: $owner) {
+      id
+      docURL
+      docType
+      projectID
+      grpsCanAccess
+      isPublic
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateDoc = /* GraphQL */ `
+  subscription OnUpdateDoc($owner: String) {
+    onUpdateDoc(owner: $owner) {
+      id
+      docURL
+      docType
+      projectID
+      grpsCanAccess
+      isPublic
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteDoc = /* GraphQL */ `
+  subscription OnDeleteDoc($owner: String) {
+    onDeleteDoc(owner: $owner) {
+      id
+      docURL
+      docType
+      projectID
+      grpsCanAccess
+      isPublic
+      createdAt
+      updatedAt
       owner
     }
   }

@@ -10,8 +10,11 @@ export const createCode = /* GraphQL */ `
     createCode(input: $input, condition: $condition) {
       id
       codeURL
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -23,8 +26,11 @@ export const updateCode = /* GraphQL */ `
     updateCode(input: $input, condition: $condition) {
       id
       codeURL
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -36,8 +42,11 @@ export const deleteCode = /* GraphQL */ `
     deleteCode(input: $input, condition: $condition) {
       id
       codeURL
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -51,10 +60,13 @@ export const createTodo = /* GraphQL */ `
       todoURL
       todoTitle
       lineNumber
-      Check
+      check
       projectID
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -68,10 +80,13 @@ export const updateTodo = /* GraphQL */ `
       todoURL
       todoTitle
       lineNumber
-      Check
+      check
       projectID
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -85,55 +100,13 @@ export const deleteTodo = /* GraphQL */ `
       todoURL
       todoTitle
       lineNumber
-      Check
+      check
       projectID
+      grpsCanAccess
+      isPublic
       createdAt
       updatedAt
-    }
-  }
-`;
-export const createDoc = /* GraphQL */ `
-  mutation CreateDoc(
-    $input: CreateDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    createDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateDoc = /* GraphQL */ `
-  mutation UpdateDoc(
-    $input: UpdateDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    updateDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteDoc = /* GraphQL */ `
-  mutation DeleteDoc(
-    $input: DeleteDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    deleteDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
+      owner
     }
   }
 `;
@@ -150,8 +123,11 @@ export const createProject = /* GraphQL */ `
           docURL
           docType
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -161,24 +137,32 @@ export const createProject = /* GraphQL */ `
       todo
       runResult
       createTime
+      grpsCanAccess
+      isPublic
       Todos {
         items {
           id
           todoURL
           todoTitle
           lineNumber
-          Check
+          check
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       Code {
         id
         codeURL
+        grpsCanAccess
+        isPublic
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
@@ -200,8 +184,11 @@ export const updateProject = /* GraphQL */ `
           docURL
           docType
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -211,24 +198,32 @@ export const updateProject = /* GraphQL */ `
       todo
       runResult
       createTime
+      grpsCanAccess
+      isPublic
       Todos {
         items {
           id
           todoURL
           todoTitle
           lineNumber
-          Check
+          check
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       Code {
         id
         codeURL
+        grpsCanAccess
+        isPublic
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
@@ -250,8 +245,11 @@ export const deleteProject = /* GraphQL */ `
           docURL
           docType
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -261,28 +259,90 @@ export const deleteProject = /* GraphQL */ `
       todo
       runResult
       createTime
+      grpsCanAccess
+      isPublic
       Todos {
         items {
           id
           todoURL
           todoTitle
           lineNumber
-          Check
+          check
           projectID
+          grpsCanAccess
+          isPublic
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
       Code {
         id
         codeURL
+        grpsCanAccess
+        isPublic
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
       projectCodeId
+      owner
+    }
+  }
+`;
+export const createDoc = /* GraphQL */ `
+  mutation CreateDoc(
+    $input: CreateDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    createDoc(input: $input, condition: $condition) {
+      id
+      docURL
+      docType
+      projectID
+      grpsCanAccess
+      isPublic
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateDoc = /* GraphQL */ `
+  mutation UpdateDoc(
+    $input: UpdateDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    updateDoc(input: $input, condition: $condition) {
+      id
+      docURL
+      docType
+      projectID
+      grpsCanAccess
+      isPublic
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteDoc = /* GraphQL */ `
+  mutation DeleteDoc(
+    $input: DeleteDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    deleteDoc(input: $input, condition: $condition) {
+      id
+      docURL
+      docType
+      projectID
+      grpsCanAccess
+      isPublic
+      createdAt
+      updatedAt
       owner
     }
   }

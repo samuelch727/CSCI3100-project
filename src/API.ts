@@ -5,10 +5,14 @@
 export type CreateCodeInput = {
   id?: string | null,
   codeURL?: string | null,
+  grpsCanAccess: Array< string | null >,
+  isPublic?: boolean | null,
 };
 
 export type ModelCodeConditionInput = {
   codeURL?: ModelStringInput | null,
+  grpsCanAccess?: ModelStringInput | null,
+  isPublic?: ModelBooleanInput | null,
   and?: Array< ModelCodeConditionInput | null > | null,
   or?: Array< ModelCodeConditionInput | null > | null,
   not?: ModelCodeConditionInput | null,
@@ -54,17 +58,29 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type Code = {
   __typename: "Code",
   id: string,
   codeURL?: string | null,
+  grpsCanAccess: Array< string | null >,
+  isPublic?: boolean | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateCodeInput = {
   id: string,
   codeURL?: string | null,
+  grpsCanAccess?: Array< string | null > | null,
+  isPublic?: boolean | null,
 };
 
 export type DeleteCodeInput = {
@@ -76,16 +92,20 @@ export type CreateTodoInput = {
   todoURL?: string | null,
   todoTitle?: string | null,
   lineNumber?: number | null,
-  Check?: boolean | null,
+  check?: boolean | null,
   projectID: string,
+  grpsCanAccess: Array< string | null >,
+  isPublic?: boolean | null,
 };
 
 export type ModelTodoConditionInput = {
   todoURL?: ModelStringInput | null,
   todoTitle?: ModelStringInput | null,
   lineNumber?: ModelIntInput | null,
-  Check?: ModelBooleanInput | null,
+  check?: ModelBooleanInput | null,
   projectID?: ModelIDInput | null,
+  grpsCanAccess?: ModelStringInput | null,
+  isPublic?: ModelBooleanInput | null,
   and?: Array< ModelTodoConditionInput | null > | null,
   or?: Array< ModelTodoConditionInput | null > | null,
   not?: ModelTodoConditionInput | null,
@@ -99,13 +119,6 @@ export type ModelIntInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
 };
@@ -132,10 +145,13 @@ export type Todo = {
   todoURL?: string | null,
   todoTitle?: string | null,
   lineNumber?: number | null,
-  Check?: boolean | null,
+  check?: boolean | null,
   projectID: string,
+  grpsCanAccess: Array< string | null >,
+  isPublic?: boolean | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateTodoInput = {
@@ -143,48 +159,13 @@ export type UpdateTodoInput = {
   todoURL?: string | null,
   todoTitle?: string | null,
   lineNumber?: number | null,
-  Check?: boolean | null,
+  check?: boolean | null,
   projectID?: string | null,
+  grpsCanAccess?: Array< string | null > | null,
+  isPublic?: boolean | null,
 };
 
 export type DeleteTodoInput = {
-  id: string,
-};
-
-export type CreateDocInput = {
-  id?: string | null,
-  docURL: string,
-  docType?: string | null,
-  projectID: string,
-};
-
-export type ModelDocConditionInput = {
-  docURL?: ModelStringInput | null,
-  docType?: ModelStringInput | null,
-  projectID?: ModelIDInput | null,
-  and?: Array< ModelDocConditionInput | null > | null,
-  or?: Array< ModelDocConditionInput | null > | null,
-  not?: ModelDocConditionInput | null,
-};
-
-export type Doc = {
-  __typename: "Doc",
-  id: string,
-  docURL: string,
-  docType?: string | null,
-  projectID: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateDocInput = {
-  id: string,
-  docURL?: string | null,
-  docType?: string | null,
-  projectID?: string | null,
-};
-
-export type DeleteDocInput = {
   id: string,
 };
 
@@ -196,6 +177,8 @@ export type CreateProjectInput = {
   todo?: string | null,
   runResult?: string | null,
   createTime?: number | null,
+  grpsCanAccess: Array< string | null >,
+  isPublic?: boolean | null,
   projectCodeId?: string | null,
 };
 
@@ -206,6 +189,8 @@ export type ModelProjectConditionInput = {
   todo?: ModelStringInput | null,
   runResult?: ModelStringInput | null,
   createTime?: ModelIntInput | null,
+  grpsCanAccess?: ModelStringInput | null,
+  isPublic?: ModelBooleanInput | null,
   and?: Array< ModelProjectConditionInput | null > | null,
   or?: Array< ModelProjectConditionInput | null > | null,
   not?: ModelProjectConditionInput | null,
@@ -222,6 +207,8 @@ export type Project = {
   todo?: string | null,
   runResult?: string | null,
   createTime?: number | null,
+  grpsCanAccess: Array< string | null >,
+  isPublic?: boolean | null,
   Todos?: ModelTodoConnection | null,
   Code?: Code | null,
   createdAt: string,
@@ -234,6 +221,19 @@ export type ModelDocConnection = {
   __typename: "ModelDocConnection",
   items:  Array<Doc | null >,
   nextToken?: string | null,
+};
+
+export type Doc = {
+  __typename: "Doc",
+  id: string,
+  docURL: string,
+  docType?: string | null,
+  projectID: string,
+  grpsCanAccess: Array< string | null >,
+  isPublic?: boolean | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
 };
 
 export type ModelTodoConnection = {
@@ -250,6 +250,8 @@ export type UpdateProjectInput = {
   todo?: string | null,
   runResult?: string | null,
   createTime?: number | null,
+  grpsCanAccess?: Array< string | null > | null,
+  isPublic?: boolean | null,
   projectCodeId?: string | null,
 };
 
@@ -257,9 +259,44 @@ export type DeleteProjectInput = {
   id: string,
 };
 
+export type CreateDocInput = {
+  id?: string | null,
+  docURL: string,
+  docType?: string | null,
+  projectID: string,
+  grpsCanAccess: Array< string | null >,
+  isPublic?: boolean | null,
+};
+
+export type ModelDocConditionInput = {
+  docURL?: ModelStringInput | null,
+  docType?: ModelStringInput | null,
+  projectID?: ModelIDInput | null,
+  grpsCanAccess?: ModelStringInput | null,
+  isPublic?: ModelBooleanInput | null,
+  and?: Array< ModelDocConditionInput | null > | null,
+  or?: Array< ModelDocConditionInput | null > | null,
+  not?: ModelDocConditionInput | null,
+};
+
+export type UpdateDocInput = {
+  id: string,
+  docURL?: string | null,
+  docType?: string | null,
+  projectID?: string | null,
+  grpsCanAccess?: Array< string | null > | null,
+  isPublic?: boolean | null,
+};
+
+export type DeleteDocInput = {
+  id: string,
+};
+
 export type ModelCodeFilterInput = {
   id?: ModelIDInput | null,
   codeURL?: ModelStringInput | null,
+  grpsCanAccess?: ModelStringInput | null,
+  isPublic?: ModelBooleanInput | null,
   and?: Array< ModelCodeFilterInput | null > | null,
   or?: Array< ModelCodeFilterInput | null > | null,
   not?: ModelCodeFilterInput | null,
@@ -276,21 +313,13 @@ export type ModelTodoFilterInput = {
   todoURL?: ModelStringInput | null,
   todoTitle?: ModelStringInput | null,
   lineNumber?: ModelIntInput | null,
-  Check?: ModelBooleanInput | null,
+  check?: ModelBooleanInput | null,
   projectID?: ModelIDInput | null,
+  grpsCanAccess?: ModelStringInput | null,
+  isPublic?: ModelBooleanInput | null,
   and?: Array< ModelTodoFilterInput | null > | null,
   or?: Array< ModelTodoFilterInput | null > | null,
   not?: ModelTodoFilterInput | null,
-};
-
-export type ModelDocFilterInput = {
-  id?: ModelIDInput | null,
-  docURL?: ModelStringInput | null,
-  docType?: ModelStringInput | null,
-  projectID?: ModelIDInput | null,
-  and?: Array< ModelDocFilterInput | null > | null,
-  or?: Array< ModelDocFilterInput | null > | null,
-  not?: ModelDocFilterInput | null,
 };
 
 export type ModelProjectFilterInput = {
@@ -301,6 +330,8 @@ export type ModelProjectFilterInput = {
   todo?: ModelStringInput | null,
   runResult?: ModelStringInput | null,
   createTime?: ModelIntInput | null,
+  grpsCanAccess?: ModelStringInput | null,
+  isPublic?: ModelBooleanInput | null,
   and?: Array< ModelProjectFilterInput | null > | null,
   or?: Array< ModelProjectFilterInput | null > | null,
   not?: ModelProjectFilterInput | null,
@@ -313,6 +344,18 @@ export type ModelProjectConnection = {
   nextToken?: string | null,
 };
 
+export type ModelDocFilterInput = {
+  id?: ModelIDInput | null,
+  docURL?: ModelStringInput | null,
+  docType?: ModelStringInput | null,
+  projectID?: ModelIDInput | null,
+  grpsCanAccess?: ModelStringInput | null,
+  isPublic?: ModelBooleanInput | null,
+  and?: Array< ModelDocFilterInput | null > | null,
+  or?: Array< ModelDocFilterInput | null > | null,
+  not?: ModelDocFilterInput | null,
+};
+
 export type CreateCodeMutationVariables = {
   input: CreateCodeInput,
   condition?: ModelCodeConditionInput | null,
@@ -323,8 +366,11 @@ export type CreateCodeMutation = {
     __typename: "Code",
     id: string,
     codeURL?: string | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -338,8 +384,11 @@ export type UpdateCodeMutation = {
     __typename: "Code",
     id: string,
     codeURL?: string | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -353,8 +402,11 @@ export type DeleteCodeMutation = {
     __typename: "Code",
     id: string,
     codeURL?: string | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -370,10 +422,13 @@ export type CreateTodoMutation = {
     todoURL?: string | null,
     todoTitle?: string | null,
     lineNumber?: number | null,
-    Check?: boolean | null,
+    check?: boolean | null,
     projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -389,10 +444,13 @@ export type UpdateTodoMutation = {
     todoURL?: string | null,
     todoTitle?: string | null,
     lineNumber?: number | null,
-    Check?: boolean | null,
+    check?: boolean | null,
     projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -408,61 +466,13 @@ export type DeleteTodoMutation = {
     todoURL?: string | null,
     todoTitle?: string | null,
     lineNumber?: number | null,
-    Check?: boolean | null,
+    check?: boolean | null,
     projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type CreateDocMutationVariables = {
-  input: CreateDocInput,
-  condition?: ModelDocConditionInput | null,
-};
-
-export type CreateDocMutation = {
-  createDoc?:  {
-    __typename: "Doc",
-    id: string,
-    docURL: string,
-    docType?: string | null,
-    projectID: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateDocMutationVariables = {
-  input: UpdateDocInput,
-  condition?: ModelDocConditionInput | null,
-};
-
-export type UpdateDocMutation = {
-  updateDoc?:  {
-    __typename: "Doc",
-    id: string,
-    docURL: string,
-    docType?: string | null,
-    projectID: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteDocMutationVariables = {
-  input: DeleteDocInput,
-  condition?: ModelDocConditionInput | null,
-};
-
-export type DeleteDocMutation = {
-  deleteDoc?:  {
-    __typename: "Doc",
-    id: string,
-    docURL: string,
-    docType?: string | null,
-    projectID: string,
-    createdAt: string,
-    updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -483,8 +493,11 @@ export type CreateProjectMutation = {
         docURL: string,
         docType?: string | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -494,6 +507,8 @@ export type CreateProjectMutation = {
     todo?: string | null,
     runResult?: string | null,
     createTime?: number | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -502,10 +517,13 @@ export type CreateProjectMutation = {
         todoURL?: string | null,
         todoTitle?: string | null,
         lineNumber?: number | null,
-        Check?: boolean | null,
+        check?: boolean | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -513,8 +531,11 @@ export type CreateProjectMutation = {
       __typename: "Code",
       id: string,
       codeURL?: string | null,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -540,8 +561,11 @@ export type UpdateProjectMutation = {
         docURL: string,
         docType?: string | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -551,6 +575,8 @@ export type UpdateProjectMutation = {
     todo?: string | null,
     runResult?: string | null,
     createTime?: number | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -559,10 +585,13 @@ export type UpdateProjectMutation = {
         todoURL?: string | null,
         todoTitle?: string | null,
         lineNumber?: number | null,
-        Check?: boolean | null,
+        check?: boolean | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -570,8 +599,11 @@ export type UpdateProjectMutation = {
       __typename: "Code",
       id: string,
       codeURL?: string | null,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -597,8 +629,11 @@ export type DeleteProjectMutation = {
         docURL: string,
         docType?: string | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -608,6 +643,8 @@ export type DeleteProjectMutation = {
     todo?: string | null,
     runResult?: string | null,
     createTime?: number | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -616,10 +653,13 @@ export type DeleteProjectMutation = {
         todoURL?: string | null,
         todoTitle?: string | null,
         lineNumber?: number | null,
-        Check?: boolean | null,
+        check?: boolean | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -627,12 +667,75 @@ export type DeleteProjectMutation = {
       __typename: "Code",
       id: string,
       codeURL?: string | null,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     projectCodeId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateDocMutationVariables = {
+  input: CreateDocInput,
+  condition?: ModelDocConditionInput | null,
+};
+
+export type CreateDocMutation = {
+  createDoc?:  {
+    __typename: "Doc",
+    id: string,
+    docURL: string,
+    docType?: string | null,
+    projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateDocMutationVariables = {
+  input: UpdateDocInput,
+  condition?: ModelDocConditionInput | null,
+};
+
+export type UpdateDocMutation = {
+  updateDoc?:  {
+    __typename: "Doc",
+    id: string,
+    docURL: string,
+    docType?: string | null,
+    projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteDocMutationVariables = {
+  input: DeleteDocInput,
+  condition?: ModelDocConditionInput | null,
+};
+
+export type DeleteDocMutation = {
+  deleteDoc?:  {
+    __typename: "Doc",
+    id: string,
+    docURL: string,
+    docType?: string | null,
+    projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -646,8 +749,11 @@ export type GetCodeQuery = {
     __typename: "Code",
     id: string,
     codeURL?: string | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -664,8 +770,11 @@ export type ListCodesQuery = {
       __typename: "Code",
       id: string,
       codeURL?: string | null,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -682,10 +791,13 @@ export type GetTodoQuery = {
     todoURL?: string | null,
     todoTitle?: string | null,
     lineNumber?: number | null,
-    Check?: boolean | null,
+    check?: boolean | null,
     projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -704,48 +816,13 @@ export type ListTodosQuery = {
       todoURL?: string | null,
       todoTitle?: string | null,
       lineNumber?: number | null,
-      Check?: boolean | null,
+      check?: boolean | null,
       projectID: string,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       createdAt: string,
       updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetDocQueryVariables = {
-  id: string,
-};
-
-export type GetDocQuery = {
-  getDoc?:  {
-    __typename: "Doc",
-    id: string,
-    docURL: string,
-    docType?: string | null,
-    projectID: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListDocsQueryVariables = {
-  filter?: ModelDocFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListDocsQuery = {
-  listDocs?:  {
-    __typename: "ModelDocConnection",
-    items:  Array< {
-      __typename: "Doc",
-      id: string,
-      docURL: string,
-      docType?: string | null,
-      projectID: string,
-      createdAt: string,
-      updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -767,8 +844,11 @@ export type GetProjectQuery = {
         docURL: string,
         docType?: string | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -778,6 +858,8 @@ export type GetProjectQuery = {
     todo?: string | null,
     runResult?: string | null,
     createTime?: number | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -786,10 +868,13 @@ export type GetProjectQuery = {
         todoURL?: string | null,
         todoTitle?: string | null,
         lineNumber?: number | null,
-        Check?: boolean | null,
+        check?: boolean | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -797,8 +882,11 @@ export type GetProjectQuery = {
       __typename: "Code",
       id: string,
       codeURL?: string | null,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -829,6 +917,8 @@ export type ListProjectsQuery = {
       todo?: string | null,
       runResult?: string | null,
       createTime?: number | null,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       Todos?:  {
         __typename: "ModelTodoConnection",
         nextToken?: string | null,
@@ -837,8 +927,11 @@ export type ListProjectsQuery = {
         __typename: "Code",
         id: string,
         codeURL?: string | null,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -849,14 +942,69 @@ export type ListProjectsQuery = {
   } | null,
 };
 
+export type GetDocQueryVariables = {
+  id: string,
+};
+
+export type GetDocQuery = {
+  getDoc?:  {
+    __typename: "Doc",
+    id: string,
+    docURL: string,
+    docType?: string | null,
+    projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListDocsQueryVariables = {
+  filter?: ModelDocFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListDocsQuery = {
+  listDocs?:  {
+    __typename: "ModelDocConnection",
+    items:  Array< {
+      __typename: "Doc",
+      id: string,
+      docURL: string,
+      docType?: string | null,
+      projectID: string,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateCodeSubscriptionVariables = {
+  owner?: string | null,
+};
+
 export type OnCreateCodeSubscription = {
   onCreateCode?:  {
     __typename: "Code",
     id: string,
     codeURL?: string | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateCodeSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateCodeSubscription = {
@@ -864,9 +1012,16 @@ export type OnUpdateCodeSubscription = {
     __typename: "Code",
     id: string,
     codeURL?: string | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteCodeSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteCodeSubscription = {
@@ -874,9 +1029,16 @@ export type OnDeleteCodeSubscription = {
     __typename: "Code",
     id: string,
     codeURL?: string | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnCreateTodoSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateTodoSubscription = {
@@ -886,11 +1048,18 @@ export type OnCreateTodoSubscription = {
     todoURL?: string | null,
     todoTitle?: string | null,
     lineNumber?: number | null,
-    Check?: boolean | null,
+    check?: boolean | null,
     projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateTodoSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateTodoSubscription = {
@@ -900,11 +1069,18 @@ export type OnUpdateTodoSubscription = {
     todoURL?: string | null,
     todoTitle?: string | null,
     lineNumber?: number | null,
-    Check?: boolean | null,
+    check?: boolean | null,
     projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteTodoSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteTodoSubscription = {
@@ -914,46 +1090,13 @@ export type OnDeleteTodoSubscription = {
     todoURL?: string | null,
     todoTitle?: string | null,
     lineNumber?: number | null,
-    Check?: boolean | null,
+    check?: boolean | null,
     projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type OnCreateDocSubscription = {
-  onCreateDoc?:  {
-    __typename: "Doc",
-    id: string,
-    docURL: string,
-    docType?: string | null,
-    projectID: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateDocSubscription = {
-  onUpdateDoc?:  {
-    __typename: "Doc",
-    id: string,
-    docURL: string,
-    docType?: string | null,
-    projectID: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteDocSubscription = {
-  onDeleteDoc?:  {
-    __typename: "Doc",
-    id: string,
-    docURL: string,
-    docType?: string | null,
-    projectID: string,
-    createdAt: string,
-    updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -973,8 +1116,11 @@ export type OnCreateProjectSubscription = {
         docURL: string,
         docType?: string | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -984,6 +1130,8 @@ export type OnCreateProjectSubscription = {
     todo?: string | null,
     runResult?: string | null,
     createTime?: number | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -992,10 +1140,13 @@ export type OnCreateProjectSubscription = {
         todoURL?: string | null,
         todoTitle?: string | null,
         lineNumber?: number | null,
-        Check?: boolean | null,
+        check?: boolean | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1003,8 +1154,11 @@ export type OnCreateProjectSubscription = {
       __typename: "Code",
       id: string,
       codeURL?: string | null,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1029,8 +1183,11 @@ export type OnUpdateProjectSubscription = {
         docURL: string,
         docType?: string | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1040,6 +1197,8 @@ export type OnUpdateProjectSubscription = {
     todo?: string | null,
     runResult?: string | null,
     createTime?: number | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -1048,10 +1207,13 @@ export type OnUpdateProjectSubscription = {
         todoURL?: string | null,
         todoTitle?: string | null,
         lineNumber?: number | null,
-        Check?: boolean | null,
+        check?: boolean | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1059,8 +1221,11 @@ export type OnUpdateProjectSubscription = {
       __typename: "Code",
       id: string,
       codeURL?: string | null,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1085,8 +1250,11 @@ export type OnDeleteProjectSubscription = {
         docURL: string,
         docType?: string | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1096,6 +1264,8 @@ export type OnDeleteProjectSubscription = {
     todo?: string | null,
     runResult?: string | null,
     createTime?: number | null,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -1104,10 +1274,13 @@ export type OnDeleteProjectSubscription = {
         todoURL?: string | null,
         todoTitle?: string | null,
         lineNumber?: number | null,
-        Check?: boolean | null,
+        check?: boolean | null,
         projectID: string,
+        grpsCanAccess: Array< string | null >,
+        isPublic?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1115,12 +1288,72 @@ export type OnDeleteProjectSubscription = {
       __typename: "Code",
       id: string,
       codeURL?: string | null,
+      grpsCanAccess: Array< string | null >,
+      isPublic?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     projectCodeId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateDocSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateDocSubscription = {
+  onCreateDoc?:  {
+    __typename: "Doc",
+    id: string,
+    docURL: string,
+    docType?: string | null,
+    projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateDocSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateDocSubscription = {
+  onUpdateDoc?:  {
+    __typename: "Doc",
+    id: string,
+    docURL: string,
+    docType?: string | null,
+    projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteDocSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteDocSubscription = {
+  onDeleteDoc?:  {
+    __typename: "Doc",
+    id: string,
+    docURL: string,
+    docType?: string | null,
+    projectID: string,
+    grpsCanAccess: Array< string | null >,
+    isPublic?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
