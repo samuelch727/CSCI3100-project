@@ -38,8 +38,8 @@ type Project @model
   ) {
   id: ID!
   documents: [Doc] @hasMany(indexName: "byProject", fields: ["id"])
-  projectName: String
-  language: String
+  projectName: String!
+  language: String!
   code: String #???
   todo: String #???
   runResult: String

@@ -7,8 +7,7 @@ export const onCreateCode = /* GraphQL */ `
     onCreateCode(owner: $owner) {
       id
       codeURL
-      grpsCanAccess
-      isPublic
+      shareTo
       createdAt
       updatedAt
       owner
@@ -20,8 +19,7 @@ export const onUpdateCode = /* GraphQL */ `
     onUpdateCode(owner: $owner) {
       id
       codeURL
-      grpsCanAccess
-      isPublic
+      shareTo
       createdAt
       updatedAt
       owner
@@ -33,8 +31,7 @@ export const onDeleteCode = /* GraphQL */ `
     onDeleteCode(owner: $owner) {
       id
       codeURL
-      grpsCanAccess
-      isPublic
+      shareTo
       createdAt
       updatedAt
       owner
@@ -50,8 +47,7 @@ export const onCreateTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      grpsCanAccess
-      isPublic
+      shareTo
       createdAt
       updatedAt
       owner
@@ -67,8 +63,7 @@ export const onUpdateTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      grpsCanAccess
-      isPublic
+      shareTo
       createdAt
       updatedAt
       owner
@@ -84,8 +79,7 @@ export const onDeleteTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      grpsCanAccess
-      isPublic
+      shareTo
       createdAt
       updatedAt
       owner
@@ -102,8 +96,7 @@ export const onCreateProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          grpsCanAccess
-          isPublic
+          shareTo
           createdAt
           updatedAt
           owner
@@ -116,8 +109,7 @@ export const onCreateProject = /* GraphQL */ `
       todo
       runResult
       createTime
-      grpsCanAccess
-      isPublic
+      shareTo
       Todos {
         items {
           id
@@ -126,8 +118,7 @@ export const onCreateProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          grpsCanAccess
-          isPublic
+          shareTo
           createdAt
           updatedAt
           owner
@@ -137,8 +128,7 @@ export const onCreateProject = /* GraphQL */ `
       Code {
         id
         codeURL
-        grpsCanAccess
-        isPublic
+        shareTo
         createdAt
         updatedAt
         owner
@@ -160,8 +150,7 @@ export const onUpdateProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          grpsCanAccess
-          isPublic
+          shareTo
           createdAt
           updatedAt
           owner
@@ -174,8 +163,7 @@ export const onUpdateProject = /* GraphQL */ `
       todo
       runResult
       createTime
-      grpsCanAccess
-      isPublic
+      shareTo
       Todos {
         items {
           id
@@ -184,8 +172,7 @@ export const onUpdateProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          grpsCanAccess
-          isPublic
+          shareTo
           createdAt
           updatedAt
           owner
@@ -195,8 +182,7 @@ export const onUpdateProject = /* GraphQL */ `
       Code {
         id
         codeURL
-        grpsCanAccess
-        isPublic
+        shareTo
         createdAt
         updatedAt
         owner
@@ -218,8 +204,7 @@ export const onDeleteProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          grpsCanAccess
-          isPublic
+          shareTo
           createdAt
           updatedAt
           owner
@@ -232,8 +217,7 @@ export const onDeleteProject = /* GraphQL */ `
       todo
       runResult
       createTime
-      grpsCanAccess
-      isPublic
+      shareTo
       Todos {
         items {
           id
@@ -242,8 +226,7 @@ export const onDeleteProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          grpsCanAccess
-          isPublic
+          shareTo
           createdAt
           updatedAt
           owner
@@ -253,8 +236,7 @@ export const onDeleteProject = /* GraphQL */ `
       Code {
         id
         codeURL
-        grpsCanAccess
-        isPublic
+        shareTo
         createdAt
         updatedAt
         owner
@@ -273,8 +255,7 @@ export const onCreateDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      grpsCanAccess
-      isPublic
+      shareTo
       createdAt
       updatedAt
       owner
@@ -288,8 +269,7 @@ export const onUpdateDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      grpsCanAccess
-      isPublic
+      shareTo
       createdAt
       updatedAt
       owner
@@ -303,8 +283,7 @@ export const onDeleteDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      grpsCanAccess
-      isPublic
+      shareTo
       createdAt
       updatedAt
       owner
