@@ -10,6 +10,9 @@ export const getCode = /* GraphQL */ `
       shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -27,9 +30,42 @@ export const listCodes = /* GraphQL */ `
         shareTo
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCodes = /* GraphQL */ `
+  query SyncCodes(
+    $filter: ModelCodeFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCodes(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        codeURL
+        shareTo
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -45,6 +81,9 @@ export const getTodo = /* GraphQL */ `
       shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -66,9 +105,46 @@ export const listTodos = /* GraphQL */ `
         shareTo
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncTodos = /* GraphQL */ `
+  query SyncTodos(
+    $filter: ModelTodoFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncTodos(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        todoURL
+        todoTitle
+        lineNumber
+        check
+        projectID
+        shareTo
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -85,9 +161,13 @@ export const getProject = /* GraphQL */ `
           shareTo
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -107,9 +187,13 @@ export const getProject = /* GraphQL */ `
           shareTo
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
@@ -117,10 +201,16 @@ export const getProject = /* GraphQL */ `
         shareTo
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -137,6 +227,7 @@ export const listProjects = /* GraphQL */ `
         id
         documents {
           nextToken
+          startedAt
         }
         projectName
         language
@@ -147,6 +238,7 @@ export const listProjects = /* GraphQL */ `
         shareTo
         Todos {
           nextToken
+          startedAt
         }
         Code {
           id
@@ -154,14 +246,75 @@ export const listProjects = /* GraphQL */ `
           shareTo
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         projectCodeId
         owner
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncProjects = /* GraphQL */ `
+  query SyncProjects(
+    $filter: ModelProjectFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncProjects(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        documents {
+          nextToken
+          startedAt
+        }
+        projectName
+        language
+        code
+        todo
+        runResult
+        createTime
+        shareTo
+        Todos {
+          nextToken
+          startedAt
+        }
+        Code {
+          id
+          codeURL
+          shareTo
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        projectCodeId
+        owner
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -175,6 +328,9 @@ export const getDoc = /* GraphQL */ `
       shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -194,9 +350,44 @@ export const listDocs = /* GraphQL */ `
         shareTo
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncDocs = /* GraphQL */ `
+  query SyncDocs(
+    $filter: ModelDocFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncDocs(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        docURL
+        docType
+        projectID
+        shareTo
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
     }
   }
 `;

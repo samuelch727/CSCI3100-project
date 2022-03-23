@@ -6,6 +6,7 @@ export type CreateCodeInput = {
   id?: string | null,
   codeURL?: string | null,
   shareTo?: Array< string | null > | null,
+  _version?: number | null,
 };
 
 export type ModelCodeConditionInput = {
@@ -63,6 +64,9 @@ export type Code = {
   shareTo?: Array< string | null > | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -70,10 +74,12 @@ export type UpdateCodeInput = {
   id: string,
   codeURL?: string | null,
   shareTo?: Array< string | null > | null,
+  _version?: number | null,
 };
 
 export type DeleteCodeInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateTodoInput = {
@@ -84,6 +90,7 @@ export type CreateTodoInput = {
   check?: boolean | null,
   projectID: string,
   shareTo?: Array< string | null > | null,
+  _version?: number | null,
 };
 
 export type ModelTodoConditionInput = {
@@ -144,6 +151,9 @@ export type Todo = {
   shareTo?: Array< string | null > | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -155,21 +165,24 @@ export type UpdateTodoInput = {
   check?: boolean | null,
   projectID?: string | null,
   shareTo?: Array< string | null > | null,
+  _version?: number | null,
 };
 
 export type DeleteTodoInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateProjectInput = {
   id?: string | null,
-  projectName?: string | null,
-  language?: string | null,
+  projectName: string,
+  language: string,
   code?: string | null,
   todo?: string | null,
   runResult?: string | null,
   createTime?: number | null,
   shareTo?: Array< string | null > | null,
+  _version?: number | null,
   projectCodeId?: string | null,
 };
 
@@ -191,8 +204,8 @@ export type Project = {
   __typename: "Project",
   id: string,
   documents?: ModelDocConnection | null,
-  projectName?: string | null,
-  language?: string | null,
+  projectName: string,
+  language: string,
   code?: string | null,
   todo?: string | null,
   runResult?: string | null,
@@ -202,6 +215,9 @@ export type Project = {
   Code?: Code | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   projectCodeId?: string | null,
   owner?: string | null,
 };
@@ -210,6 +226,7 @@ export type ModelDocConnection = {
   __typename: "ModelDocConnection",
   items:  Array<Doc | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type Doc = {
@@ -221,6 +238,9 @@ export type Doc = {
   shareTo?: Array< string | null > | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -228,6 +248,7 @@ export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
   items:  Array<Todo | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type UpdateProjectInput = {
@@ -239,11 +260,13 @@ export type UpdateProjectInput = {
   runResult?: string | null,
   createTime?: number | null,
   shareTo?: Array< string | null > | null,
+  _version?: number | null,
   projectCodeId?: string | null,
 };
 
 export type DeleteProjectInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateDocInput = {
@@ -252,6 +275,7 @@ export type CreateDocInput = {
   docType?: string | null,
   projectID: string,
   shareTo?: Array< string | null > | null,
+  _version?: number | null,
 };
 
 export type ModelDocConditionInput = {
@@ -270,10 +294,12 @@ export type UpdateDocInput = {
   docType?: string | null,
   projectID?: string | null,
   shareTo?: Array< string | null > | null,
+  _version?: number | null,
 };
 
 export type DeleteDocInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type ModelCodeFilterInput = {
@@ -289,6 +315,7 @@ export type ModelCodeConnection = {
   __typename: "ModelCodeConnection",
   items:  Array<Code | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelTodoFilterInput = {
@@ -323,6 +350,7 @@ export type ModelProjectConnection = {
   __typename: "ModelProjectConnection",
   items:  Array<Project | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelDocFilterInput = {
@@ -349,6 +377,9 @@ export type CreateCodeMutation = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -366,6 +397,9 @@ export type UpdateCodeMutation = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -383,6 +417,9 @@ export type DeleteCodeMutation = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -404,6 +441,9 @@ export type CreateTodoMutation = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -425,6 +465,9 @@ export type UpdateTodoMutation = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -446,6 +489,9 @@ export type DeleteTodoMutation = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -470,12 +516,16 @@ export type CreateProjectMutation = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    projectName?: string | null,
-    language?: string | null,
+    projectName: string,
+    language: string,
     code?: string | null,
     todo?: string | null,
     runResult?: string | null,
@@ -494,9 +544,13 @@ export type CreateProjectMutation = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -505,10 +559,16 @@ export type CreateProjectMutation = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -534,12 +594,16 @@ export type UpdateProjectMutation = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    projectName?: string | null,
-    language?: string | null,
+    projectName: string,
+    language: string,
     code?: string | null,
     todo?: string | null,
     runResult?: string | null,
@@ -558,9 +622,13 @@ export type UpdateProjectMutation = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -569,10 +637,16 @@ export type UpdateProjectMutation = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -598,12 +672,16 @@ export type DeleteProjectMutation = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    projectName?: string | null,
-    language?: string | null,
+    projectName: string,
+    language: string,
     code?: string | null,
     todo?: string | null,
     runResult?: string | null,
@@ -622,9 +700,13 @@ export type DeleteProjectMutation = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -633,10 +715,16 @@ export type DeleteProjectMutation = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -657,6 +745,9 @@ export type CreateDocMutation = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -676,6 +767,9 @@ export type UpdateDocMutation = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -695,6 +789,9 @@ export type DeleteDocMutation = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -711,6 +808,9 @@ export type GetCodeQuery = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -731,9 +831,40 @@ export type ListCodesQuery = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCodesQueryVariables = {
+  filter?: ModelCodeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCodesQuery = {
+  syncCodes?:  {
+    __typename: "ModelCodeConnection",
+    items:  Array< {
+      __typename: "Code",
+      id: string,
+      codeURL?: string | null,
+      shareTo?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -753,6 +884,9 @@ export type GetTodoQuery = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -777,9 +911,44 @@ export type ListTodosQuery = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncTodosQueryVariables = {
+  filter?: ModelTodoFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncTodosQuery = {
+  syncTodos?:  {
+    __typename: "ModelTodoConnection",
+    items:  Array< {
+      __typename: "Todo",
+      id: string,
+      todoURL?: string | null,
+      todoTitle?: string | null,
+      lineNumber?: number | null,
+      check?: boolean | null,
+      projectID: string,
+      shareTo?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -802,12 +971,16 @@ export type GetProjectQuery = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    projectName?: string | null,
-    language?: string | null,
+    projectName: string,
+    language: string,
     code?: string | null,
     todo?: string | null,
     runResult?: string | null,
@@ -826,9 +999,13 @@ export type GetProjectQuery = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -837,10 +1014,16 @@ export type GetProjectQuery = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -861,9 +1044,10 @@ export type ListProjectsQuery = {
       documents?:  {
         __typename: "ModelDocConnection",
         nextToken?: string | null,
+        startedAt?: number | null,
       } | null,
-      projectName?: string | null,
-      language?: string | null,
+      projectName: string,
+      language: string,
       code?: string | null,
       todo?: string | null,
       runResult?: string | null,
@@ -872,6 +1056,7 @@ export type ListProjectsQuery = {
       Todos?:  {
         __typename: "ModelTodoConnection",
         nextToken?: string | null,
+        startedAt?: number | null,
       } | null,
       Code?:  {
         __typename: "Code",
@@ -880,14 +1065,76 @@ export type ListProjectsQuery = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       projectCodeId?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncProjectsQueryVariables = {
+  filter?: ModelProjectFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncProjectsQuery = {
+  syncProjects?:  {
+    __typename: "ModelProjectConnection",
+    items:  Array< {
+      __typename: "Project",
+      id: string,
+      documents?:  {
+        __typename: "ModelDocConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      projectName: string,
+      language: string,
+      code?: string | null,
+      todo?: string | null,
+      runResult?: string | null,
+      createTime?: number | null,
+      shareTo?: Array< string | null > | null,
+      Todos?:  {
+        __typename: "ModelTodoConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      Code?:  {
+        __typename: "Code",
+        id: string,
+        codeURL?: string | null,
+        shareTo?: Array< string | null > | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        owner?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      projectCodeId?: string | null,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -905,6 +1152,9 @@ export type GetDocQuery = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -927,9 +1177,42 @@ export type ListDocsQuery = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncDocsQueryVariables = {
+  filter?: ModelDocFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncDocsQuery = {
+  syncDocs?:  {
+    __typename: "ModelDocConnection",
+    items:  Array< {
+      __typename: "Doc",
+      id: string,
+      docURL: string,
+      docType?: string | null,
+      projectID: string,
+      shareTo?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -945,6 +1228,9 @@ export type OnCreateCodeSubscription = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -961,6 +1247,9 @@ export type OnUpdateCodeSubscription = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -977,6 +1266,9 @@ export type OnDeleteCodeSubscription = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -997,6 +1289,9 @@ export type OnCreateTodoSubscription = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1017,6 +1312,9 @@ export type OnUpdateTodoSubscription = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1037,6 +1335,9 @@ export type OnDeleteTodoSubscription = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1060,12 +1361,16 @@ export type OnCreateProjectSubscription = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    projectName?: string | null,
-    language?: string | null,
+    projectName: string,
+    language: string,
     code?: string | null,
     todo?: string | null,
     runResult?: string | null,
@@ -1084,9 +1389,13 @@ export type OnCreateProjectSubscription = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -1095,10 +1404,16 @@ export type OnCreateProjectSubscription = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -1123,12 +1438,16 @@ export type OnUpdateProjectSubscription = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    projectName?: string | null,
-    language?: string | null,
+    projectName: string,
+    language: string,
     code?: string | null,
     todo?: string | null,
     runResult?: string | null,
@@ -1147,9 +1466,13 @@ export type OnUpdateProjectSubscription = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -1158,10 +1481,16 @@ export type OnUpdateProjectSubscription = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -1186,12 +1515,16 @@ export type OnDeleteProjectSubscription = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    projectName?: string | null,
-    language?: string | null,
+    projectName: string,
+    language: string,
     code?: string | null,
     todo?: string | null,
     runResult?: string | null,
@@ -1210,9 +1543,13 @@ export type OnDeleteProjectSubscription = {
         shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -1221,10 +1558,16 @@ export type OnDeleteProjectSubscription = {
       shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -1244,6 +1587,9 @@ export type OnCreateDocSubscription = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1262,6 +1608,9 @@ export type OnUpdateDocSubscription = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1280,6 +1629,9 @@ export type OnDeleteDocSubscription = {
     shareTo?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
