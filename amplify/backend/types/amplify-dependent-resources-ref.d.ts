@@ -7,7 +7,11 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "auth": {
+<<<<<<< HEAD
         "CSCI3100project": {
+=======
+        "csci3100project75aea3c4": {
+>>>>>>> main
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
