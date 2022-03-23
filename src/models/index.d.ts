@@ -23,6 +23,7 @@ type DocMetaData = {
 export declare class Code {
   readonly id: string;
   readonly codeURL?: string;
+  readonly shareTo?: (string | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Code, CodeMetaData>);
@@ -34,8 +35,9 @@ export declare class Todo {
   readonly todoURL?: string;
   readonly todoTitle?: string;
   readonly lineNumber?: number;
-  readonly Check?: boolean;
+  readonly check?: boolean;
   readonly projectID: string;
+  readonly shareTo?: (string | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Todo, TodoMetaData>);
@@ -45,12 +47,13 @@ export declare class Todo {
 export declare class Project {
   readonly id: string;
   readonly documents?: (Doc | null)[];
-  readonly projectName?: string;
-  readonly language?: string;
+  readonly projectName: string;
+  readonly language: string;
   readonly code?: string;
   readonly todo?: string;
   readonly runResult?: string;
   readonly createTime?: number;
+  readonly shareTo?: (string | null)[];
   readonly Todos?: (Todo | null)[];
   readonly Code?: Code;
   readonly createdAt?: string;
@@ -65,6 +68,7 @@ export declare class Doc {
   readonly docURL: string;
   readonly docType?: string;
   readonly projectID: string;
+  readonly shareTo?: (string | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Doc, DocMetaData>);

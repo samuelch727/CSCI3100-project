@@ -8,28 +8,18 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-<<<<<<< HEAD
               "apiKeyExpirationDays": 30,
               "description": "api key description"
-=======
-              "apiKeyExpirationDays": 7
->>>>>>> main
             }
           },
           "additionalAuthenticationProviders": [
             {
-<<<<<<< HEAD
               "authenticationType": "AWS_IAM"
             },
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
-                "userPoolId": "authCSCI3100project"
-=======
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
                 "userPoolId": "authcsci3100project75aea3c4"
->>>>>>> main
               }
             }
           ]
@@ -38,11 +28,7 @@
     }
   },
   "auth": {
-<<<<<<< HEAD
-    "CSCI3100project": {
-=======
     "csci3100project75aea3c4": {
->>>>>>> main
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -52,21 +38,11 @@
         "usernameAttributes": [],
         "signupAttributes": [
           "EMAIL",
-<<<<<<< HEAD
-          "FAMILY_NAME",
-          "GIVEN_NAME"
-=======
           "NAME"
->>>>>>> main
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": [
-            "REQUIRES_LOWERCASE",
-            "REQUIRES_NUMBERS",
-            "REQUIRES_SYMBOLS",
-            "REQUIRES_UPPERCASE"
-          ]
+          "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "OFF",
         "mfaTypes": [
