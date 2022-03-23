@@ -125,7 +125,6 @@ export const onCreateProject = /* GraphQL */ `
       runResult
       createTime
       shareTo
-      groupsCanAccess
       Todos {
         items {
           id
@@ -191,7 +190,6 @@ export const onUpdateProject = /* GraphQL */ `
       runResult
       createTime
       shareTo
-      groupsCanAccess
       Todos {
         items {
           id
@@ -257,7 +255,6 @@ export const onDeleteProject = /* GraphQL */ `
       runResult
       createTime
       shareTo
-      groupsCanAccess
       Todos {
         items {
           id

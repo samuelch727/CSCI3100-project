@@ -54,7 +54,6 @@ export const syncCodes = /* GraphQL */ `
       items {
         id
         codeURL
-        shareTo
         createdAt
         updatedAt
         _version
@@ -131,7 +130,6 @@ export const syncTodos = /* GraphQL */ `
         lineNumber
         check
         projectID
-        shareTo
         createdAt
         updatedAt
         _version
@@ -171,7 +169,6 @@ export const getProject = /* GraphQL */ `
       runResult
       createTime
       shareTo
-      groupsCanAccess
       Todos {
         items {
           id
@@ -237,7 +234,6 @@ export const listProjects = /* GraphQL */ `
         Code {
           id
           codeURL
-          shareTo
           createdAt
           updatedAt
           _version
@@ -284,7 +280,6 @@ export const syncProjects = /* GraphQL */ `
         runResult
         createTime
         shareTo
-        groupsCanAccess
         Todos {
           nextToken
           startedAt
@@ -370,7 +365,6 @@ export const syncDocs = /* GraphQL */ `
         docURL
         docType
         projectID
-        shareTo
         createdAt
         updatedAt
         _version

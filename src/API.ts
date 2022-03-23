@@ -5,6 +5,7 @@
 export type CreateCodeInput = {
   id?: string | null,
   codeURL?: string | null,
+  _version?: number | null,
 };
 
 export type ModelCodeConditionInput = {
@@ -69,6 +70,7 @@ export type Code = {
 export type UpdateCodeInput = {
   id: string,
   codeURL?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteCodeInput = {
@@ -83,6 +85,7 @@ export type CreateTodoInput = {
   lineNumber?: number | null,
   check?: boolean | null,
   projectID: string,
+  _version?: number | null,
 };
 
 export type ModelTodoConditionInput = {
@@ -154,6 +157,7 @@ export type UpdateTodoInput = {
   lineNumber?: number | null,
   check?: boolean | null,
   projectID?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteTodoInput = {
@@ -170,7 +174,7 @@ export type CreateProjectInput = {
   runResult?: string | null,
   createTime?: number | null,
   shareTo?: Array< string | null > | null,
-  groupsCanAccess?: Array< string | null > | null,
+  _version?: number | null,
   projectCodeId?: string | null,
 };
 
@@ -182,7 +186,6 @@ export type ModelProjectConditionInput = {
   runResult?: ModelStringInput | null,
   createTime?: ModelIntInput | null,
   shareTo?: ModelStringInput | null,
-  groupsCanAccess?: ModelStringInput | null,
   and?: Array< ModelProjectConditionInput | null > | null,
   or?: Array< ModelProjectConditionInput | null > | null,
   not?: ModelProjectConditionInput | null,
@@ -200,7 +203,6 @@ export type Project = {
   runResult?: string | null,
   createTime?: number | null,
   shareTo?: Array< string | null > | null,
-  groupsCanAccess?: Array< string | null > | null,
   Todos?: ModelTodoConnection | null,
   Code?: Code | null,
   createdAt: string,
@@ -249,7 +251,7 @@ export type UpdateProjectInput = {
   runResult?: string | null,
   createTime?: number | null,
   shareTo?: Array< string | null > | null,
-  groupsCanAccess?: Array< string | null > | null,
+  _version?: number | null,
   projectCodeId?: string | null,
 };
 
@@ -263,6 +265,7 @@ export type CreateDocInput = {
   docURL: string,
   docType?: string | null,
   projectID: string,
+  _version?: number | null,
 };
 
 export type ModelDocConditionInput = {
@@ -279,6 +282,7 @@ export type UpdateDocInput = {
   docURL?: string | null,
   docType?: string | null,
   projectID?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteDocInput = {
@@ -322,7 +326,6 @@ export type ModelProjectFilterInput = {
   runResult?: ModelStringInput | null,
   createTime?: ModelIntInput | null,
   shareTo?: ModelStringInput | null,
-  groupsCanAccess?: ModelStringInput | null,
   and?: Array< ModelProjectFilterInput | null > | null,
   or?: Array< ModelProjectFilterInput | null > | null,
   not?: ModelProjectFilterInput | null,
@@ -506,7 +509,6 @@ export type CreateProjectMutation = {
     runResult?: string | null,
     createTime?: number | null,
     shareTo?: Array< string | null > | null,
-    groupsCanAccess?: Array< string | null > | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -582,7 +584,6 @@ export type UpdateProjectMutation = {
     runResult?: string | null,
     createTime?: number | null,
     shareTo?: Array< string | null > | null,
-    groupsCanAccess?: Array< string | null > | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -658,7 +659,6 @@ export type DeleteProjectMutation = {
     runResult?: string | null,
     createTime?: number | null,
     shareTo?: Array< string | null > | null,
-    groupsCanAccess?: Array< string | null > | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -820,7 +820,6 @@ export type SyncCodesQuery = {
       __typename: "Code",
       id: string,
       codeURL?: string | null,
-      shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -902,7 +901,6 @@ export type SyncTodosQuery = {
       lineNumber?: number | null,
       check?: boolean | null,
       projectID: string,
-      shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -948,7 +946,6 @@ export type GetProjectQuery = {
     runResult?: string | null,
     createTime?: number | null,
     shareTo?: Array< string | null > | null,
-    groupsCanAccess?: Array< string | null > | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -1014,7 +1011,6 @@ export type ListProjectsQuery = {
       runResult?: string | null,
       createTime?: number | null,
       shareTo?: Array< string | null > | null,
-      groupsCanAccess?: Array< string | null > | null,
       Todos?:  {
         __typename: "ModelTodoConnection",
         nextToken?: string | null,
@@ -1078,7 +1074,6 @@ export type SyncProjectsQuery = {
         __typename: "Code",
         id: string,
         codeURL?: string | null,
-        shareTo?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -1162,7 +1157,6 @@ export type SyncDocsQuery = {
       docURL: string,
       docType?: string | null,
       projectID: string,
-      shareTo?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1328,7 +1322,6 @@ export type OnCreateProjectSubscription = {
     runResult?: string | null,
     createTime?: number | null,
     shareTo?: Array< string | null > | null,
-    groupsCanAccess?: Array< string | null > | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -1403,7 +1396,6 @@ export type OnUpdateProjectSubscription = {
     runResult?: string | null,
     createTime?: number | null,
     shareTo?: Array< string | null > | null,
-    groupsCanAccess?: Array< string | null > | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
@@ -1478,7 +1470,6 @@ export type OnDeleteProjectSubscription = {
     runResult?: string | null,
     createTime?: number | null,
     shareTo?: Array< string | null > | null,
-    groupsCanAccess?: Array< string | null > | null,
     Todos?:  {
       __typename: "ModelTodoConnection",
       items:  Array< {
