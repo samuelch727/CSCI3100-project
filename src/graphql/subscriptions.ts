@@ -7,9 +7,11 @@ export const onCreateCode = /* GraphQL */ `
     onCreateCode(owner: $owner) {
       id
       codeURL
-      shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -19,9 +21,11 @@ export const onUpdateCode = /* GraphQL */ `
     onUpdateCode(owner: $owner) {
       id
       codeURL
-      shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -31,9 +35,11 @@ export const onDeleteCode = /* GraphQL */ `
     onDeleteCode(owner: $owner) {
       id
       codeURL
-      shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -47,9 +53,11 @@ export const onCreateTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -63,9 +71,11 @@ export const onUpdateTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -79,9 +89,11 @@ export const onDeleteTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -96,12 +108,15 @@ export const onCreateProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          shareTo
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -118,23 +133,31 @@ export const onCreateProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          shareTo
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
         codeURL
-        shareTo
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -150,12 +173,15 @@ export const onUpdateProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          shareTo
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -172,23 +198,31 @@ export const onUpdateProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          shareTo
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
         codeURL
-        shareTo
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -204,12 +238,15 @@ export const onDeleteProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          shareTo
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -226,23 +263,31 @@ export const onDeleteProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          shareTo
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
         codeURL
-        shareTo
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -255,9 +300,11 @@ export const onCreateDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -269,9 +316,11 @@ export const onUpdateDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -283,9 +332,11 @@ export const onDeleteDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      shareTo
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
