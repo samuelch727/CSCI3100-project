@@ -8,29 +8,33 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 100,
-              "apiKeyExpirationDate": "2022-06-19T08:05:18.526Z",
-              "description": "CSCI3100-proj"
+              "apiKeyExpirationDays": 7
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authcsci3100project75aea3c4"
+              }
+            }
+          ]
         }
       }
     }
   },
   "auth": {
-    "csci3100project064b21e3": {
+    "csci3100project75aea3c4": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
+        "usernameAttributes": [],
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "NAME"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
@@ -44,6 +48,13 @@
           "EMAIL"
         ]
       }
+    }
+  },
+  "storage": {
+    "s3csci3100projectstorageaededc65": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
     }
   }
 }

@@ -2,234 +2,291 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateBlog = /* GraphQL */ `
-  subscription OnCreateBlog {
-    onCreateBlog {
+export const onCreateCode = /* GraphQL */ `
+  subscription OnCreateCode($owner: String) {
+    onCreateCode(owner: $owner) {
       id
-      name
-      posts {
+      codeURL
+      shareTo
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateCode = /* GraphQL */ `
+  subscription OnUpdateCode($owner: String) {
+    onUpdateCode(owner: $owner) {
+      id
+      codeURL
+      shareTo
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteCode = /* GraphQL */ `
+  subscription OnDeleteCode($owner: String) {
+    onDeleteCode(owner: $owner) {
+      id
+      codeURL
+      shareTo
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateTodo = /* GraphQL */ `
+  subscription OnCreateTodo($owner: String) {
+    onCreateTodo(owner: $owner) {
+      id
+      todoURL
+      todoTitle
+      lineNumber
+      check
+      projectID
+      shareTo
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateTodo = /* GraphQL */ `
+  subscription OnUpdateTodo($owner: String) {
+    onUpdateTodo(owner: $owner) {
+      id
+      todoURL
+      todoTitle
+      lineNumber
+      check
+      projectID
+      shareTo
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteTodo = /* GraphQL */ `
+  subscription OnDeleteTodo($owner: String) {
+    onDeleteTodo(owner: $owner) {
+      id
+      todoURL
+      todoTitle
+      lineNumber
+      check
+      projectID
+      shareTo
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateProject = /* GraphQL */ `
+  subscription OnCreateProject($owner: String) {
+    onCreateProject(owner: $owner) {
+      id
+      documents {
         items {
           id
-          title
+          docURL
+          docType
+          projectID
+          shareTo
           createdAt
           updatedAt
-          blogPostsId
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateBlog = /* GraphQL */ `
-  subscription OnUpdateBlog {
-    onUpdateBlog {
-      id
-      name
-      posts {
+      projectName
+      language
+      code
+      todo
+      runResult
+      createTime
+      shareTo
+      Todos {
         items {
           id
-          title
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          shareTo
           createdAt
           updatedAt
-          blogPostsId
+          owner
         }
         nextToken
       }
+      Code {
+        id
+        codeURL
+        shareTo
+        createdAt
+        updatedAt
+        owner
+      }
       createdAt
       updatedAt
+      projectCodeId
+      owner
     }
   }
 `;
-export const onDeleteBlog = /* GraphQL */ `
-  subscription OnDeleteBlog {
-    onDeleteBlog {
+export const onUpdateProject = /* GraphQL */ `
+  subscription OnUpdateProject($owner: String) {
+    onUpdateProject(owner: $owner) {
       id
-      name
-      posts {
+      documents {
         items {
           id
-          title
+          docURL
+          docType
+          projectID
+          shareTo
           createdAt
           updatedAt
-          blogPostsId
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost {
-    onCreatePost {
-      id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
+      projectName
+      language
+      code
+      todo
+      runResult
+      createTime
+      shareTo
+      Todos {
         items {
           id
-          content
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          shareTo
           createdAt
           updatedAt
-          postCommentsId
+          owner
         }
         nextToken
       }
+      Code {
+        id
+        codeURL
+        shareTo
+        createdAt
+        updatedAt
+        owner
+      }
       createdAt
       updatedAt
-      blogPostsId
+      projectCodeId
+      owner
     }
   }
 `;
-export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost {
-    onUpdatePost {
+export const onDeleteProject = /* GraphQL */ `
+  subscription OnDeleteProject($owner: String) {
+    onDeleteProject(owner: $owner) {
       id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
+      documents {
         items {
           id
-          content
+          docURL
+          docType
+          projectID
+          shareTo
           createdAt
           updatedAt
-          postCommentsId
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
-      blogPostsId
-    }
-  }
-`;
-export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost {
-    onDeletePost {
-      id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
+      projectName
+      language
+      code
+      todo
+      runResult
+      createTime
+      shareTo
+      Todos {
         items {
           id
-          content
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          shareTo
           createdAt
           updatedAt
-          postCommentsId
+          owner
         }
         nextToken
       }
+      Code {
+        id
+        codeURL
+        shareTo
+        createdAt
+        updatedAt
+        owner
+      }
       createdAt
       updatedAt
-      blogPostsId
+      projectCodeId
+      owner
     }
   }
 `;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment {
-    onCreateComment {
+export const onCreateDoc = /* GraphQL */ `
+  subscription OnCreateDoc($owner: String) {
+    onCreateDoc(owner: $owner) {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-      }
-      content
+      docURL
+      docType
+      projectID
+      shareTo
       createdAt
       updatedAt
-      postCommentsId
+      owner
     }
   }
 `;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment {
-    onUpdateComment {
+export const onUpdateDoc = /* GraphQL */ `
+  subscription OnUpdateDoc($owner: String) {
+    onUpdateDoc(owner: $owner) {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-      }
-      content
+      docURL
+      docType
+      projectID
+      shareTo
       createdAt
       updatedAt
-      postCommentsId
+      owner
     }
   }
 `;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment {
-    onDeleteComment {
+export const onDeleteDoc = /* GraphQL */ `
+  subscription OnDeleteDoc($owner: String) {
+    onDeleteDoc(owner: $owner) {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-      }
-      content
+      docURL
+      docType
+      projectID
+      shareTo
       createdAt
       updatedAt
-      postCommentsId
+      owner
     }
   }
 `;

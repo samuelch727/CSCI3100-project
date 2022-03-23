@@ -2,150 +2,199 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getBlog = /* GraphQL */ `
-  query GetBlog($id: ID!) {
-    getBlog(id: $id) {
+export const getCode = /* GraphQL */ `
+  query GetCode($id: ID!) {
+    getCode(id: $id) {
       id
-      name
-      posts {
-        items {
-          id
-          title
-          createdAt
-          updatedAt
-          blogPostsId
-        }
-        nextToken
-      }
+      codeURL
+      shareTo
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const listBlogs = /* GraphQL */ `
-  query ListBlogs(
-    $filter: ModelBlogFilterInput
+export const listCodes = /* GraphQL */ `
+  query ListCodes(
+    $filter: ModelCodeFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listCodes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
-        posts {
-          nextToken
-        }
+        codeURL
+        shareTo
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
   }
 `;
-export const getPost = /* GraphQL */ `
-  query GetPost($id: ID!) {
-    getPost(id: $id) {
+export const getTodo = /* GraphQL */ `
+  query GetTodo($id: ID!) {
+    getTodo(id: $id) {
       id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          postCommentsId
-        }
-        nextToken
-      }
+      todoURL
+      todoTitle
+      lineNumber
+      check
+      projectID
+      shareTo
       createdAt
       updatedAt
-      blogPostsId
+      owner
     }
   }
 `;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
+export const listTodos = /* GraphQL */ `
+  query ListTodos(
+    $filter: ModelTodoFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
+        todoURL
+        todoTitle
+        lineNumber
+        check
+        projectID
+        shareTo
         createdAt
         updatedAt
-        blogPostsId
+        owner
       }
       nextToken
     }
   }
 `;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
+export const getProject = /* GraphQL */ `
+  query GetProject($id: ID!) {
+    getProject(id: $id) {
       id
-      post {
-        id
-        title
-        blog {
+      documents {
+        items {
           id
-          name
+          docURL
+          docType
+          projectID
+          shareTo
           createdAt
           updatedAt
+          owner
         }
-        comments {
-          nextToken
+        nextToken
+      }
+      projectName
+      language
+      code
+      todo
+      runResult
+      createTime
+      shareTo
+      Todos {
+        items {
+          id
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          shareTo
+          createdAt
+          updatedAt
+          owner
         }
+        nextToken
+      }
+      Code {
+        id
+        codeURL
+        shareTo
         createdAt
         updatedAt
-        blogPostsId
+        owner
       }
-      content
       createdAt
       updatedAt
-      postCommentsId
+      projectCodeId
+      owner
     }
   }
 `;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
+export const listProjects = /* GraphQL */ `
+  query ListProjects(
+    $filter: ModelProjectFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        post {
+        documents {
+          nextToken
+        }
+        projectName
+        language
+        code
+        todo
+        runResult
+        createTime
+        shareTo
+        Todos {
+          nextToken
+        }
+        Code {
           id
-          title
+          codeURL
+          shareTo
           createdAt
           updatedAt
-          blogPostsId
+          owner
         }
-        content
         createdAt
         updatedAt
-        postCommentsId
+        projectCodeId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getDoc = /* GraphQL */ `
+  query GetDoc($id: ID!) {
+    getDoc(id: $id) {
+      id
+      docURL
+      docType
+      projectID
+      shareTo
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listDocs = /* GraphQL */ `
+  query ListDocs(
+    $filter: ModelDocFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDocs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        docURL
+        docType
+        projectID
+        shareTo
+        createdAt
+        updatedAt
+        owner
       }
       nextToken
     }
