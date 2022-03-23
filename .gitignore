@@ -56,4 +56,5 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 **.sample
+amplify/backend/api/csci3100project/resolvers
 #amplify-do-not-edit-end

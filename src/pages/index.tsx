@@ -9,6 +9,7 @@ const Home: NextPage = () => {
     console.log(user);
   });
   return (
+    
     <div className={styles.container}>
       <Head>
         <title>Code Code Guide fuck you </title>

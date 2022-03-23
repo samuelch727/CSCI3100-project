@@ -7,5 +7,12 @@
       "authcsci3100project75aea3c4",
       "Outputs.UserPoolId"
     ]
+  },
+  "AuthModeLastUpdated": "2022-03-22T18:10:43.307Z",
+  "authRoleName": {
+    "Ref": "AuthRoleName"
+  },
+  "unauthRoleName": {
+    "Ref": "UnauthRoleName"
   }
 }
