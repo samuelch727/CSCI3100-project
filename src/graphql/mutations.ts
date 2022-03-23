@@ -10,7 +10,6 @@ export const createCode = /* GraphQL */ `
     createCode(input: $input, condition: $condition) {
       id
       codeURL
-      shareTo
       createdAt
       updatedAt
       owner
@@ -25,7 +24,6 @@ export const updateCode = /* GraphQL */ `
     updateCode(input: $input, condition: $condition) {
       id
       codeURL
-      shareTo
       createdAt
       updatedAt
       owner
@@ -40,7 +38,6 @@ export const deleteCode = /* GraphQL */ `
     deleteCode(input: $input, condition: $condition) {
       id
       codeURL
-      shareTo
       createdAt
       updatedAt
       owner
@@ -59,7 +56,6 @@ export const createTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
       createdAt
       updatedAt
       owner
@@ -78,7 +74,6 @@ export const updateTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
       createdAt
       updatedAt
       owner
@@ -97,7 +92,6 @@ export const deleteTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
       createdAt
       updatedAt
       owner
@@ -117,7 +111,6 @@ export const createProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          shareTo
           createdAt
           updatedAt
           owner
@@ -131,6 +124,7 @@ export const createProject = /* GraphQL */ `
       runResult
       createTime
       shareTo
+      groupsCanAccess
       Todos {
         items {
           id
@@ -139,7 +133,6 @@ export const createProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          shareTo
           createdAt
           updatedAt
           owner
@@ -149,7 +142,6 @@ export const createProject = /* GraphQL */ `
       Code {
         id
         codeURL
-        shareTo
         createdAt
         updatedAt
         owner
@@ -174,7 +166,6 @@ export const updateProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          shareTo
           createdAt
           updatedAt
           owner
@@ -188,6 +179,7 @@ export const updateProject = /* GraphQL */ `
       runResult
       createTime
       shareTo
+      groupsCanAccess
       Todos {
         items {
           id
@@ -196,7 +188,6 @@ export const updateProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          shareTo
           createdAt
           updatedAt
           owner
@@ -206,7 +197,6 @@ export const updateProject = /* GraphQL */ `
       Code {
         id
         codeURL
-        shareTo
         createdAt
         updatedAt
         owner
@@ -231,7 +221,6 @@ export const deleteProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          shareTo
           createdAt
           updatedAt
           owner
@@ -245,6 +234,7 @@ export const deleteProject = /* GraphQL */ `
       runResult
       createTime
       shareTo
+      groupsCanAccess
       Todos {
         items {
           id
@@ -253,7 +243,6 @@ export const deleteProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          shareTo
           createdAt
           updatedAt
           owner
@@ -263,7 +252,6 @@ export const deleteProject = /* GraphQL */ `
       Code {
         id
         codeURL
-        shareTo
         createdAt
         updatedAt
         owner
@@ -285,7 +273,6 @@ export const createDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      shareTo
       createdAt
       updatedAt
       owner
@@ -302,7 +289,6 @@ export const updateDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      shareTo
       createdAt
       updatedAt
       owner
@@ -319,7 +305,6 @@ export const deleteDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      shareTo
       createdAt
       updatedAt
       owner

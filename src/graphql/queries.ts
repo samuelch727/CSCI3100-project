@@ -7,7 +7,6 @@ export const getCode = /* GraphQL */ `
     getCode(id: $id) {
       id
       codeURL
-      shareTo
       createdAt
       updatedAt
       owner
@@ -24,7 +23,6 @@ export const listCodes = /* GraphQL */ `
       items {
         id
         codeURL
-        shareTo
         createdAt
         updatedAt
         owner
@@ -42,7 +40,6 @@ export const getTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
       createdAt
       updatedAt
       owner
@@ -63,7 +60,6 @@ export const listTodos = /* GraphQL */ `
         lineNumber
         check
         projectID
-        shareTo
         createdAt
         updatedAt
         owner
@@ -82,7 +78,6 @@ export const getProject = /* GraphQL */ `
           docURL
           docType
           projectID
-          shareTo
           createdAt
           updatedAt
           owner
@@ -96,6 +91,7 @@ export const getProject = /* GraphQL */ `
       runResult
       createTime
       shareTo
+      groupsCanAccess
       Todos {
         items {
           id
@@ -104,7 +100,6 @@ export const getProject = /* GraphQL */ `
           lineNumber
           check
           projectID
-          shareTo
           createdAt
           updatedAt
           owner
@@ -114,7 +109,6 @@ export const getProject = /* GraphQL */ `
       Code {
         id
         codeURL
-        shareTo
         createdAt
         updatedAt
         owner
@@ -145,13 +139,13 @@ export const listProjects = /* GraphQL */ `
         runResult
         createTime
         shareTo
+        groupsCanAccess
         Todos {
           nextToken
         }
         Code {
           id
           codeURL
-          shareTo
           createdAt
           updatedAt
           owner
@@ -172,7 +166,6 @@ export const getDoc = /* GraphQL */ `
       docURL
       docType
       projectID
-      shareTo
       createdAt
       updatedAt
       owner
@@ -191,7 +184,6 @@ export const listDocs = /* GraphQL */ `
         docURL
         docType
         projectID
-        shareTo
         createdAt
         updatedAt
         owner
