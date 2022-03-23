@@ -60,6 +60,9 @@ export type Code = {
   codeURL?: string | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -70,6 +73,7 @@ export type UpdateCodeInput = {
 
 export type DeleteCodeInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateTodoInput = {
@@ -137,6 +141,9 @@ export type Todo = {
   projectID: string,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -151,6 +158,7 @@ export type UpdateTodoInput = {
 
 export type DeleteTodoInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateProjectInput = {
@@ -197,6 +205,9 @@ export type Project = {
   Code?: Code | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   projectCodeId?: string | null,
   owner?: string | null,
 };
@@ -205,6 +216,7 @@ export type ModelDocConnection = {
   __typename: "ModelDocConnection",
   items:  Array<Doc | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type Doc = {
@@ -215,6 +227,9 @@ export type Doc = {
   projectID: string,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -222,6 +237,7 @@ export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
   items:  Array<Todo | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type UpdateProjectInput = {
@@ -239,6 +255,7 @@ export type UpdateProjectInput = {
 
 export type DeleteProjectInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateDocInput = {
@@ -266,6 +283,7 @@ export type UpdateDocInput = {
 
 export type DeleteDocInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type ModelCodeFilterInput = {
@@ -280,6 +298,7 @@ export type ModelCodeConnection = {
   __typename: "ModelCodeConnection",
   items:  Array<Code | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelTodoFilterInput = {
@@ -314,6 +333,7 @@ export type ModelProjectConnection = {
   __typename: "ModelProjectConnection",
   items:  Array<Project | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelDocFilterInput = {
@@ -338,6 +358,9 @@ export type CreateCodeMutation = {
     codeURL?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -354,6 +377,9 @@ export type UpdateCodeMutation = {
     codeURL?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -370,6 +396,9 @@ export type DeleteCodeMutation = {
     codeURL?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -390,6 +419,9 @@ export type CreateTodoMutation = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -410,6 +442,9 @@ export type UpdateTodoMutation = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -430,6 +465,9 @@ export type DeleteTodoMutation = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -453,9 +491,13 @@ export type CreateProjectMutation = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     projectName: string,
     language: string,
@@ -477,9 +519,13 @@ export type CreateProjectMutation = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -487,10 +533,16 @@ export type CreateProjectMutation = {
       codeURL?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -515,9 +567,13 @@ export type UpdateProjectMutation = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     projectName: string,
     language: string,
@@ -539,9 +595,13 @@ export type UpdateProjectMutation = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -549,10 +609,16 @@ export type UpdateProjectMutation = {
       codeURL?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -577,9 +643,13 @@ export type DeleteProjectMutation = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     projectName: string,
     language: string,
@@ -601,9 +671,13 @@ export type DeleteProjectMutation = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -611,10 +685,16 @@ export type DeleteProjectMutation = {
       codeURL?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -634,6 +714,9 @@ export type CreateDocMutation = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -652,6 +735,9 @@ export type UpdateDocMutation = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -670,6 +756,9 @@ export type DeleteDocMutation = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -685,6 +774,9 @@ export type GetCodeQuery = {
     codeURL?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -704,9 +796,40 @@ export type ListCodesQuery = {
       codeURL?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCodesQueryVariables = {
+  filter?: ModelCodeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCodesQuery = {
+  syncCodes?:  {
+    __typename: "ModelCodeConnection",
+    items:  Array< {
+      __typename: "Code",
+      id: string,
+      codeURL?: string | null,
+      shareTo?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -725,6 +848,9 @@ export type GetTodoQuery = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -748,9 +874,44 @@ export type ListTodosQuery = {
       projectID: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncTodosQueryVariables = {
+  filter?: ModelTodoFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncTodosQuery = {
+  syncTodos?:  {
+    __typename: "ModelTodoConnection",
+    items:  Array< {
+      __typename: "Todo",
+      id: string,
+      todoURL?: string | null,
+      todoTitle?: string | null,
+      lineNumber?: number | null,
+      check?: boolean | null,
+      projectID: string,
+      shareTo?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -772,9 +933,13 @@ export type GetProjectQuery = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     projectName: string,
     language: string,
@@ -796,9 +961,13 @@ export type GetProjectQuery = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -806,10 +975,16 @@ export type GetProjectQuery = {
       codeURL?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -830,6 +1005,7 @@ export type ListProjectsQuery = {
       documents?:  {
         __typename: "ModelDocConnection",
         nextToken?: string | null,
+        startedAt?: number | null,
       } | null,
       projectName: string,
       language: string,
@@ -842,6 +1018,7 @@ export type ListProjectsQuery = {
       Todos?:  {
         __typename: "ModelTodoConnection",
         nextToken?: string | null,
+        startedAt?: number | null,
       } | null,
       Code?:  {
         __typename: "Code",
@@ -849,14 +1026,76 @@ export type ListProjectsQuery = {
         codeURL?: string | null,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       projectCodeId?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncProjectsQueryVariables = {
+  filter?: ModelProjectFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncProjectsQuery = {
+  syncProjects?:  {
+    __typename: "ModelProjectConnection",
+    items:  Array< {
+      __typename: "Project",
+      id: string,
+      documents?:  {
+        __typename: "ModelDocConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      projectName: string,
+      language: string,
+      code?: string | null,
+      todo?: string | null,
+      runResult?: string | null,
+      createTime?: number | null,
+      shareTo?: Array< string | null > | null,
+      Todos?:  {
+        __typename: "ModelTodoConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      Code?:  {
+        __typename: "Code",
+        id: string,
+        codeURL?: string | null,
+        shareTo?: Array< string | null > | null,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+        owner?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      projectCodeId?: string | null,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -873,6 +1112,9 @@ export type GetDocQuery = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -894,9 +1136,42 @@ export type ListDocsQuery = {
       projectID: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncDocsQueryVariables = {
+  filter?: ModelDocFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncDocsQuery = {
+  syncDocs?:  {
+    __typename: "ModelDocConnection",
+    items:  Array< {
+      __typename: "Doc",
+      id: string,
+      docURL: string,
+      docType?: string | null,
+      projectID: string,
+      shareTo?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -911,6 +1186,9 @@ export type OnCreateCodeSubscription = {
     codeURL?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -926,6 +1204,9 @@ export type OnUpdateCodeSubscription = {
     codeURL?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -941,6 +1222,9 @@ export type OnDeleteCodeSubscription = {
     codeURL?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -960,6 +1244,9 @@ export type OnCreateTodoSubscription = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -979,6 +1266,9 @@ export type OnUpdateTodoSubscription = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -998,6 +1288,9 @@ export type OnDeleteTodoSubscription = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1020,9 +1313,13 @@ export type OnCreateProjectSubscription = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     projectName: string,
     language: string,
@@ -1044,9 +1341,13 @@ export type OnCreateProjectSubscription = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -1054,10 +1355,16 @@ export type OnCreateProjectSubscription = {
       codeURL?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -1081,9 +1388,13 @@ export type OnUpdateProjectSubscription = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     projectName: string,
     language: string,
@@ -1105,9 +1416,13 @@ export type OnUpdateProjectSubscription = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -1115,10 +1430,16 @@ export type OnUpdateProjectSubscription = {
       codeURL?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -1142,9 +1463,13 @@ export type OnDeleteProjectSubscription = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     projectName: string,
     language: string,
@@ -1166,9 +1491,13 @@ export type OnDeleteProjectSubscription = {
         projectID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     Code?:  {
       __typename: "Code",
@@ -1176,10 +1505,16 @@ export type OnDeleteProjectSubscription = {
       codeURL?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     projectCodeId?: string | null,
     owner?: string | null,
   } | null,
@@ -1198,6 +1533,9 @@ export type OnCreateDocSubscription = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1215,6 +1553,9 @@ export type OnUpdateDocSubscription = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1232,6 +1573,9 @@ export type OnDeleteDocSubscription = {
     projectID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };

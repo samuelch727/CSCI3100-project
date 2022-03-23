@@ -45,8 +45,8 @@ type Project @model
   documents: [Doc] @hasMany(indexName: "byProject", fields: ["id"])
   projectName: String!
   language: String!
-  code: String #???
-  todo: String #???
+  code: String
+  todo: String
   runResult: String
   createTime: AWSTimestamp
   shareTo: [String]

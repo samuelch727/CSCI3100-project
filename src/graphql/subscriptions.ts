@@ -9,6 +9,9 @@ export const onCreateCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -20,6 +23,9 @@ export const onUpdateCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -31,6 +37,9 @@ export const onDeleteCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -46,6 +55,9 @@ export const onCreateTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -61,6 +73,9 @@ export const onUpdateTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -76,6 +91,9 @@ export const onDeleteTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -92,9 +110,13 @@ export const onCreateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -114,19 +136,29 @@ export const onCreateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -144,9 +176,13 @@ export const onUpdateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -166,19 +202,29 @@ export const onUpdateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -196,9 +242,13 @@ export const onDeleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -218,19 +268,29 @@ export const onDeleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -245,6 +305,9 @@ export const onCreateDoc = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -258,6 +321,9 @@ export const onUpdateDoc = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -271,6 +337,9 @@ export const onDeleteDoc = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }

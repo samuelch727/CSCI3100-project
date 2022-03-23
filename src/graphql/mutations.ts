@@ -12,6 +12,9 @@ export const createCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -26,6 +29,9 @@ export const updateCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -40,6 +46,9 @@ export const deleteCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -58,6 +67,9 @@ export const createTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -76,6 +88,9 @@ export const updateTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -94,6 +109,9 @@ export const deleteTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -113,9 +131,13 @@ export const createProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -135,19 +157,29 @@ export const createProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -168,9 +200,13 @@ export const updateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -190,19 +226,29 @@ export const updateProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -223,9 +269,13 @@ export const deleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       projectName
       language
@@ -245,19 +295,29 @@ export const deleteProject = /* GraphQL */ `
           projectID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
         }
         nextToken
+        startedAt
       }
       Code {
         id
         codeURL
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       projectCodeId
       owner
     }
@@ -275,6 +335,9 @@ export const createDoc = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -291,6 +354,9 @@ export const updateDoc = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
@@ -307,6 +373,9 @@ export const deleteDoc = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
     }
   }
