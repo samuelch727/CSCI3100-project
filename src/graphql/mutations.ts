@@ -9,7 +9,7 @@ export const createCode = /* GraphQL */ `
   ) {
     createCode(input: $input, condition: $condition) {
       id
-      codeURL
+      code
       createdAt
       updatedAt
       _version
@@ -26,7 +26,7 @@ export const updateCode = /* GraphQL */ `
   ) {
     updateCode(input: $input, condition: $condition) {
       id
-      codeURL
+      code
       createdAt
       updatedAt
       _version
@@ -43,7 +43,7 @@ export const deleteCode = /* GraphQL */ `
   ) {
     deleteCode(input: $input, condition: $condition) {
       id
-      codeURL
+      code
       createdAt
       updatedAt
       _version
@@ -166,7 +166,7 @@ export const createProject = /* GraphQL */ `
       }
       Code {
         id
-        codeURL
+        code
         createdAt
         updatedAt
         _version
@@ -234,7 +234,7 @@ export const updateProject = /* GraphQL */ `
       }
       Code {
         id
-        codeURL
+        code
         createdAt
         updatedAt
         _version
@@ -302,7 +302,7 @@ export const deleteProject = /* GraphQL */ `
       }
       Code {
         id
-        codeURL
+        code
         createdAt
         updatedAt
         _version

@@ -4,12 +4,12 @@
 
 export type CreateCodeInput = {
   id?: string | null,
-  codeURL?: string | null,
+  code?: string | null,
   _version?: number | null,
 };
 
 export type ModelCodeConditionInput = {
-  codeURL?: ModelStringInput | null,
+  code?: ModelStringInput | null,
   and?: Array< ModelCodeConditionInput | null > | null,
   or?: Array< ModelCodeConditionInput | null > | null,
   not?: ModelCodeConditionInput | null,
@@ -58,7 +58,7 @@ export type ModelSizeInput = {
 export type Code = {
   __typename: "Code",
   id: string,
-  codeURL?: string | null,
+  code?: string | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -69,7 +69,7 @@ export type Code = {
 
 export type UpdateCodeInput = {
   id: string,
-  codeURL?: string | null,
+  code?: string | null,
   _version?: number | null,
 };
 
@@ -292,7 +292,7 @@ export type DeleteDocInput = {
 
 export type ModelCodeFilterInput = {
   id?: ModelIDInput | null,
-  codeURL?: ModelStringInput | null,
+  code?: ModelStringInput | null,
   and?: Array< ModelCodeFilterInput | null > | null,
   or?: Array< ModelCodeFilterInput | null > | null,
   not?: ModelCodeFilterInput | null,
@@ -358,7 +358,7 @@ export type CreateCodeMutation = {
   createCode?:  {
     __typename: "Code",
     id: string,
-    codeURL?: string | null,
+    code?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -377,7 +377,7 @@ export type UpdateCodeMutation = {
   updateCode?:  {
     __typename: "Code",
     id: string,
-    codeURL?: string | null,
+    code?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -396,7 +396,7 @@ export type DeleteCodeMutation = {
   deleteCode?:  {
     __typename: "Code",
     id: string,
-    codeURL?: string | null,
+    code?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -532,7 +532,7 @@ export type CreateProjectMutation = {
     Code?:  {
       __typename: "Code",
       id: string,
-      codeURL?: string | null,
+      code?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -607,7 +607,7 @@ export type UpdateProjectMutation = {
     Code?:  {
       __typename: "Code",
       id: string,
-      codeURL?: string | null,
+      code?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -682,7 +682,7 @@ export type DeleteProjectMutation = {
     Code?:  {
       __typename: "Code",
       id: string,
-      codeURL?: string | null,
+      code?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -771,7 +771,7 @@ export type GetCodeQuery = {
   getCode?:  {
     __typename: "Code",
     id: string,
-    codeURL?: string | null,
+    code?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -793,7 +793,7 @@ export type ListCodesQuery = {
     items:  Array< {
       __typename: "Code",
       id: string,
-      codeURL?: string | null,
+      code?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -819,7 +819,7 @@ export type SyncCodesQuery = {
     items:  Array< {
       __typename: "Code",
       id: string,
-      codeURL?: string | null,
+      code?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -969,7 +969,7 @@ export type GetProjectQuery = {
     Code?:  {
       __typename: "Code",
       id: string,
-      codeURL?: string | null,
+      code?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1019,7 +1019,7 @@ export type ListProjectsQuery = {
       Code?:  {
         __typename: "Code",
         id: string,
-        codeURL?: string | null,
+        code?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -1073,7 +1073,7 @@ export type SyncProjectsQuery = {
       Code?:  {
         __typename: "Code",
         id: string,
-        codeURL?: string | null,
+        code?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -1169,6 +1169,24 @@ export type SyncDocsQuery = {
   } | null,
 };
 
+export type UpdatedCodeSubscriptionVariables = {
+  id: string,
+};
+
+export type UpdatedCodeSubscription = {
+  updatedCode?:  {
+    __typename: "Code",
+    id: string,
+    code?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
+  } | null,
+};
+
 export type OnCreateCodeSubscriptionVariables = {
   owner?: string | null,
 };
@@ -1177,7 +1195,7 @@ export type OnCreateCodeSubscription = {
   onCreateCode?:  {
     __typename: "Code",
     id: string,
-    codeURL?: string | null,
+    code?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1195,7 +1213,7 @@ export type OnUpdateCodeSubscription = {
   onUpdateCode?:  {
     __typename: "Code",
     id: string,
-    codeURL?: string | null,
+    code?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1213,7 +1231,7 @@ export type OnDeleteCodeSubscription = {
   onDeleteCode?:  {
     __typename: "Code",
     id: string,
-    codeURL?: string | null,
+    code?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1345,7 +1363,7 @@ export type OnCreateProjectSubscription = {
     Code?:  {
       __typename: "Code",
       id: string,
-      codeURL?: string | null,
+      code?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1419,7 +1437,7 @@ export type OnUpdateProjectSubscription = {
     Code?:  {
       __typename: "Code",
       id: string,
-      codeURL?: string | null,
+      code?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1493,7 +1511,7 @@ export type OnDeleteProjectSubscription = {
     Code?:  {
       __typename: "Code",
       id: string,
-      codeURL?: string | null,
+      code?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,

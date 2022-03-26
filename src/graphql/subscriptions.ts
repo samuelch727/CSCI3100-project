@@ -2,11 +2,25 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const updatedCode = /* GraphQL */ `
+  subscription UpdatedCode($id: ID!) {
+    updatedCode(id: $id) {
+      id
+      code
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
 export const onCreateCode = /* GraphQL */ `
   subscription OnCreateCode($owner: String) {
     onCreateCode(owner: $owner) {
       id
-      codeURL
+      code
       createdAt
       updatedAt
       _version
@@ -20,7 +34,7 @@ export const onUpdateCode = /* GraphQL */ `
   subscription OnUpdateCode($owner: String) {
     onUpdateCode(owner: $owner) {
       id
-      codeURL
+      code
       createdAt
       updatedAt
       _version
@@ -34,7 +48,7 @@ export const onDeleteCode = /* GraphQL */ `
   subscription OnDeleteCode($owner: String) {
     onDeleteCode(owner: $owner) {
       id
-      codeURL
+      code
       createdAt
       updatedAt
       _version
@@ -145,7 +159,7 @@ export const onCreateProject = /* GraphQL */ `
       }
       Code {
         id
-        codeURL
+        code
         createdAt
         updatedAt
         _version
@@ -210,7 +224,7 @@ export const onUpdateProject = /* GraphQL */ `
       }
       Code {
         id
-        codeURL
+        code
         createdAt
         updatedAt
         _version
@@ -275,7 +289,7 @@ export const onDeleteProject = /* GraphQL */ `
       }
       Code {
         id
-        codeURL
+        code
         createdAt
         updatedAt
         _version

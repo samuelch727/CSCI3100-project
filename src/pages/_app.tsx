@@ -8,12 +8,12 @@ import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 Amplify.configure(awsconfig);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <div>
-      <AmplifySignOut />
-    </div>
-  )
-  // return <Component {...pageProps} />;
+  // return (
+  //   <div>
+  //     <AmplifySignOut />
+  //   </div>
+  // );
+  return <Component {...pageProps} />;
 }
 
 export default withAuthenticator(MyApp);

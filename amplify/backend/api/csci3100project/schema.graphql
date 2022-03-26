@@ -1,22 +1,34 @@
-type Code @model 
-  @auth(rules: [
-    { allow: public, operations: [read, update] },
-    { allow: private, operations: [read, update] },
-    { allow: owner, operations: [delete, read, update, create] },
-    # { allow: owner, ownerField: "shareTo", operations: [read, update] }
-  ]) {
+type Code
+  @model
+  @auth(
+    rules: [
+      # { allow: public, operations: [read, update] }
+      # { allow: private, operations: [read, update] }
+      { allow: owner, operations: [delete, read, update, create] }
+      # {allow: owner}
+      # { allow: owner, ownerField: "shareTo", operations: [read, update] }
+    ]
+  ) {
   id: ID!
-  codeURL: AWSURL
+  code: String
   # shareTo: [String]
 }
 
-type Todo @model 
-  @auth(rules: [
-    { allow: public, operations: [read, update] },
-    { allow: private, operations: [read, update] },
-    { allow: owner, operations: [delete, read, update, create] }, 
-    # { allow: owner, ownerField: "shareTo", operations: [read, update] }
-  ]) {
+type Subscription {
+  updatedCode(id: ID!): Code 
+    @aws_subscribe(mutations: ["updateCode"])
+}
+
+type Todo
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read, update] }
+      { allow: private, operations: [read, update] }
+      { allow: owner, operations: [delete, read, update, create] }
+      # { allow: owner, ownerField: "shareTo", operations: [read, update] }
+    ]
+  ) {
   id: ID!
   todoURL: AWSURL
   todoTitle: String
@@ -26,7 +38,8 @@ type Todo @model
   # shareTo: [String]
 }
 
-type Project @model
+type Project
+  @model
   @auth(
     # query: [
     #     { rule: """query {
@@ -36,9 +49,9 @@ type Project @model
     #     }""" }
     # ]
     rules: [
-        { allow: owner, operations: [delete, read, update, create] },
-        { allow: owner, ownerField: "shareTo", operations: [read, update] },
-        # { allow: groups, groupsField: "groupsCanAccess" }
+      { allow: owner, operations: [delete, read, update, create] }
+      { allow: owner, ownerField: "shareTo", operations: [read, update] }
+      # { allow: groups, groupsField: "groupsCanAccess" }
     ]
   ) {
   id: ID!
@@ -55,13 +68,16 @@ type Project @model
   Code: Code @hasOne
 }
 
-type Doc @model 
-  @auth(rules: [
-    { allow: public, operations: [read, update] },
-    { allow: private, operations: [read, update] },
-    { allow: owner, operations: [delete, read, update, create] },
-    # { allow: owner, ownerField: "shareTo", operations: [read, update] }
-  ]) {
+type Doc
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read, update] }
+      { allow: private, operations: [read, update] }
+      { allow: owner, operations: [delete, read, update, create] }
+      # { allow: owner, ownerField: "shareTo", operations: [read, update] }
+    ]
+  ) {
   id: ID!
   docURL: AWSURL!
   docType: String
