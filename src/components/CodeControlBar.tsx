@@ -13,7 +13,7 @@ export default function CodeControlBar({
 }: CodeBlockProps) {
   return (
     <div
-      style={{ height, width }}
+      // style={{ height, width }}
       className="flex flex-row content-center px-3 bg-gray-100 justify-between"
     >
       <div className="grid content-center">{title}</div>
