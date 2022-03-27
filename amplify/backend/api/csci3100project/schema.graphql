@@ -6,7 +6,7 @@ type Code @model
     # { allow: owner, ownerField: "shareTo", operations: [read, update] }
   ]) {
   id: ID!
-  codeURL: AWSURL
+  codeURL: AWSURL!
   # shareTo: [String]
 }
 
@@ -18,7 +18,7 @@ type Todo @model
     # { allow: owner, ownerField: "shareTo", operations: [read, update] }
   ]) {
   id: ID!
-  todoURL: AWSURL
+  todoURL: AWSURL!
   todoTitle: String
   lineNumber: Int
   check: Boolean
@@ -45,14 +45,14 @@ type Project @model
   documents: [Doc] @hasMany(indexName: "byProject", fields: ["id"])
   projectName: String!
   language: String!
-  code: String
-  todo: String
+  # code: String
+  # todo: String
   runResult: String
   createTime: AWSTimestamp
   shareTo: [String]
   # groupsCanAccess: [String]
-  Todos: [Todo] @hasMany(indexName: "byProject", fields: ["id"])
-  Code: Code @hasOne
+  todos: [Todo] @hasMany(indexName: "byProject", fields: ["id"])
+  code: Code @hasOne
 }
 
 type Doc @model 
