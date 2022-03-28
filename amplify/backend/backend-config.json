@@ -61,5 +61,12 @@
       "dependsOn": []
     }
   },
-  "video": {}
+  "video": {},
+  "function": {
+    "csci3100livevideostream": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  }
 }

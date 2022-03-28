@@ -6,12 +6,12 @@ export type AmplifyDependentResourcesAttributes = {
             "GraphQLAPIEndpointOutput": "string"
         }
     },
-    "video": {
+    "function": {
         "csci3100livevideostream": {
-            "oMediaLiveChannelName": "string",
-            "oMediaLiveChannelId": "string",
-            "oMediaLivePrimaryIngestUrl": "string",
-            "oMediaLiveBackupIngestUrl": "string"
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     }
 }
