@@ -61,5 +61,12 @@
       "dependsOn": []
     }
   },
-  "video": {}
+  "video": {},
+  "function": {
+    "runCodeFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  }
 }
