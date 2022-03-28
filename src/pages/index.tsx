@@ -3,9 +3,9 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Auth } from "aws-amplify";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
+// import { AmplifySignOut } from "@aws-amplify/ui-react";
 
-const Home: NextPage = () => {
+export default function Home(props:any) {
   Auth.currentAuthenticatedUser().then((user) => {
     console.log(user);
   });
@@ -58,7 +58,7 @@ const Home: NextPage = () => {
         </div>
 
         <div>
-          <AmplifySignOut />
+          <button onClick={props.signOut}> FUCK YOU AWS</button>
         </div>
       </main>
 
@@ -78,4 +78,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+// export default Home;

@@ -4,11 +4,11 @@ import { schema } from './schema';
 
 
 
-const { Code, Todo, Project, Doc } = initSchema(schema);
+const { Project, Todo, Code, Doc } = initSchema(schema);
 
 export {
-  Code,
-  Todo,
   Project,
+  Todo,
+  Code,
   Doc
 };

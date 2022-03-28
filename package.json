@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^1.2.5",
+    "@aws-amplify/cli": "^7.6.26",
+    "@aws-amplify/ui-react": "^2.11.0",
     "amplify": "^0.0.11",
+    "amplify-codegen": "^2.28.1",
     "aws-amplify": "^4.3.17",
     "bcrypt": "^5.0.1",
     "jsonwebtoken": "^8.5.1",

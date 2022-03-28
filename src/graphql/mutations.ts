@@ -2,6 +2,171 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createProject = /* GraphQL */ `
+  mutation CreateProject(
+    $input: CreateProjectInput!
+    $condition: ModelProjectConditionInput
+  ) {
+    createProject(input: $input, condition: $condition) {
+      id
+      projectName
+      language
+      runResult
+      createTime
+      shareTo
+      byProjectDoc {
+        items {
+          docURL
+          docType
+          projectID
+          id
+          createdAt
+          updatedAt
+          owner
+          shareTo
+        }
+        nextToken
+      }
+      byProjectTodo {
+        items {
+          id
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          createdAt
+          updatedAt
+          owner
+          shareTo
+        }
+        nextToken
+      }
+      byProjectCode {
+        id
+        codeURL
+        createdAt
+        updatedAt
+        owner
+        shareTo
+      }
+      createdAt
+      updatedAt
+      projectByProjectCodeId
+      owner
+    }
+  }
+`;
+export const updateProject = /* GraphQL */ `
+  mutation UpdateProject(
+    $input: UpdateProjectInput!
+    $condition: ModelProjectConditionInput
+  ) {
+    updateProject(input: $input, condition: $condition) {
+      id
+      projectName
+      language
+      runResult
+      createTime
+      shareTo
+      byProjectDoc {
+        items {
+          docURL
+          docType
+          projectID
+          id
+          createdAt
+          updatedAt
+          owner
+          shareTo
+        }
+        nextToken
+      }
+      byProjectTodo {
+        items {
+          id
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          createdAt
+          updatedAt
+          owner
+          shareTo
+        }
+        nextToken
+      }
+      byProjectCode {
+        id
+        codeURL
+        createdAt
+        updatedAt
+        owner
+        shareTo
+      }
+      createdAt
+      updatedAt
+      projectByProjectCodeId
+      owner
+    }
+  }
+`;
+export const deleteProject = /* GraphQL */ `
+  mutation DeleteProject(
+    $input: DeleteProjectInput!
+    $condition: ModelProjectConditionInput
+  ) {
+    deleteProject(input: $input, condition: $condition) {
+      id
+      projectName
+      language
+      runResult
+      createTime
+      shareTo
+      byProjectDoc {
+        items {
+          docURL
+          docType
+          projectID
+          id
+          createdAt
+          updatedAt
+          owner
+          shareTo
+        }
+        nextToken
+      }
+      byProjectTodo {
+        items {
+          id
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          createdAt
+          updatedAt
+          owner
+          shareTo
+        }
+        nextToken
+      }
+      byProjectCode {
+        id
+        codeURL
+        createdAt
+        updatedAt
+        owner
+        shareTo
+      }
+      createdAt
+      updatedAt
+      projectByProjectCodeId
+      owner
+    }
+  }
+`;
 export const createCode = /* GraphQL */ `
   mutation CreateCode(
     $input: CreateCodeInput!
@@ -12,10 +177,8 @@ export const createCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
+      shareTo
     }
   }
 `;
@@ -29,10 +192,8 @@ export const updateCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
+      shareTo
     }
   }
 `;
@@ -46,10 +207,59 @@ export const deleteCode = /* GraphQL */ `
       codeURL
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
+      shareTo
+    }
+  }
+`;
+export const createDoc = /* GraphQL */ `
+  mutation CreateDoc(
+    $input: CreateDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    createDoc(input: $input, condition: $condition) {
+      docURL
+      docType
+      projectID
+      id
+      createdAt
+      updatedAt
+      owner
+      shareTo
+    }
+  }
+`;
+export const updateDoc = /* GraphQL */ `
+  mutation UpdateDoc(
+    $input: UpdateDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    updateDoc(input: $input, condition: $condition) {
+      docURL
+      docType
+      projectID
+      id
+      createdAt
+      updatedAt
+      owner
+      shareTo
+    }
+  }
+`;
+export const deleteDoc = /* GraphQL */ `
+  mutation DeleteDoc(
+    $input: DeleteDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    deleteDoc(input: $input, condition: $condition) {
+      docURL
+      docType
+      projectID
+      id
+      createdAt
+      updatedAt
+      owner
+      shareTo
     }
   }
 `;
@@ -67,10 +277,8 @@ export const createTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
+      shareTo
     }
   }
 `;
@@ -88,10 +296,8 @@ export const updateTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
+      shareTo
     }
   }
 `;
@@ -109,271 +315,8 @@ export const deleteTodo = /* GraphQL */ `
       projectID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
-    }
-  }
-`;
-export const createProject = /* GraphQL */ `
-  mutation CreateProject(
-    $input: CreateProjectInput!
-    $condition: ModelProjectConditionInput
-  ) {
-    createProject(input: $input, condition: $condition) {
-      id
-      documents {
-        items {
-          id
-          docURL
-          docType
-          projectID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      projectName
-      language
-      code
-      todo
-      runResult
-      createTime
       shareTo
-      Todos {
-        items {
-          id
-          todoURL
-          todoTitle
-          lineNumber
-          check
-          projectID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      Code {
-        id
-        codeURL
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      projectCodeId
-      owner
-    }
-  }
-`;
-export const updateProject = /* GraphQL */ `
-  mutation UpdateProject(
-    $input: UpdateProjectInput!
-    $condition: ModelProjectConditionInput
-  ) {
-    updateProject(input: $input, condition: $condition) {
-      id
-      documents {
-        items {
-          id
-          docURL
-          docType
-          projectID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      projectName
-      language
-      code
-      todo
-      runResult
-      createTime
-      shareTo
-      Todos {
-        items {
-          id
-          todoURL
-          todoTitle
-          lineNumber
-          check
-          projectID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      Code {
-        id
-        codeURL
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      projectCodeId
-      owner
-    }
-  }
-`;
-export const deleteProject = /* GraphQL */ `
-  mutation DeleteProject(
-    $input: DeleteProjectInput!
-    $condition: ModelProjectConditionInput
-  ) {
-    deleteProject(input: $input, condition: $condition) {
-      id
-      documents {
-        items {
-          id
-          docURL
-          docType
-          projectID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      projectName
-      language
-      code
-      todo
-      runResult
-      createTime
-      shareTo
-      Todos {
-        items {
-          id
-          todoURL
-          todoTitle
-          lineNumber
-          check
-          projectID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        nextToken
-        startedAt
-      }
-      Code {
-        id
-        codeURL
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      projectCodeId
-      owner
-    }
-  }
-`;
-export const createDoc = /* GraphQL */ `
-  mutation CreateDoc(
-    $input: CreateDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    createDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
-export const updateDoc = /* GraphQL */ `
-  mutation UpdateDoc(
-    $input: UpdateDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    updateDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-    }
-  }
-`;
-export const deleteDoc = /* GraphQL */ `
-  mutation DeleteDoc(
-    $input: DeleteDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    deleteDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
     }
   }
 `;

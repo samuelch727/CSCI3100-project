@@ -1,0 +1,54 @@
+type Project @model 
+  @auth(rules: [
+    { allow: owner, operations: [delete, read, update, create] },
+    { allow: owner, ownerField: "shareTo", operations: [read, update] }
+  ]) {
+  id: ID!
+  projectName: String!
+  language: String!
+  runResult: String
+  createTime: AWSTimestamp
+  shareTo: [String]
+  byProjectDoc: [Doc] @hasMany(indexName: "byProject", fields: ["id"])
+  byProjectTodo: [Todo] @hasMany(indexName: "byProject", fields: ["id"])
+  byProjectCode: Code @hasOne
+}
+
+type Code @model 
+  @auth(rules: [
+    { allow: public, operations: [read, update] }, 
+    { allow: private, operations: [read, update] }, 
+    { allow: owner, operations: [delete, read, update, create] },
+    # { allow: owner, ownerField: "shareTo", operations: [read, update] }
+  ]) {
+  id: ID!
+  codeURL: AWSURL!
+}
+
+type Doc @model 
+  @auth(rules: [
+    { allow: public, operations: [read, update] }, 
+    { allow: private, operations: [read, update] }, 
+    { allow: owner, operations: [delete, read, update, create] },
+    # { allow: owner, ownerField: "shareTo", operations: [read, update] }
+  ]) {
+  docURL: AWSURL!
+  docType: String
+  projectID: ID! @index(name: "byProject")
+}
+
+type Todo @model 
+  @auth(rules: [
+    { allow: public, operations: [read, update] }, 
+    { allow: private, operations: [read, update] }, 
+    { allow: owner, operations: [delete, read, update, create] },
+    # { allow: owner, ownerField: "shareTo", operations: [read, update] }
+  ]) {
+  id: ID!
+  todoURL: AWSURL!
+  todoTitle: String
+  lineNumber: String
+  check: Boolean
+  projectID: ID! @index(name: "byProject")
+}
+ 
