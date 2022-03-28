@@ -20,19 +20,13 @@
     // app.use(express.static('public'))
     app.use(express.json())    
     app.get('/', (req, res) =>{
-        //res.redirect(`/${uuidV4()}`)
-        console.log(req.body);
-        if (!req.body?.test) {
-            console.log("nothing")
-            res.status(400).json({message:"nothing  "})
-            return
-        }
-        res.status(200).json({dwahgf :"yo"})
+        res.redirect(`/${uuidV4()}`)
+        
     })
     
     app.get('/:room', (req, res) =>{
-        res.json({test: req.body})
-        // res.render('room', {roomId: req.params.room})
+        //res.json({test: req.body})
+        res.render('room', {roomId: req.params.room})
     })
     
     io.on('connection', socket =>{
