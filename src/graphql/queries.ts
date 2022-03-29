@@ -9,9 +9,8 @@ export const getProject = /* GraphQL */ `
       projectName
       language
       runResult
-      createTime
       shareTo
-      byProjectDoc {
+      docs {
         items {
           docURL
           docType
@@ -20,11 +19,10 @@ export const getProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectTodo {
+      todos {
         items {
           id
           todoURL
@@ -35,21 +33,31 @@ export const getProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectCode {
+      code {
         id
         codeURL
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
         createdAt
         updatedAt
+        codeProjectId
         owner
-        shareTo
       }
       createdAt
       updatedAt
-      projectByProjectCodeId
+      projectCodeId
       owner
     }
   }
@@ -66,25 +74,24 @@ export const listProjects = /* GraphQL */ `
         projectName
         language
         runResult
-        createTime
         shareTo
-        byProjectDoc {
+        docs {
           nextToken
         }
-        byProjectTodo {
+        todos {
           nextToken
         }
-        byProjectCode {
+        code {
           id
           codeURL
           createdAt
           updatedAt
+          codeProjectId
           owner
-          shareTo
         }
         createdAt
         updatedAt
-        projectByProjectCodeId
+        projectCodeId
         owner
       }
       nextToken
@@ -96,10 +103,35 @@ export const getCode = /* GraphQL */ `
     getCode(id: $id) {
       id
       codeURL
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
+      codeProjectId
       owner
-      shareTo
     }
   }
 `;
@@ -113,10 +145,21 @@ export const listCodes = /* GraphQL */ `
       items {
         id
         codeURL
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
         createdAt
         updatedAt
+        codeProjectId
         owner
-        shareTo
       }
       nextToken
     }
@@ -132,7 +175,6 @@ export const getDoc = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
@@ -151,7 +193,6 @@ export const listDocs = /* GraphQL */ `
         createdAt
         updatedAt
         owner
-        shareTo
       }
       nextToken
     }
@@ -166,10 +207,34 @@ export const getTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
@@ -187,10 +252,20 @@ export const listTodos = /* GraphQL */ `
         lineNumber
         check
         projectID
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
         createdAt
         updatedAt
         owner
-        shareTo
       }
       nextToken
     }

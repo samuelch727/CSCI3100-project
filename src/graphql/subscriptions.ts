@@ -9,9 +9,8 @@ export const onCreateProject = /* GraphQL */ `
       projectName
       language
       runResult
-      createTime
       shareTo
-      byProjectDoc {
+      docs {
         items {
           docURL
           docType
@@ -20,11 +19,10 @@ export const onCreateProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectTodo {
+      todos {
         items {
           id
           todoURL
@@ -35,21 +33,31 @@ export const onCreateProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectCode {
+      code {
         id
         codeURL
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
         createdAt
         updatedAt
+        codeProjectId
         owner
-        shareTo
       }
       createdAt
       updatedAt
-      projectByProjectCodeId
+      projectCodeId
       owner
     }
   }
@@ -61,9 +69,8 @@ export const onUpdateProject = /* GraphQL */ `
       projectName
       language
       runResult
-      createTime
       shareTo
-      byProjectDoc {
+      docs {
         items {
           docURL
           docType
@@ -72,11 +79,10 @@ export const onUpdateProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectTodo {
+      todos {
         items {
           id
           todoURL
@@ -87,21 +93,31 @@ export const onUpdateProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectCode {
+      code {
         id
         codeURL
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
         createdAt
         updatedAt
+        codeProjectId
         owner
-        shareTo
       }
       createdAt
       updatedAt
-      projectByProjectCodeId
+      projectCodeId
       owner
     }
   }
@@ -113,9 +129,8 @@ export const onDeleteProject = /* GraphQL */ `
       projectName
       language
       runResult
-      createTime
       shareTo
-      byProjectDoc {
+      docs {
         items {
           docURL
           docType
@@ -124,11 +139,10 @@ export const onDeleteProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectTodo {
+      todos {
         items {
           id
           todoURL
@@ -139,64 +153,149 @@ export const onDeleteProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectCode {
+      code {
         id
         codeURL
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
         createdAt
         updatedAt
+        codeProjectId
         owner
-        shareTo
       }
       createdAt
       updatedAt
-      projectByProjectCodeId
+      projectCodeId
       owner
     }
   }
 `;
 export const onCreateCode = /* GraphQL */ `
-  subscription OnCreateCode($owner: String, $shareTo: String) {
-    onCreateCode(owner: $owner, shareTo: $shareTo) {
+  subscription OnCreateCode($owner: String) {
+    onCreateCode(owner: $owner) {
       id
       codeURL
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
+      codeProjectId
       owner
-      shareTo
     }
   }
 `;
 export const onUpdateCode = /* GraphQL */ `
-  subscription OnUpdateCode($owner: String, $shareTo: String) {
-    onUpdateCode(owner: $owner, shareTo: $shareTo) {
+  subscription OnUpdateCode($owner: String) {
+    onUpdateCode(owner: $owner) {
       id
       codeURL
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
+      codeProjectId
       owner
-      shareTo
     }
   }
 `;
 export const onDeleteCode = /* GraphQL */ `
-  subscription OnDeleteCode($owner: String, $shareTo: String) {
-    onDeleteCode(owner: $owner, shareTo: $shareTo) {
+  subscription OnDeleteCode($owner: String) {
+    onDeleteCode(owner: $owner) {
       id
       codeURL
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
+      codeProjectId
       owner
-      shareTo
     }
   }
 `;
 export const onCreateDoc = /* GraphQL */ `
-  subscription OnCreateDoc($owner: String, $shareTo: String) {
-    onCreateDoc(owner: $owner, shareTo: $shareTo) {
+  subscription OnCreateDoc($owner: String) {
+    onCreateDoc(owner: $owner) {
       docURL
       docType
       projectID
@@ -204,13 +303,12 @@ export const onCreateDoc = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
 export const onUpdateDoc = /* GraphQL */ `
-  subscription OnUpdateDoc($owner: String, $shareTo: String) {
-    onUpdateDoc(owner: $owner, shareTo: $shareTo) {
+  subscription OnUpdateDoc($owner: String) {
+    onUpdateDoc(owner: $owner) {
       docURL
       docType
       projectID
@@ -218,13 +316,12 @@ export const onUpdateDoc = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
 export const onDeleteDoc = /* GraphQL */ `
-  subscription OnDeleteDoc($owner: String, $shareTo: String) {
-    onDeleteDoc(owner: $owner, shareTo: $shareTo) {
+  subscription OnDeleteDoc($owner: String) {
+    onDeleteDoc(owner: $owner) {
       docURL
       docType
       projectID
@@ -232,55 +329,126 @@ export const onDeleteDoc = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
 export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo($owner: String, $shareTo: String) {
-    onCreateTodo(owner: $owner, shareTo: $shareTo) {
+  subscription OnCreateTodo($owner: String) {
+    onCreateTodo(owner: $owner) {
       id
       todoURL
       todoTitle
       lineNumber
       check
       projectID
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
 export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo($owner: String, $shareTo: String) {
-    onUpdateTodo(owner: $owner, shareTo: $shareTo) {
+  subscription OnUpdateTodo($owner: String) {
+    onUpdateTodo(owner: $owner) {
       id
       todoURL
       todoTitle
       lineNumber
       check
       projectID
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
 export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo($owner: String, $shareTo: String) {
-    onDeleteTodo(owner: $owner, shareTo: $shareTo) {
+  subscription OnDeleteTodo($owner: String) {
+    onDeleteTodo(owner: $owner) {
       id
       todoURL
       todoTitle
       lineNumber
       check
       projectID
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;

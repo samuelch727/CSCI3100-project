@@ -12,9 +12,8 @@ export const createProject = /* GraphQL */ `
       projectName
       language
       runResult
-      createTime
       shareTo
-      byProjectDoc {
+      docs {
         items {
           docURL
           docType
@@ -23,11 +22,10 @@ export const createProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectTodo {
+      todos {
         items {
           id
           todoURL
@@ -38,21 +36,31 @@ export const createProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectCode {
+      code {
         id
         codeURL
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
         createdAt
         updatedAt
+        codeProjectId
         owner
-        shareTo
       }
       createdAt
       updatedAt
-      projectByProjectCodeId
+      projectCodeId
       owner
     }
   }
@@ -67,9 +75,8 @@ export const updateProject = /* GraphQL */ `
       projectName
       language
       runResult
-      createTime
       shareTo
-      byProjectDoc {
+      docs {
         items {
           docURL
           docType
@@ -78,11 +85,10 @@ export const updateProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectTodo {
+      todos {
         items {
           id
           todoURL
@@ -93,21 +99,31 @@ export const updateProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectCode {
+      code {
         id
         codeURL
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
         createdAt
         updatedAt
+        codeProjectId
         owner
-        shareTo
       }
       createdAt
       updatedAt
-      projectByProjectCodeId
+      projectCodeId
       owner
     }
   }
@@ -122,9 +138,8 @@ export const deleteProject = /* GraphQL */ `
       projectName
       language
       runResult
-      createTime
       shareTo
-      byProjectDoc {
+      docs {
         items {
           docURL
           docType
@@ -133,11 +148,10 @@ export const deleteProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectTodo {
+      todos {
         items {
           id
           todoURL
@@ -148,21 +162,31 @@ export const deleteProject = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          shareTo
         }
         nextToken
       }
-      byProjectCode {
+      code {
         id
         codeURL
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
         createdAt
         updatedAt
+        codeProjectId
         owner
-        shareTo
       }
       createdAt
       updatedAt
-      projectByProjectCodeId
+      projectCodeId
       owner
     }
   }
@@ -175,10 +199,35 @@ export const createCode = /* GraphQL */ `
     createCode(input: $input, condition: $condition) {
       id
       codeURL
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
+      codeProjectId
       owner
-      shareTo
     }
   }
 `;
@@ -190,10 +239,35 @@ export const updateCode = /* GraphQL */ `
     updateCode(input: $input, condition: $condition) {
       id
       codeURL
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
+      codeProjectId
       owner
-      shareTo
     }
   }
 `;
@@ -205,10 +279,35 @@ export const deleteCode = /* GraphQL */ `
     deleteCode(input: $input, condition: $condition) {
       id
       codeURL
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
+      codeProjectId
       owner
-      shareTo
     }
   }
 `;
@@ -225,7 +324,6 @@ export const createDoc = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
@@ -242,7 +340,6 @@ export const updateDoc = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
@@ -259,7 +356,6 @@ export const deleteDoc = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
@@ -275,10 +371,34 @@ export const createTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
@@ -294,10 +414,34 @@ export const updateTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;
@@ -313,10 +457,34 @@ export const deleteTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          codeURL
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
-      shareTo
     }
   }
 `;

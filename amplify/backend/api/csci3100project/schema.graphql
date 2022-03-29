@@ -7,11 +7,11 @@ type Project @model
   projectName: String!
   language: String!
   runResult: String
-  createTime: AWSTimestamp
+  # createTime: AWSTimestamp
   shareTo: [String]
-  byProjectDoc: [Doc] @hasMany(indexName: "byProject", fields: ["id"])
-  byProjectTodo: [Todo] @hasMany(indexName: "byProject", fields: ["id"])
-  byProjectCode: Code @hasOne
+  docs: [Doc] @hasMany(indexName: "byProject", fields: ["id"])
+  todos: [Todo] @hasMany(indexName: "byProject", fields: ["id"])
+  code: Code @hasOne
 }
 
 type Code @model 
@@ -23,6 +23,7 @@ type Code @model
   ]) {
   id: ID!
   codeURL: AWSURL!
+  project: Project @belongsTo
 }
 
 type Doc @model 
@@ -50,5 +51,6 @@ type Todo @model
   lineNumber: String
   check: Boolean
   projectID: ID! @index(name: "byProject")
+  project: Project @belongsTo
 }
  
