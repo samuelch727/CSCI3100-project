@@ -22,7 +22,7 @@ type Code @model
     # { allow: owner, ownerField: "shareTo", operations: [read, update] }
   ]) {
   id: ID!
-  codeURL: AWSURL!
+  codeURL: String!
   project: Project @belongsTo
 }
 
