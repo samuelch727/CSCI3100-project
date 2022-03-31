@@ -1,6 +1,6 @@
 projects:
   csci3100project:
-    schemaPath: amplify/backend/api/csci3100project/build/schema.graphql
+    schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.ts
     excludes:
@@ -10,6 +10,7 @@ projects:
         codeGenTarget: typescript
         generatedFileName: src/API.ts
         docsFilePath: src/graphql
+        maxDepth: 3
 extensions:
   amplify:
     version: 3
