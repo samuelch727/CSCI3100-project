@@ -13,7 +13,7 @@ export default function Code() {
         width="100vw"
         title={pName ?? "Untitled Project"}
       />
-      <CodeBlock language="c" width="100vw" height="90vh" />
+      <CodeBlock language="python" width="100vw" height="90vh" />
     </div>
   );
 }

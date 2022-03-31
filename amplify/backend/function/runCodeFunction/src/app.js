@@ -6,87 +6,77 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-
-
-const express = require('express')
-const bodyParser = require('body-parser')
-const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
+const express = require("express");
+const axios = require("axios");
+const bodyParser = require("body-parser");
+const awsServerlessExpressMiddleware = require("aws-serverless-express/middleware");
+const http = require("http");
+const https = require("https");
+const SERVER_IP = "13.213.0.95";
 
 // declare a new express app
-const app = express()
-app.use(bodyParser.json())
-app.use(awsServerlessExpressMiddleware.eventContext())
+const app = express();
+app.use(bodyParser.json());
+app.use(awsServerlessExpressMiddleware.eventContext());
 
 // Enable CORS for all methods
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "*")
-  next()
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
 });
-
 
 /**********************
  * Example get method *
  **********************/
 
-app.get('/item', function(req, res) {
+/**
+ * Compile code and run it
+ *
+ * json:
+ * {
+ *  "code": string of source code,
+ *  "language": string of language (JAVA, PYTHON, C, CPP),
+ *  "input": string of input,
+ *  "expected": string of expected output
+ * }
+ */
+
+app.post("/compile", function (req, res) {
   // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+  if (
+    req.body?.code == undefined ||
+    req.body?.language == undefined ||
+    req.body?.input == undefined ||
+    req.body?.expected == undefined
+  ) {
+    res.status(400).json({ message: "Invalid request" });
+    return;
+  }
+  axios
+    .post("http://" + SERVER_IP + ":8080/compiler/json", {
+      input: req.body.input,
+      sourceCode: req.body.code,
+      language: req.body.language,
+      expectedOutput: req.body.expected,
+      timeLimit: 15,
+      memoryLimit: 500,
+    })
+    .then((response) => {
+      res.status(200).json(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: "Internal server error" });
+    });
+  // res.json({ success: "get call succeed!", url: req.url });
 });
 
-app.get('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
-});
-
-/****************************
-* Example post method *
-****************************/
-
-app.post('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-app.post('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example put method *
-****************************/
-
-app.put('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-app.put('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example delete method *
-****************************/
-
-app.delete('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
-});
-
-app.delete('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
-});
-
-app.listen(3000, function() {
-    console.log("App started")
+app.listen(3000, function () {
+  console.log("App started");
 });
 
 // Export the app object. When executing the application local this does nothing. However,
 // to port it to AWS Lambda we will create a wrapper around that will load the app from
 // this file
-module.exports = app
+module.exports = app;

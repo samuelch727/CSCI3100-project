@@ -31,8 +31,8 @@ export default function CodeBlock({
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replace(/"/g, '\"')
+      .replace(/'/g, "\'");
   }
 
   var contentWidget = {
@@ -74,7 +74,7 @@ export default function CodeBlock({
           setPosition(editorRef?.current?.getPosition());
           editorRef.current.removeContentWidget(contentWidget);
           editorRef.current.addContentWidget(contentWidget);
-          console.log(editorRef?.current?.getPosition());
+          console.log(escapeHtml(e));
         }}
         onMount={handleEditorDidMount}
       />
