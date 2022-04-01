@@ -1,5 +1,7 @@
 import Editor, { useMonaco } from "@monaco-editor/react";
 import React, { useRef, useEffect, useState } from "react";
+import {API, graphqlOperation} from "aws-amplify";
+import {getCode} from "../graphql/queries";
 
 interface CodeBlockProps {
   language: string;
@@ -25,6 +27,16 @@ export default function CodeBlock({
     //@ts-ignore
     console.log(editorRef?.current?.getPosition());
   }, [editorRef?.current]);
+
+  useEffect(() => {
+    const fetchCode = async () => {
+      const code = await API.graphql(
+        graphqlOperation(getCode, { id: "8d39337b-7bf8-4e00-89cc-c085405b0afd" })
+      );
+      return code;
+    }
+    console.log(fetchCode());
+  });
 
   function escapeHtml(str: string) {
     return str

@@ -41,7 +41,7 @@ export const createProject = /* GraphQL */ `
       }
       code {
         id
-        codeURL
+        sourceCode
         project {
           id
           projectName
@@ -104,7 +104,7 @@ export const updateProject = /* GraphQL */ `
       }
       code {
         id
-        codeURL
+        sourceCode
         project {
           id
           projectName
@@ -167,7 +167,7 @@ export const deleteProject = /* GraphQL */ `
       }
       code {
         id
-        codeURL
+        sourceCode
         project {
           id
           projectName
@@ -198,7 +198,7 @@ export const createCode = /* GraphQL */ `
   ) {
     createCode(input: $input, condition: $condition) {
       id
-      codeURL
+      sourceCode
       project {
         id
         projectName
@@ -213,47 +213,7 @@ export const createCode = /* GraphQL */ `
         }
         code {
           id
-          codeURL
-          createdAt
-          updatedAt
-          codeProjectId
-          owner
-        }
-        createdAt
-        updatedAt
-        projectCodeId
-        owner
-      }
-      createdAt
-      updatedAt
-      codeProjectId
-      owner
-    }
-  }
-`;
-export const updateCode = /* GraphQL */ `
-  mutation UpdateCode(
-    $input: UpdateCodeInput!
-    $condition: ModelCodeConditionInput
-  ) {
-    updateCode(input: $input, condition: $condition) {
-      id
-      codeURL
-      project {
-        id
-        projectName
-        language
-        runResult
-        shareTo
-        docs {
-          nextToken
-        }
-        todos {
-          nextToken
-        }
-        code {
-          id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -278,7 +238,7 @@ export const deleteCode = /* GraphQL */ `
   ) {
     deleteCode(input: $input, condition: $condition) {
       id
-      codeURL
+      sourceCode
       project {
         id
         projectName
@@ -293,7 +253,7 @@ export const deleteCode = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -317,22 +277,6 @@ export const createDoc = /* GraphQL */ `
     $condition: ModelDocConditionInput
   ) {
     createDoc(input: $input, condition: $condition) {
-      docURL
-      docType
-      projectID
-      id
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const updateDoc = /* GraphQL */ `
-  mutation UpdateDoc(
-    $input: UpdateDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    updateDoc(input: $input, condition: $condition) {
       docURL
       docType
       projectID
@@ -385,50 +329,7 @@ export const createTodo = /* GraphQL */ `
         }
         code {
           id
-          codeURL
-          createdAt
-          updatedAt
-          codeProjectId
-          owner
-        }
-        createdAt
-        updatedAt
-        projectCodeId
-        owner
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
-  ) {
-    updateTodo(input: $input, condition: $condition) {
-      id
-      todoURL
-      todoTitle
-      lineNumber
-      check
-      projectID
-      project {
-        id
-        projectName
-        language
-        runResult
-        shareTo
-        docs {
-          nextToken
-        }
-        todos {
-          nextToken
-        }
-        code {
-          id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -471,7 +372,106 @@ export const deleteTodo = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateCode = /* GraphQL */ `
+  mutation UpdateCode(
+    $input: UpdateCodeInput!
+    $condition: ModelCodeConditionInput
+  ) {
+    updateCode(input: $input, condition: $condition) {
+      id
+      sourceCode
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
+      createdAt
+      updatedAt
+      codeProjectId
+      owner
+    }
+  }
+`;
+export const updateDoc = /* GraphQL */ `
+  mutation UpdateDoc(
+    $input: UpdateDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    updateDoc(input: $input, condition: $condition) {
+      docURL
+      docType
+      projectID
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateTodo = /* GraphQL */ `
+  mutation UpdateTodo(
+    $input: UpdateTodoInput!
+    $condition: ModelTodoConditionInput
+  ) {
+    updateTodo(input: $input, condition: $condition) {
+      id
+      todoURL
+      todoTitle
+      lineNumber
+      check
+      projectID
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
           createdAt
           updatedAt
           codeProjectId

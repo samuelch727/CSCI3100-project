@@ -38,7 +38,7 @@ export const getProject = /* GraphQL */ `
       }
       code {
         id
-        codeURL
+        sourceCode
         project {
           id
           projectName
@@ -83,7 +83,7 @@ export const listProjects = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -102,7 +102,7 @@ export const getCode = /* GraphQL */ `
   query GetCode($id: ID!) {
     getCode(id: $id) {
       id
-      codeURL
+      sourceCode
       project {
         id
         projectName
@@ -117,7 +117,7 @@ export const getCode = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -144,7 +144,7 @@ export const listCodes = /* GraphQL */ `
     listCodes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        codeURL
+        sourceCode
         project {
           id
           projectName
@@ -221,7 +221,7 @@ export const getTodo = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId

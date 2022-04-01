@@ -22,7 +22,7 @@ type Code @model
     # { allow: owner, ownerField: "shareTo", operations: [read, update] }
   ]) {
   id: ID!
-  codeURL: String!
+  sourceCode: String
   project: Project @belongsTo
 }
 
@@ -52,5 +52,10 @@ type Todo @model
   check: Boolean
   projectID: ID! @index(name: "byProject")
   project: Project @belongsTo
+}
+
+type Subscription {
+  onUpdateByCodeId(id: ID!): Code
+    @aws_subscribe(mutations: ["updateCode"])
 }
  

@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());
 
 // Enable CORS for all methods
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
   next();
@@ -42,7 +42,7 @@ app.use(function (req, res, next) {
  * }
  */
 
-app.post("/compile", function (req, res) {
+app.post("/compile", function(req, res) {
   // Add your code here
   if (
     req.body?.code == undefined ||
@@ -72,7 +72,7 @@ app.post("/compile", function (req, res) {
   // res.json({ success: "get call succeed!", url: req.url });
 });
 
-app.listen(3000, function () {
+app.listen(3000, function() {
   console.log("App started");
 });
 

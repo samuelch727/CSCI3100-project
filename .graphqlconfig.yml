@@ -1,6 +1,6 @@
 projects:
   csci3100project:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/csci3100project/build/schema.graphql
     includes:
       - src/graphql/**/*.ts
     excludes:

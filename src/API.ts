@@ -134,7 +134,7 @@ export type Todo = {
 export type Code = {
   __typename: "Code",
   id: string,
-  codeURL: string,
+  sourceCode?: string | null,
   project?: Project | null,
   createdAt: string,
   updatedAt: string,
@@ -157,22 +157,16 @@ export type DeleteProjectInput = {
 
 export type CreateCodeInput = {
   id?: string | null,
-  codeURL: string,
+  sourceCode?: string | null,
   codeProjectId?: string | null,
 };
 
 export type ModelCodeConditionInput = {
-  codeURL?: ModelStringInput | null,
+  sourceCode?: ModelStringInput | null,
   and?: Array< ModelCodeConditionInput | null > | null,
   or?: Array< ModelCodeConditionInput | null > | null,
   not?: ModelCodeConditionInput | null,
   codeProjectId?: ModelIDInput | null,
-};
-
-export type UpdateCodeInput = {
-  id: string,
-  codeURL?: string | null,
-  codeProjectId?: string | null,
 };
 
 export type DeleteCodeInput = {
@@ -193,13 +187,6 @@ export type ModelDocConditionInput = {
   and?: Array< ModelDocConditionInput | null > | null,
   or?: Array< ModelDocConditionInput | null > | null,
   not?: ModelDocConditionInput | null,
-};
-
-export type UpdateDocInput = {
-  docURL?: string | null,
-  docType?: string | null,
-  projectID?: string | null,
-  id: string,
 };
 
 export type DeleteDocInput = {
@@ -233,6 +220,23 @@ export type ModelBooleanInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
+export type DeleteTodoInput = {
+  id: string,
+};
+
+export type UpdateCodeInput = {
+  id: string,
+  sourceCode?: string | null,
+  codeProjectId?: string | null,
+};
+
+export type UpdateDocInput = {
+  docURL?: string | null,
+  docType?: string | null,
+  projectID?: string | null,
+  id: string,
+};
+
 export type UpdateTodoInput = {
   id: string,
   todoURL?: string | null,
@@ -240,10 +244,6 @@ export type UpdateTodoInput = {
   lineNumber?: string | null,
   check?: boolean | null,
   projectID?: string | null,
-};
-
-export type DeleteTodoInput = {
-  id: string,
 };
 
 export type ModelProjectFilterInput = {
@@ -266,7 +266,7 @@ export type ModelProjectConnection = {
 
 export type ModelCodeFilterInput = {
   id?: ModelIDInput | null,
-  codeURL?: ModelStringInput | null,
+  sourceCode?: ModelStringInput | null,
   and?: Array< ModelCodeFilterInput | null > | null,
   or?: Array< ModelCodeFilterInput | null > | null,
   not?: ModelCodeFilterInput | null,
@@ -346,7 +346,7 @@ export type CreateProjectMutation = {
     code?:  {
       __typename: "Code",
       id: string,
-      codeURL: string,
+      sourceCode?: string | null,
       project?:  {
         __typename: "Project",
         id: string,
@@ -417,7 +417,7 @@ export type UpdateProjectMutation = {
     code?:  {
       __typename: "Code",
       id: string,
-      codeURL: string,
+      sourceCode?: string | null,
       project?:  {
         __typename: "Project",
         id: string,
@@ -488,7 +488,7 @@ export type DeleteProjectMutation = {
     code?:  {
       __typename: "Code",
       id: string,
-      codeURL: string,
+      sourceCode?: string | null,
       project?:  {
         __typename: "Project",
         id: string,
@@ -522,7 +522,7 @@ export type CreateCodeMutation = {
   createCode?:  {
     __typename: "Code",
     id: string,
-    codeURL: string,
+    sourceCode?: string | null,
     project?:  {
       __typename: "Project",
       id: string,
@@ -541,53 +541,7 @@ export type CreateCodeMutation = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
-        createdAt: string,
-        updatedAt: string,
-        codeProjectId?: string | null,
-        owner?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      projectCodeId?: string | null,
-      owner?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    codeProjectId?: string | null,
-    owner?: string | null,
-  } | null,
-};
-
-export type UpdateCodeMutationVariables = {
-  input: UpdateCodeInput,
-  condition?: ModelCodeConditionInput | null,
-};
-
-export type UpdateCodeMutation = {
-  updateCode?:  {
-    __typename: "Code",
-    id: string,
-    codeURL: string,
-    project?:  {
-      __typename: "Project",
-      id: string,
-      projectName: string,
-      language: string,
-      runResult?: string | null,
-      shareTo?: Array< string | null > | null,
-      docs?:  {
-        __typename: "ModelDocConnection",
-        nextToken?: string | null,
-      } | null,
-      todos?:  {
-        __typename: "ModelTodoConnection",
-        nextToken?: string | null,
-      } | null,
-      code?:  {
-        __typename: "Code",
-        id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -614,7 +568,7 @@ export type DeleteCodeMutation = {
   deleteCode?:  {
     __typename: "Code",
     id: string,
-    codeURL: string,
+    sourceCode?: string | null,
     project?:  {
       __typename: "Project",
       id: string,
@@ -633,7 +587,7 @@ export type DeleteCodeMutation = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -658,24 +612,6 @@ export type CreateDocMutationVariables = {
 
 export type CreateDocMutation = {
   createDoc?:  {
-    __typename: "Doc",
-    docURL: string,
-    docType?: string | null,
-    projectID: string,
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    owner?: string | null,
-  } | null,
-};
-
-export type UpdateDocMutationVariables = {
-  input: UpdateDocInput,
-  condition?: ModelDocConditionInput | null,
-};
-
-export type UpdateDocMutation = {
-  updateDoc?:  {
     __typename: "Doc",
     docURL: string,
     docType?: string | null,
@@ -737,56 +673,7 @@ export type CreateTodoMutation = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
-        createdAt: string,
-        updatedAt: string,
-        codeProjectId?: string | null,
-        owner?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      projectCodeId?: string | null,
-      owner?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    owner?: string | null,
-  } | null,
-};
-
-export type UpdateTodoMutationVariables = {
-  input: UpdateTodoInput,
-  condition?: ModelTodoConditionInput | null,
-};
-
-export type UpdateTodoMutation = {
-  updateTodo?:  {
-    __typename: "Todo",
-    id: string,
-    todoURL: string,
-    todoTitle?: string | null,
-    lineNumber?: string | null,
-    check?: boolean | null,
-    projectID: string,
-    project?:  {
-      __typename: "Project",
-      id: string,
-      projectName: string,
-      language: string,
-      runResult?: string | null,
-      shareTo?: Array< string | null > | null,
-      docs?:  {
-        __typename: "ModelDocConnection",
-        nextToken?: string | null,
-      } | null,
-      todos?:  {
-        __typename: "ModelTodoConnection",
-        nextToken?: string | null,
-      } | null,
-      code?:  {
-        __typename: "Code",
-        id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -835,7 +722,120 @@ export type DeleteTodoMutation = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        codeProjectId?: string | null,
+        owner?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      projectCodeId?: string | null,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateCodeMutationVariables = {
+  input: UpdateCodeInput,
+  condition?: ModelCodeConditionInput | null,
+};
+
+export type UpdateCodeMutation = {
+  updateCode?:  {
+    __typename: "Code",
+    id: string,
+    sourceCode?: string | null,
+    project?:  {
+      __typename: "Project",
+      id: string,
+      projectName: string,
+      language: string,
+      runResult?: string | null,
+      shareTo?: Array< string | null > | null,
+      docs?:  {
+        __typename: "ModelDocConnection",
+        nextToken?: string | null,
+      } | null,
+      todos?:  {
+        __typename: "ModelTodoConnection",
+        nextToken?: string | null,
+      } | null,
+      code?:  {
+        __typename: "Code",
+        id: string,
+        sourceCode?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        codeProjectId?: string | null,
+        owner?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      projectCodeId?: string | null,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    codeProjectId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateDocMutationVariables = {
+  input: UpdateDocInput,
+  condition?: ModelDocConditionInput | null,
+};
+
+export type UpdateDocMutation = {
+  updateDoc?:  {
+    __typename: "Doc",
+    docURL: string,
+    docType?: string | null,
+    projectID: string,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateTodoMutationVariables = {
+  input: UpdateTodoInput,
+  condition?: ModelTodoConditionInput | null,
+};
+
+export type UpdateTodoMutation = {
+  updateTodo?:  {
+    __typename: "Todo",
+    id: string,
+    todoURL: string,
+    todoTitle?: string | null,
+    lineNumber?: string | null,
+    check?: boolean | null,
+    projectID: string,
+    project?:  {
+      __typename: "Project",
+      id: string,
+      projectName: string,
+      language: string,
+      runResult?: string | null,
+      shareTo?: Array< string | null > | null,
+      docs?:  {
+        __typename: "ModelDocConnection",
+        nextToken?: string | null,
+      } | null,
+      todos?:  {
+        __typename: "ModelTodoConnection",
+        nextToken?: string | null,
+      } | null,
+      code?:  {
+        __typename: "Code",
+        id: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -897,7 +897,7 @@ export type GetProjectQuery = {
     code?:  {
       __typename: "Code",
       id: string,
-      codeURL: string,
+      sourceCode?: string | null,
       project?:  {
         __typename: "Project",
         id: string,
@@ -949,7 +949,7 @@ export type ListProjectsQuery = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -972,7 +972,7 @@ export type GetCodeQuery = {
   getCode?:  {
     __typename: "Code",
     id: string,
-    codeURL: string,
+    sourceCode?: string | null,
     project?:  {
       __typename: "Project",
       id: string,
@@ -991,7 +991,7 @@ export type GetCodeQuery = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -1021,7 +1021,7 @@ export type ListCodesQuery = {
     items:  Array< {
       __typename: "Code",
       id: string,
-      codeURL: string,
+      sourceCode?: string | null,
       project?:  {
         __typename: "Project",
         id: string,
@@ -1114,7 +1114,7 @@ export type GetTodoQuery = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -1168,6 +1168,51 @@ export type ListTodosQuery = {
   } | null,
 };
 
+export type OnUpdateByCodeIdSubscriptionVariables = {
+  id: string,
+};
+
+export type OnUpdateByCodeIdSubscription = {
+  onUpdateByCodeId?:  {
+    __typename: "Code",
+    id: string,
+    sourceCode?: string | null,
+    project?:  {
+      __typename: "Project",
+      id: string,
+      projectName: string,
+      language: string,
+      runResult?: string | null,
+      shareTo?: Array< string | null > | null,
+      docs?:  {
+        __typename: "ModelDocConnection",
+        nextToken?: string | null,
+      } | null,
+      todos?:  {
+        __typename: "ModelTodoConnection",
+        nextToken?: string | null,
+      } | null,
+      code?:  {
+        __typename: "Code",
+        id: string,
+        sourceCode?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        codeProjectId?: string | null,
+        owner?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      projectCodeId?: string | null,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    codeProjectId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
 export type OnCreateProjectSubscriptionVariables = {
   owner?: string | null,
 };
@@ -1213,7 +1258,7 @@ export type OnCreateProjectSubscription = {
     code?:  {
       __typename: "Code",
       id: string,
-      codeURL: string,
+      sourceCode?: string | null,
       project?:  {
         __typename: "Project",
         id: string,
@@ -1283,7 +1328,7 @@ export type OnUpdateProjectSubscription = {
     code?:  {
       __typename: "Code",
       id: string,
-      codeURL: string,
+      sourceCode?: string | null,
       project?:  {
         __typename: "Project",
         id: string,
@@ -1353,7 +1398,7 @@ export type OnDeleteProjectSubscription = {
     code?:  {
       __typename: "Code",
       id: string,
-      codeURL: string,
+      sourceCode?: string | null,
       project?:  {
         __typename: "Project",
         id: string,
@@ -1386,7 +1431,7 @@ export type OnCreateCodeSubscription = {
   onCreateCode?:  {
     __typename: "Code",
     id: string,
-    codeURL: string,
+    sourceCode?: string | null,
     project?:  {
       __typename: "Project",
       id: string,
@@ -1405,7 +1450,7 @@ export type OnCreateCodeSubscription = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -1431,7 +1476,7 @@ export type OnUpdateCodeSubscription = {
   onUpdateCode?:  {
     __typename: "Code",
     id: string,
-    codeURL: string,
+    sourceCode?: string | null,
     project?:  {
       __typename: "Project",
       id: string,
@@ -1450,7 +1495,7 @@ export type OnUpdateCodeSubscription = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -1476,7 +1521,7 @@ export type OnDeleteCodeSubscription = {
   onDeleteCode?:  {
     __typename: "Code",
     id: string,
-    codeURL: string,
+    sourceCode?: string | null,
     project?:  {
       __typename: "Project",
       id: string,
@@ -1495,7 +1540,7 @@ export type OnDeleteCodeSubscription = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -1595,7 +1640,7 @@ export type OnCreateTodoSubscription = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -1643,7 +1688,7 @@ export type OnUpdateTodoSubscription = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,
@@ -1691,7 +1736,7 @@ export type OnDeleteTodoSubscription = {
       code?:  {
         __typename: "Code",
         id: string,
-        codeURL: string,
+        sourceCode?: string | null,
         createdAt: string,
         updatedAt: string,
         codeProjectId?: string | null,

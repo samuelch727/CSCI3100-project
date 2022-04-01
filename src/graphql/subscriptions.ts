@@ -2,6 +2,43 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onUpdateByCodeId = /* GraphQL */ `
+  subscription OnUpdateByCodeId($id: ID!) {
+    onUpdateByCodeId(id: $id) {
+      id
+      sourceCode
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
+      createdAt
+      updatedAt
+      codeProjectId
+      owner
+    }
+  }
+`;
 export const onCreateProject = /* GraphQL */ `
   subscription OnCreateProject($owner: String) {
     onCreateProject(owner: $owner) {
@@ -38,7 +75,7 @@ export const onCreateProject = /* GraphQL */ `
       }
       code {
         id
-        codeURL
+        sourceCode
         project {
           id
           projectName
@@ -98,7 +135,7 @@ export const onUpdateProject = /* GraphQL */ `
       }
       code {
         id
-        codeURL
+        sourceCode
         project {
           id
           projectName
@@ -158,7 +195,7 @@ export const onDeleteProject = /* GraphQL */ `
       }
       code {
         id
-        codeURL
+        sourceCode
         project {
           id
           projectName
@@ -186,7 +223,7 @@ export const onCreateCode = /* GraphQL */ `
   subscription OnCreateCode($owner: String) {
     onCreateCode(owner: $owner) {
       id
-      codeURL
+      sourceCode
       project {
         id
         projectName
@@ -201,7 +238,7 @@ export const onCreateCode = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -223,7 +260,7 @@ export const onUpdateCode = /* GraphQL */ `
   subscription OnUpdateCode($owner: String) {
     onUpdateCode(owner: $owner) {
       id
-      codeURL
+      sourceCode
       project {
         id
         projectName
@@ -238,7 +275,7 @@ export const onUpdateCode = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -260,7 +297,7 @@ export const onDeleteCode = /* GraphQL */ `
   subscription OnDeleteCode($owner: String) {
     onDeleteCode(owner: $owner) {
       id
-      codeURL
+      sourceCode
       project {
         id
         projectName
@@ -275,7 +312,7 @@ export const onDeleteCode = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -355,7 +392,7 @@ export const onCreateTodo = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -395,7 +432,7 @@ export const onUpdateTodo = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
@@ -435,7 +472,7 @@ export const onDeleteTodo = /* GraphQL */ `
         }
         code {
           id
-          codeURL
+          sourceCode
           createdAt
           updatedAt
           codeProjectId
