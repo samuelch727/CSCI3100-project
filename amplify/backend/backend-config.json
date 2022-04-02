@@ -23,6 +23,28 @@
           ]
         }
       }
+    },
+    "restapi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "collab",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "runCodeFunction",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     }
   },
   "auth": {
@@ -62,6 +84,11 @@
   "video": {},
   "function": {
     "runCodeFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "collab": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

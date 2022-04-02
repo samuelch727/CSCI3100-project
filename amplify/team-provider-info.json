@@ -20,6 +20,10 @@
         "runCodeFunction": {
           "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
           "s3Key": "amplify-builds/runCodeFunction-5261787a44684d354568-build.zip"
+        },
+        "collab": {
+          "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
+          "s3Key": "amplify-builds/collab-6768387a657641467653-build.zip"
         }
       }
     }
