@@ -9,11 +9,14 @@ Amplify.configure(awsconfig);
 
 function Login({ Component, pageProps }: AppProps) {
   return (
+    <div>
+      <div style={{color: "white", backgroundColor: "black", width:"100%"}}>Code Code Guide</div>
     <Authenticator>
       {({ signOut, user }) => (
         <Component {...pageProps} signOut={signOut} />
       )}
     </Authenticator>
+    </div>
   );
   // return <Component {...pageProps} />;
 }

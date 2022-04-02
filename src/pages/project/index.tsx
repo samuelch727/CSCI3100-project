@@ -67,6 +67,10 @@ export default function Home(props:any) {
         <div>
           <button onClick={props.signOut}>FUCK YOU AWS</button>
         </div>
+
+        <div>
+          <button onClick={props.signUp}>Help</button>
+        </div>
         
       </main>
 

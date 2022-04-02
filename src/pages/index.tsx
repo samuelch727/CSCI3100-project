@@ -5,6 +5,7 @@ import Link from 'next/link'
 import styles from "../styles/Home.module.css";
 // import { Auth } from "aws-amplify";
 import React from 'react';
+import Login from "../pages/login";
 // import Login from "./login";
 
 // const LoginButton = React.forwardRef(({ onClick, href }, ref) => {
