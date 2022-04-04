@@ -15,12 +15,6 @@
       "auth": {
         "csci3100project064b21e3": {},
         "csci3100project75aea3c4": {}
-      },
-      "function": {
-        "csci3100livevideostream": {
-          "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
-          "s3Key": "amplify-builds/csci3100livevideostream-4247333651746d7a2b6e-build.zip"
-        }
       }
     }
   }

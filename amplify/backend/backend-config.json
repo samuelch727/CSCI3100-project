@@ -63,7 +63,7 @@
   },
   "video": {},
   "function": {
-    "csci3100livevideostream": {
+    "csci3100livevideo": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
