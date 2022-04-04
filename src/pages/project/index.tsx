@@ -4,11 +4,21 @@ import Head from "next/head";
 // import styles from "../styles/Project.module.css";
 import { Auth } from "aws-amplify";
 import Link from "next/link";
+import { ConsoleLogger } from "@aws-amplify/core";
 
 export default function Home(props:any) {
   Auth.currentAuthenticatedUser().then((user) => {
     console.log(user);
   });
+
+  const signOut = async () => {
+    try {
+      await Auth.signOut();
+    } catch (error) {
+      console.log('errror signing out ', error);
+    }
+  };
+
   return (
     
     <div>
@@ -65,12 +75,12 @@ export default function Home(props:any) {
         </div> */}
 
         <div>
-          <button onClick={props.signOut}>FUCK YOU AWS</button>
+          <button onClick={signOut}>FUCK YOU AWS</button>
         </div>
 
-        <div>
-          <button onClick={props.signUp}>Help</button>
-        </div>
+          <div>
+            <button onClick={props.signUp}>Help</button>
+          </div>
         
       </main>
 

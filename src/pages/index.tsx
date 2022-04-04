@@ -42,7 +42,7 @@ export default function Home(props:any) {
           Log in to start coding now!</h1>
         </div>
         <div>
-          <Link href='./login'>Click here to Login!</Link>
+          <Link href='./signin'>Click here to Login!</Link>
         </div>
         
       </main>
