@@ -15,6 +15,12 @@
       "auth": {
         "csci3100project064b21e3": {},
         "csci3100project75aea3c4": {}
+      },
+      "function": {
+        "runCodeFunction": {
+          "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
+          "s3Key": "amplify-builds/runCodeFunction-5261787a44684d354568-build.zip"
+        }
       }
     }
   }

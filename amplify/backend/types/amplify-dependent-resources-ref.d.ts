@@ -7,7 +7,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "csci3100livevideostream": {
+        "runCodeFunction": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
