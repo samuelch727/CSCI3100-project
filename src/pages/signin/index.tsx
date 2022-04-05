@@ -44,9 +44,15 @@ const SignIn = () => {
       }
   };
 
+    //<div className="fixed inset-0 overflow-y-auto p-4 pt-[25vh]">
  return (
-    <div className = 'signIn'>
-     <TextField
+    <div className="">
+      <div className="max-w-xs">
+        <div className="text-sky-500 bg-gray-400">
+          testing
+        </div>
+     <TextField 
+      className="bg-slate-900"
        id = 'username'
        label = 'Username'
         value = {username}
@@ -63,7 +69,7 @@ const SignIn = () => {
         {/* <Link href="/project"> */}
             <Button id = 'SignInButton' onClick ={signIn}>Sign In</Button>
         {/* </Link> */}
-     
+     </div>
    </div>
   )
 }
