@@ -15,60 +15,30 @@ import Router from "next/router";
 
 Amplify.configure(awsExports);
 
-interface SignInProp {
-    onSignIn: () => void;
-}
+// interface SignInProp {
+//     onSignIn: () => void;
+// }
 
 const SignIn = () => {
-    const [loggedIn,setLoggedIn] = useState(true)
 
-  useEffect(() => {
-
-    async function AccessLoggedInState() {
-        try {
-            await Auth.currentAuthenticatedUser();
-            Router.push("/project");
-            return true
-        } catch {
-            return
-        }
-    }
-
-    AccessLoggedInState()
-  }, [])
-
-//   const AccessLoggedInState = () => {
-//     Auth.currentAuthenticatedUser()
-//     .then(() => {
-//       setLoggedIn(true);
-//     })
-//     .catch(() => {
-//       setLoggedIn(false);
-//     })
-//   }
-
-
-
-  const signOut = async () => {
-    try {
-      await Auth.signOut();
-      setLoggedIn(false)    } catch (error) {
-        console.log('error signing out', error);
-    }
-  };
-
-  const onSignIn = () => {
-    setLoggedIn(true) 
-  };
+  // const AccessLoggedInState = () => {
+  //   Auth.currentAuthenticatedUser()
+  //   .then(() => {
+  //     setLoggedIn(true);
+  //   })
+  //   .catch(() => {
+  //     setLoggedIn(false);
+  //   })
+  // }
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const signIn = async () => {
       try {
-          const user = await Auth.signIn(username, password);
-        //   onSignIn();
-        Router.push("/project");
+        const user = await Auth.signIn(username, password);
+        // onSignIn();
+        Router.push("/home");
       } catch (error) {
           console.log('there was an error logging in', error);
       }
@@ -78,7 +48,7 @@ const SignIn = () => {
     <div className = 'signIn'>
      <TextField
        id = 'username'
-      label = 'Username'
+       label = 'Username'
         value = {username}
        onChange = {e => setUsername(e.target.value)}
       />
@@ -94,8 +64,6 @@ const SignIn = () => {
             <Button id = 'SignInButton' onClick ={signIn}>Sign In</Button>
         {/* </Link> */}
      
-      
-
    </div>
   )
 }

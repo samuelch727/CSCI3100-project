@@ -12,13 +12,13 @@ import { TextField } from "@aws-amplify/ui-react";
 import Index from "../pages/index";
 import Link from "next/link";
 import Router from "next/router";
-import Login from "./login"
+import Login from "../component/login"
 
 Amplify.configure(awsExports);
 
-function MyApp({ Component , pageProps} : AppProps) {
+function MyApp({ Component , pageProps } : AppProps) {
   return (
-    <Login {...pageProps}>
+    <Login>
       <Component {...pageProps} />
     </Login>
   );
