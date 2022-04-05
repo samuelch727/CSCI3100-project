@@ -47,30 +47,33 @@ const SignIn = ({children}: SignInProp) => {
       }
   };
 
+    //<div className="fixed inset-0 overflow-y-auto p-4 pt-[25vh]">
  return (
-   <div>
-    {user ? <div>{children}</div> : <div className = 'signIn'>
-    <TextField
-      id = 'username'
-      label = 'Username'
-       value = {username}
-      onChange = {e => setUsername(e.target.value)}
-     />
-     <TextField
-       id = 'password'
-      label = 'Password'
-       value = {password}
-       onChange = {e => setPassword(e.target.value)}
-    
-     />
+    <div className="">
+      <div className="max-w-xs">
+        <div className="text-sky-500 bg-gray-400">
+          testing
+        </div>
+     <TextField 
+      className="bg-slate-900"
+       id = 'username'
+       label = 'Username'
+        value = {username}
+       onChange = {e => setUsername(e.target.value)}
+      />
+      <TextField
+        id = 'password'
+       label = 'Password'
+        value = {password}
+        onChange = {e => setPassword(e.target.value)}
+     
+      />
 
-       {/* <Link href="/home"> */}
-           <Button id = 'SignInButton' onClick ={() => {
-             console.log("button clicked");
-             signIn()
-             }}>Sign In</Button>
-       {/* </Link> */}
-   </div>}</div>
+        {/* <Link href="/project"> */}
+            <Button id = 'SignInButton' onClick ={signIn}>Sign In</Button>
+        {/* </Link> */}
+     </div>
+   </div>
   )
 }
 
