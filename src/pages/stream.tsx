@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { Menu } from "@headlessui/react";
-
+import { Fragment, useEffect, useRef, useState } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronDownIcon, UsersIcon } from "@heroicons/react/solid"
 interface streamInterface {
   user: [
     {
@@ -15,11 +15,13 @@ interface streamInterface {
   setPeerId: (id: string) => {};
 }
 
-function Stream({ user, setPeerId }: streamInterface) {
+
+function Stream({  setPeerId }: streamInterface) {
+  let user = [{userName:"ryan",peerId:"52276eea-654f-4845-8d92-24dcf08c0ce6",lineNumber:null, column: null }]
   console.log("Run Script");
   // const [peerId, setPeerId] = useState('');
   const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
-  const remoteVideoRef = useRef(null);
+  const remoteVideoRef = useRef([]);
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
 
@@ -116,49 +118,138 @@ function Stream({ user, setPeerId }: streamInterface) {
       });
   };
 
+  function displayChanging(peerId:string){
+    
+      call(peerId);
+
+  }
+
   return (
-    <div className="">
+    <div className="grid grid-cols-3 grid-row-3 gap-4">
+      <div className="col-span-2 row-span-3 content-center">
+        CODING BLOCKING
+      </div>
+      <div className="col-start-3 row-start-1 col-span-1 row-span-1 gap-4 justify-center content-center">
       <input
-        type="text"
+        type="PeerID" 
+        className="bg-blue-200 opacity-50 border-2 border-slate-900 "
         value={remotePeerIdValue}
         onChange={(e) => setRemotePeerIdValue(e.target.value)}
       />
-      <div className="bg-gray-500">test</div>
-      <button onClick={() => call(remotePeerIdValue)}>Call</button>
+      <button onClick={() => call(remotePeerIdValue)} className="bg-slate-900 text-white opacity-70 box-content h32 w32">Call</button>
       <div>
-        <video ref={currentUserVideoRef} />
+        <video className="h-42 w-42" ref={currentUserVideoRef} />
       </div>
       <div>
         <video ref={remoteVideoRef} />
       </div>
-        <Menu>
-          <Menu.Button>More</Menu.Button>
-          <Menu.Items>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  className={`${active && "bg-blue-500"}`}
-                  href="/account-settings"
-                >
-                  Account settings
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  className= "bg-blue-500"
-                  href="/account-settings"
-                >
-                  Documentation
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item disabled>
-              <span className="opacity-75">Invite a friend (coming soon!)</span>
-            </Menu.Item>
+      </div>
+      <div className="col-start-3 row-start-2 col-span-1 row-span-2 gap-4 justify-center content-center">
+        DOCUMENT BLOCK
+      </div>
+    <div className="w-56 text-right fixed top-16">
+      <Menu as="div" className="relative inline-block text-left">
+        <div>
+          <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+            User
+            <ChevronDownIcon
+              className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
+              aria-hidden="true"
+            />
+          </Menu.Button>
+        </div>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="px-1 py-1 ">
+              {/* {/* <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    
+                    Ryan
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    
+                    Samuel
+                  </button>
+                )} */}
+              {/* </Menu.Item> */}
+
+
+              {user.map((value, key) => {
+                if (!value.peerId) return null;
+
+                return (
+                  <Menu.Item>
+                    {({ active }) => (
+                  <button
+                    className="hover:bg-violet-500 hover:text-white text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm"
+                    // 
+                    onClick={() => displayChanging(value.peerId)}>
+                      
+                    {value.userName}
+                    
+                    </button>
+                )}
+                  </Menu.Item>
+                )
+              })}
+
+              
+              {/* <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    
+                   King
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}  
+                  >
+                    
+                    Kim
+                  </button>
+                )}
+              </Menu.Item> */} 
+            </div>
+            
           </Menu.Items>
-        </Menu>
+        </Transition>
+      </Menu>
+    </div>
+  
+
+
+
+
     </div>
   );
 }
@@ -168,3 +259,7 @@ export default Stream;
 function App() {
   return <div>test</div>;
 }
+function displayChanging(): void {
+  throw new Error("Function not implemented.");
+}
+
