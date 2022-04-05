@@ -4,23 +4,26 @@ import Head from "next/head";
 // import styles from "../styles/Project.module.css";
 import { Auth } from "aws-amplify";
 import Link from "next/link";
+import {useRouter} from "next/router";
 import { ConsoleLogger } from "@aws-amplify/core";
 
 export default function Home(props:any) {
-  Auth.currentAuthenticatedUser().then((user) => {
-    console.log(user);
-  });
+  // Auth.currentAuthenticatedUser().then((user) => {
+  //   console.log(user);
+  // });
+  const router = useRouter()
 
   const signOut = async () => {
     try {
       await Auth.signOut();
+      // setLoggedIn(false)
+      router.push("/");
     } catch (error) {
       console.log('errror signing out ', error);
     }
   };
 
-  return (
-    
+  return (    
     <div>
       <Head>
         <title>Code Code Guide fuck you </title>
@@ -44,42 +47,16 @@ export default function Home(props:any) {
           //...list projects here
         </div>
 
-        {/* <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div> */}
-
         <div>
-          <button onClick={signOut}>FUCK YOU AWS</button>
+          {/* <Link href="/"> */}
+            <button onClick={() => signOut()}>FUCK YOU AWS</button>
+          {/* </Link> */}
         </div>
 
           <div>
-            <button onClick={props.signUp}>Help</button>
+            {/* <Link href="/"> */}
+              <button onClick={props.signUp}>Help</button>
+            {/* </Link>  */}
           </div>
         
       </main>

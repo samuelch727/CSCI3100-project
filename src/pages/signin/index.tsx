@@ -11,15 +11,15 @@ import { useState, useEffect } from "react";
 import { TextField } from "@aws-amplify/ui-react";
 // import Index from "../pages/index";
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 Amplify.configure(awsExports);
 
-// interface SignInProp {
-//     onSignIn: () => void;
-// }
+interface SignInProp {
+    children: any;
+}
 
-const SignIn = () => {
+const SignIn = ({children}: SignInProp) => {
 
   // const AccessLoggedInState = () => {
   //   Auth.currentAuthenticatedUser()
@@ -30,41 +30,47 @@ const SignIn = () => {
   //     setLoggedIn(false);
   //   })
   // }
-
+  const router = useRouter()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
 
-  const signIn = async () => {
+  const signIn = async () => {    
       try {
-        const user = await Auth.signIn(username, password);
+        const userLogin = await Auth.signIn(username, password);
         // onSignIn();
-        Router.push("/home");
+        setUser(userLogin);
+        // console.log("push")
+        if (router.asPath === "/signin") router.push("/home");
       } catch (error) {
           console.log('there was an error logging in', error);
       }
   };
 
  return (
-    <div className = 'signIn'>
+   <div>
+    {user ? <div>{children}</div> : <div className = 'signIn'>
+    <TextField
+      id = 'username'
+      label = 'Username'
+       value = {username}
+      onChange = {e => setUsername(e.target.value)}
+     />
      <TextField
-       id = 'username'
-       label = 'Username'
-        value = {username}
-       onChange = {e => setUsername(e.target.value)}
-      />
-      <TextField
-        id = 'password'
-       label = 'Password'
-        value = {password}
-        onChange = {e => setPassword(e.target.value)}
-     
-      />
+       id = 'password'
+      label = 'Password'
+       value = {password}
+       onChange = {e => setPassword(e.target.value)}
+    
+     />
 
-        {/* <Link href="/project"> */}
-            <Button id = 'SignInButton' onClick ={signIn}>Sign In</Button>
-        {/* </Link> */}
-     
-   </div>
+       {/* <Link href="/home"> */}
+           <Button id = 'SignInButton' onClick ={() => {
+             console.log("button clicked");
+             signIn()
+             }}>Sign In</Button>
+       {/* </Link> */}
+   </div>}</div>
   )
 }
 

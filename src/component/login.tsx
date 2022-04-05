@@ -24,6 +24,7 @@ export default function Login(props:any) {
   // const [auth,checkAuth] = useState('')
   const router = useRouter()
   console.log("URL:", router.asPath)
+  console.log("LoggedIn:", loggedIn)
 
   useEffect(() => {
 
@@ -31,7 +32,7 @@ export default function Login(props:any) {
         try {
             await Auth.currentAuthenticatedUser();
             setLoggedIn(true);
-            router.push("/project");
+            // router.push("/home");
             return true
         } catch {
           setLoggedIn(false);
@@ -57,8 +58,10 @@ export default function Login(props:any) {
     if (router.asPath.includes("project")|| router.asPath.includes("home")) {
       console.log("need auth");
       return true
-      
-    }  else { console.log("need auth");return false } 
+    } else { 
+      console.log("No need auth");
+      return false 
+    } 
   }
   //   checkAuth()
   // }, [])
@@ -77,7 +80,7 @@ export default function Login(props:any) {
     <div>
       <div>
       { (loggedIn && checkAuth()) || !checkAuth() ? 
-        <div>{props.children}</div> : <div><SignIn /></div>
+        <div>{props.children}</div> : <div><SignIn children = {props.children}/></div>
       }
       </div>
     </div>
