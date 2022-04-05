@@ -1,28 +1,34 @@
 import "../styles/globals.css";
-import Head from "next/head";
-import Amplify, { Auth } from "aws-amplify";
-import awsExports from "../aws-exports";
-import {
-  Authenticator, Button
-} from "@aws-amplify/ui-react";
-//import "../project/index.css"
-import { AppProps } from "next/app";
-import { useState, useEffect } from "react";
-import { TextField } from "@aws-amplify/ui-react";
-import Index from "../pages/index";
-import Link from "next/link";
-import Router from "next/router";
-import Login from "../component/login"
+import type { AppProps } from "next/app";
+import Amplify from "aws-amplify";
+import awsconfig from "../aws-exports";
+import { Authenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { API, graphqlOperation } from "aws-amplify";
+import { listProjects } from "../graphql/queries";
+import '@aws-amplify/ui-react/styles.css';
+import { useEffect } from "react";
 
 Amplify.configure(awsExports);
 
-function MyApp({ Component , pageProps } : AppProps) {
+function MyApp({ Component, pageProps, signOut }: any) {
+  useEffect(() => {
+    async function fetchProject() {
+      try {
+        const project = await API.graphql(graphqlOperation(listProjects));
+        console.log(project);
+      } catch (err) { 
+        console.log(err);
+      }
+    }
+    fetchProject();
+  })
+
   return (
-    <Login>
-      <Component {...pageProps} />
-    </Login>
+    <Component {...pageProps} signOut={signOut}/>
   );
-} 
+  // return <Component {...pageProps} />;
+}
 
 //const SignIn = async() => {
  // const [username, setUsername] = useState();

@@ -2,14 +2,135 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getProject = /* GraphQL */ `
+  query GetProject($id: ID!) {
+    getProject(id: $id) {
+      id
+      projectName
+      language
+      runResult
+      shareTo
+      docs {
+        items {
+          docURL
+          docType
+          projectID
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      todos {
+        items {
+          id
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      code {
+        id
+        sourceCode
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
+        createdAt
+        updatedAt
+        codeProjectId
+        owner
+      }
+      createdAt
+      updatedAt
+      projectCodeId
+      owner
+    }
+  }
+`;
+export const listProjects = /* GraphQL */ `
+  query ListProjects(
+    $filter: ModelProjectFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getCode = /* GraphQL */ `
   query GetCode($id: ID!) {
     getCode(id: $id) {
       id
-      codeURL
-      shareTo
+      sourceCode
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
+      codeProjectId
       owner
     }
   }
@@ -23,8 +144,52 @@ export const listCodes = /* GraphQL */ `
     listCodes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        codeURL
-        shareTo
+        sourceCode
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
+        createdAt
+        updatedAt
+        codeProjectId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getDoc = /* GraphQL */ `
+  query GetDoc($id: ID!) {
+    getDoc(id: $id) {
+      docURL
+      docType
+      projectID
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listDocs = /* GraphQL */ `
+  query ListDocs(
+    $filter: ModelDocFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDocs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        docURL
+        docType
+        projectID
+        id
         createdAt
         updatedAt
         owner
@@ -42,7 +207,31 @@ export const getTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
@@ -63,135 +252,17 @@ export const listTodos = /* GraphQL */ `
         lineNumber
         check
         projectID
-        shareTo
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const getProject = /* GraphQL */ `
-  query GetProject($id: ID!) {
-    getProject(id: $id) {
-      id
-      documents {
-        items {
+        project {
           id
-          docURL
-          docType
-          projectID
+          projectName
+          language
+          runResult
           shareTo
           createdAt
           updatedAt
+          projectCodeId
           owner
         }
-        nextToken
-      }
-      projectName
-      language
-      code
-      todo
-      runResult
-      createTime
-      shareTo
-      Todos {
-        items {
-          id
-          todoURL
-          todoTitle
-          lineNumber
-          check
-          projectID
-          shareTo
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Code {
-        id
-        codeURL
-        shareTo
-        createdAt
-        updatedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      projectCodeId
-      owner
-    }
-  }
-`;
-export const listProjects = /* GraphQL */ `
-  query ListProjects(
-    $filter: ModelProjectFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        documents {
-          nextToken
-        }
-        projectName
-        language
-        code
-        todo
-        runResult
-        createTime
-        shareTo
-        Todos {
-          nextToken
-        }
-        Code {
-          id
-          codeURL
-          shareTo
-          createdAt
-          updatedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        projectCodeId
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const getDoc = /* GraphQL */ `
-  query GetDoc($id: ID!) {
-    getDoc(id: $id) {
-      id
-      docURL
-      docType
-      projectID
-      shareTo
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const listDocs = /* GraphQL */ `
-  query ListDocs(
-    $filter: ModelDocFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listDocs(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        docURL
-        docType
-        projectID
-        shareTo
         createdAt
         updatedAt
         owner

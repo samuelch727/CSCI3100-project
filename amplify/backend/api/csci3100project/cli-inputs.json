@@ -5,13 +5,16 @@
     "serviceName": "AppSync",
     "gqlSchemaPath": "/Users/samuelchan/Documents/Development/CSCI3100-project/amplify/backend/api/csci3100project/schema.graphql",
     "defaultAuthType": {
-      "mode": "API_KEY",
-      "expirationTime": 7
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authcsci3100project75aea3c4"
     },
+    "conflictResolution": {},
     "additionalAuthTypes": [
       {
-        "mode": "AMAZON_COGNITO_USER_POOLS",
-        "cognitoUserPoolId": "authcsci3100project75aea3c4"
+        "mode": "API_KEY",
+        "expirationTime": 30,
+        "apiKeyExpirationDate": "2022-05-01T05:22:13.854Z",
+        "keyDescription": "databaseAPIKey"
       }
     ]
   }

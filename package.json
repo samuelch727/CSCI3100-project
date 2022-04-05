@@ -9,10 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.10.3",
-    "aws-amplify": "^4.3.16",
+    "@heroicons/react": "^1.0.6",
+    "@monaco-editor/react": "^4.3.1",
+    "@aws-amplify/cli": "^7.6.26",
+    "@aws-amplify/ui-react": "^2.11.0",
+    "amplify": "^0.0.11",
+    "amplify-codegen": "^2.28.1",
+    "amplify-util-mock": "^4.3.12",
+    "aws-amplify": "^4.3.17",
     "bcrypt": "^5.0.1",
     "jsonwebtoken": "^8.5.1",
+    "kill-port": "^1.6.1",
     "mongoose": "^6.2.4",
     "next": "12.1.0",
     "react": "17.0.2",
@@ -23,10 +30,10 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "17.0.21",
     "@types/react": "17.0.39",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "^10.4.4",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
-    "postcss": "^8.4.7",
+    "postcss": "^8.4.12",
     "tailwindcss": "^3.0.23",
     "typescript": "4.6.2"
   }

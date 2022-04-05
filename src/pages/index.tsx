@@ -8,14 +8,12 @@ import React from 'react';
 import Login from "../component/login";
 // import Login from "./login";
 
-// const LoginButton = React.forwardRef(({ onClick, href }, ref) => {
-//   return (
-//     <a href={href} onClick={onClick} ref={ref}>Click here to Login!</a>
-//   )
-// })
-
 export default function Home(props:any) {
-  return (    
+  Auth.currentAuthenticatedUser().then((user) => {
+    console.log(user);
+  });
+  return (
+    
     <div>
       <Head>
         <title>Code Code Guide fuck you </title>
@@ -24,27 +22,22 @@ export default function Home(props:any) {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.header}>CodeCodeGuide</h1>
+        
+        <div className={styles.header}>Code Code Guide</div>
 
-        <nav style={{backgroundColor: "grey", width: "100%"}}>
-            <ul>
-                <li>
-                    <Link href='/'>Home</Link>
-                </li>
-                <li>
-                    <Link href='/project'>Project</Link>
-                </li>
-            </ul>
-        </nav>
+        <div className={styles.nav}>
+          Gonna fk up
+          {/* <code className={styles.code}>pages/index.tsx</code> */}
+        </div>
 
         <div className={styles.content}>
           <h1>Welcome to CodeCodeGuide! <br />
           Log in to start coding now!</h1>
         </div>
+
         <div>
-          <Link href='./signin'>Click here to Login!</Link>
+          <button onClick={props.signOut}> FUCK YOU AWS</button>
         </div>
-        
       </main>
 
       {/* <footer className={styles.footer}>
