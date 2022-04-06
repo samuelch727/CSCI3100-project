@@ -151,6 +151,7 @@ const SignIn = ({children}: SignInProp) => {
             </div>
           )
         }
+        <div><Link href="/"><button>Back to home</button></Link></div>
         <div>
           {
             error != null ? error : any
