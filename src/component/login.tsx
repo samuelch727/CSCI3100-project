@@ -22,6 +22,7 @@ Amplify.configure(awsconfig);
 export default function Login(props:any) {
   const [loggedIn,setLoggedIn] = useState(true)
   // const [auth,checkAuth] = useState('')
+  
   const router = useRouter()
   console.log("URL:", router.asPath)
   console.log("LoggedIn:", loggedIn)
