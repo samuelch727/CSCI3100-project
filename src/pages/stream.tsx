@@ -129,25 +129,79 @@ function Stream({  setPeerId }: streamInterface) {
       <div className="col-span-2 row-span-3 content-center">
         CODING BLOCKING
       </div>
-      <div className="col-start-3 row-start-1 col-span-1 row-span-1 gap-4 justify-center content-center">
-      <input
+      <div className="col-start-3 row-start-1 col-span-1 row-span-1 gap-4 justify-end content-end w-96 h-60">
+      {/* <input
         type="PeerID" 
         className="bg-blue-200 opacity-50 border-2 border-slate-900 "
         value={remotePeerIdValue}
         onChange={(e) => setRemotePeerIdValue(e.target.value)}
-      />
-      <button onClick={() => call(remotePeerIdValue)} className="bg-slate-900 text-white opacity-70 box-content h32 w32">Call</button>
+      /> */}
+      {/* <button onClick={() => call(remotePeerIdValue)} className="bg-slate-900 text-white opacity-70 box-content h32 w32">Call</button> */}
       <div>
-        <video className="h-42 w-42" ref={currentUserVideoRef} />
-      </div>
+        <div className="box-content h-48 w-96 justify-end">
+          <video className="object-cover h-48 w-96  " ref={currentUserVideoRef} />
+        </div>
       <div>
-        <video ref={remoteVideoRef} />
+      </div>
+        </div>
+        
+        <div className="flex">
+        <button onClick={() => call(remotePeerIdValue)} className="bg-slate-900 text-white opacity-70 box-content h-12 w-24">Call</button>
+      <Menu as="div" className="">
+        <div>
+          <Menu.Button className="grid place-items-center px-0 py-0 w-72 h-12 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 z-10">
+            <div className="flex">
+            User
+            <ChevronDownIcon
+              className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
+              aria-hidden="true"
+            />
+            </div>
+          </Menu.Button>
+        </div>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100 z-10"
+          enterFrom="transform opacity-0 scale-95 z-10"
+          enterTo="transform opacity-100 scale-100 z-10"
+          leave="transition ease-in duration-75 z-10"
+          leaveFrom="transform opacity-100 scale-100 z-10"
+          leaveTo="transform opacity-0 scale-95 z-10"
+        >
+          {/* <Menu.Items className="absolute right-0 w-200 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"> */}
+          <Menu.Items className="absolute">
+            <div className="px-1 py-1 z-10">
+            {user.map((value, key) => {
+                if (!value.peerId) return null;
+
+                return (
+                  <Menu.Item>
+                    {({ active }) => (
+                  <button
+                  style={{zIndex: 20}}
+                    className="z-10 bg-white hover:bg-violet-500 hover:text-white text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm z-10"
+                    // 
+                    onClick={() => displayChanging(value.peerId)}>
+                      
+                    {value.userName}
+                    
+                    </button>
+                )}
+                  </Menu.Item>
+                )
+              })}
+              </div>
+            
+            </Menu.Items>
+          </Transition>
+        </Menu>
       </div>
       </div>
-      <div className="col-start-3 row-start-2 col-span-1 row-span-2 gap-4 justify-center content-center">
+      
+      <div className="">
         DOCUMENT BLOCK
       </div>
-    <div className="w-56 text-right fixed top-16">
+    {/* <div className="w-56 text-right fixed top-16">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -195,7 +249,7 @@ function Stream({  setPeerId }: streamInterface) {
               {/* </Menu.Item> */}
 
 
-              {user.map((value, key) => {
+              {/* {user.map((value, key) => {
                 if (!value.peerId) return null;
 
                 return (
@@ -212,7 +266,7 @@ function Stream({  setPeerId }: streamInterface) {
                 )}
                   </Menu.Item>
                 )
-              })}
+              })} */}
 
               
               {/* <Menu.Item>
@@ -241,16 +295,16 @@ function Stream({  setPeerId }: streamInterface) {
               </Menu.Item> */} 
             </div>
             
-          </Menu.Items>
-        </Transition>
-      </Menu>
-    </div>
+    //       </Menu.Items>
+    //     </Transition>
+    //   </Menu>
+    // </div> */}
   
 
 
 
 
-    </div>
+    // </div>
   );
 }
 
