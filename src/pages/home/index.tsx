@@ -15,6 +15,7 @@ import { Project, ListProjectsQuery } from "../../API";
 import { useEffect, useState } from "react";
 //import { useUser } from "../context/AuthContext"
 import awsconfig from "../../aws-exports"
+// import {Paper} from "@material-ui/core";
 // import GraphQLAPI from "@aws-amplify/api-graphql";
 // import Login from "../login";
 
@@ -32,19 +33,22 @@ export default function Home(props:any) {
   
   API.configure(awsconfig);
   const [loggedIn,setLoggedIn] = useState(true)
+  const [user, updateUser] = useState(null)
 
   useEffect(() => {
 
     async function AccessLoggedInState() {
-        try {
-            await Auth.currentAuthenticatedUser();
-            setLoggedIn(true);
-            // router.push("/home");
-            return true
-        } catch {
-          setLoggedIn(false);
-          return false
-        }
+      try {
+          const user = await Auth.currentAuthenticatedUser();
+          // console.log(user)
+          updateUser(user)
+          setLoggedIn(true);
+          // router.push("/home");
+          return true
+      } catch {
+        setLoggedIn(false);
+        return false
+      }
     }
 
     AccessLoggedInState()
@@ -56,7 +60,9 @@ export default function Home(props:any) {
   console.log(pid);
   console.log(pName);
   //const { user } = useUser();
+  
   const [project,setProject ] = useState<Project[]>([]) ;
+  // const allProjects = await API.graphql(graphqlOperation(listProjects));
   // project = 10 setProject(10)
   useEffect(() => {
     
@@ -103,7 +109,15 @@ export default function Home(props:any) {
         </nav> */}
 
         {console.log("Login Status in home:",loggedIn)}
+        {console.log("User:",user)}
 
+        {/* <div className="projectList">
+          {
+            project.map(project => {
+              return <div>{project.id}{project.language}</div> 
+            })
+          }
+        </div> */}
         <div>
           <Button onClick={()=>signOut()}>Sign Out</Button>
         </div>

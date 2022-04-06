@@ -78,7 +78,6 @@ const SignIn = ({children}: SignInProp) => {
         const userLogin = await Auth.signIn(username, password);
         // onSignIn();
         setUser(userLogin);
-        // console.log("push")
         if (router.asPath === "/signin") router.push("/home");
       } catch (error) {
         setError(error.toString());
@@ -155,7 +154,7 @@ const SignIn = ({children}: SignInProp) => {
           { error != null ? error : any }
         </div>
         <div><Link href="/"><button>Back to home</button></Link></div>
-        </div>  
+      </div>  
 
      /* <TextField 
        id = 'username'
@@ -174,8 +173,8 @@ const SignIn = ({children}: SignInProp) => {
       /* <Button id = 'SignUpButton' onClick ={()=> updateFormState(()=> ({
         ...formState, formType: "signUp"
         }))}>Sign Up</Button> */
-      }
-      </div>
+    }
+    </div>
   )
 }
 
