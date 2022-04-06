@@ -35,8 +35,8 @@ const SignIn = ({children}: SignInProp) => {
   //   })
   // }
   const router = useRouter()
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  //const [username, setUsername] = useState('');
+  //const [password, setPassword] = useState('');
   const [formState, updateFormState] = useState(initialFormState)
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
@@ -74,7 +74,7 @@ const SignIn = ({children}: SignInProp) => {
 
   const signIn = async () => {    
       try {
-        // const { username, password } = formState
+        const { username, password } = formState
         const userLogin = await Auth.signIn(username, password);
         // onSignIn();
         setUser(userLogin);
@@ -109,7 +109,6 @@ const SignIn = ({children}: SignInProp) => {
                   type = 'password'
                   value = {password}
                   onChange = {e => setPassword(e.target.value)}
-              
                 /> */}
               <Button onClick={()=>signIn()}>Sign In</Button>
               <Button id = 'SignUpButton' onClick ={()=> {
