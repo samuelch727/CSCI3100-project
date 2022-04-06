@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "csci3100project064b21e3_identitypool_064b21e3",
+    "identityPoolName": "csci3100project75aea3c4_identitypool_75aea3c4",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "csci31064b21e3",
-    "userPoolName": "csci3100project064b21e3_userpool_064b21e3",
+    "resourceNameTruncated": "csci3175aea3c4",
+    "userPoolName": "csci3100project75aea3c4_userpool_75aea3c4",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -20,7 +20,8 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email"
+      "email",
+      "name"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
@@ -31,15 +32,13 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "csci31064b21e3_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "csci3175aea3c4_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "064b21e3",
-    "resourceName": "csci3100project064b21e3",
+    "sharedId": "75aea3c4",
+    "resourceName": "csci3100project75aea3c4",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
-    "usernameAttributes": [
-      "email"
-    ],
+    "triggers": {},
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
