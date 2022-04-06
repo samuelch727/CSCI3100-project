@@ -84,10 +84,10 @@ export default function Login(props:any) {
       { (loggedIn && checkAuth()) || !checkAuth() ? 
         <div>
           {props.children}
-          {loggedIn ? <div><Button onClick={()=> signOut()}>Sign Out</Button></div> : <div></div>}          
+          {/* {loggedIn ? <div><Button onClick={()=> signOut()}>Sign Out</Button></div> : <div></div>}           */}
         </div> : <div><SignIn children = {props.children}/></div>
       }
-      {console.log("Refreshed. LoggedIn:", loggedIn)}
+      {console.log("Login status in index:", loggedIn)}
       </div>
     </div>
   );

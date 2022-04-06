@@ -3,6 +3,7 @@ import Head from "next/head";
 // import Image from "next/image";
 // import styles from "../styles/Project.module.css";
 import { Auth, } from "aws-amplify";
+import {Button} from "@aws-amplify/ui-react";
 import Link from "next/link";
 import { ConsoleLogger } from "@aws-amplify/core";
 //import CodeBlock from "../../components/CodeBlock";
@@ -30,6 +31,24 @@ import awsconfig from "../../aws-exports"
 export default function Home(props:any) {
   
   API.configure(awsconfig);
+  const [loggedIn,setLoggedIn] = useState(true)
+
+  useEffect(() => {
+
+    async function AccessLoggedInState() {
+        try {
+            await Auth.currentAuthenticatedUser();
+            setLoggedIn(true);
+            // router.push("/home");
+            return true
+        } catch {
+          setLoggedIn(false);
+          return false
+        }
+    }
+
+    AccessLoggedInState()
+  }, [])
 
 
   const router = useRouter();
@@ -52,6 +71,7 @@ export default function Home(props:any) {
   const signOut = async () => {
     try {
       await Auth.signOut();
+      setLoggedIn(false);
       router.push("/")
     } catch (error) {
       console.log('error signing out ', error);
@@ -61,8 +81,6 @@ export default function Home(props:any) {
  // <CodeBlock language="python" width="100vw" height="90vh" />
 
   return (
-    
-
     <div>
        
       <Head>
@@ -84,52 +102,11 @@ export default function Home(props:any) {
             </ul>
         </nav> */}
 
+        {console.log("Login Status in home:",loggedIn)}
 
-
-
-
-
-    
-
-        {/* 
-        
-
-            //    {project.map((Project) => ())}
-        
-        
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div> */}
-
-        {/* <div>
-          <button onClick={()=>signOut()}>FUCK YOU AWS</button>
-        </div> */}
+        <div>
+          <Button onClick={()=>signOut()}>Sign Out</Button>
+        </div>
 
           {/* <div>
             <button onClick={props.signUp}>Help</button>
