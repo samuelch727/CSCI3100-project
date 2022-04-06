@@ -25,7 +25,7 @@ export default function Login(props:any) {
   
   const router = useRouter()
   console.log("URL:", router.asPath)
-  console.log("LoggedIn:", loggedIn)
+  //console.log("LoggedIn:", loggedIn)
 
   useEffect(() => {
 
@@ -48,10 +48,11 @@ export default function Login(props:any) {
     try {
       await Auth.signOut();
       setLoggedIn(false)
+      router.push("/")
     } catch (error) {
         console.log('error signing out', error);
     }
-  };
+  }
 
   // useEffect(() => {
     const checkAuth = () => {
@@ -78,11 +79,15 @@ export default function Login(props:any) {
   //  });
  // });
   return (
-    <div>
+    <div> 
       <div>
       { (loggedIn && checkAuth()) || !checkAuth() ? 
-        <div>{props.children}</div> : <div><SignIn children = {props.children}/></div>
+        <div>
+          {props.children}
+          {loggedIn ? <div><Button onClick={()=> signOut()}>Sign Out</Button></div> : <div></div>}          
+        </div> : <div><SignIn children = {props.children}/></div>
       }
+      {console.log("Refreshed. LoggedIn:", loggedIn)}
       </div>
     </div>
   );

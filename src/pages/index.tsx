@@ -31,9 +31,6 @@ export default function Home(props:any) {
                 <li>
                     <Link href='/'>Home</Link>
                 </li>
-                <li>
-                    <Link href='/home'>Project</Link>
-                </li>
             </ul>
         </nav>
 

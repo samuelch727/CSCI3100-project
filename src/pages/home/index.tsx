@@ -14,17 +14,17 @@ import { Project, ListProjectsQuery } from "../../API";
 import { useEffect, useState } from "react";
 //import { useUser } from "../context/AuthContext"
 import awsconfig from "../../aws-exports"
-import GraphQLAPI from "@aws-amplify/api-graphql";
-import Login from "../login";
+// import GraphQLAPI from "@aws-amplify/api-graphql";
+// import Login from "../login";
 
-const QUERY_LIST_OF_COUNTRIES = `
-  {
-    query ListProjects {
-      pid
-      pName
-    }
-  }
-`;
+// const QUERY_LIST_OF_COUNTRIES = `
+//   {
+//     query ListProjects {
+//       pid
+//       pName
+//     }
+//   }
+// `;
 
 
 export default function Home(props:any) {
@@ -49,12 +49,10 @@ export default function Home(props:any) {
     fetchProject();
   }, []);
   
-
-  
-
   const signOut = async () => {
     try {
       await Auth.signOut();
+      router.push("/")
     } catch (error) {
       console.log('error signing out ', error);
     }
@@ -78,13 +76,13 @@ export default function Home(props:any) {
         
         
         <div style={{color: "white", backgroundColor: "black", width:"100%"}}>Code Code Guide</div>
-        <nav style={{backgroundColor: "grey"}}>
+        {/* <nav style={{backgroundColor: "grey"}}>
             <ul>
                 <li>
                     <Link href='/'>Back To Home</Link>
                 </li>
             </ul>
-        </nav>
+        </nav> */}
 
 
 
@@ -129,13 +127,13 @@ export default function Home(props:any) {
           </a>
         </div> */}
 
-        <div>
-          <button onClick={signOut}>FUCK YOU AWS</button>
-        </div>
+        {/* <div>
+          <button onClick={()=>signOut()}>FUCK YOU AWS</button>
+        </div> */}
 
-          <div>
+          {/* <div>
             <button onClick={props.signUp}>Help</button>
-          </div>
+          </div> */}
         
       </main>
     </div>

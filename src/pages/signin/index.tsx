@@ -12,7 +12,7 @@ import { TextField } from "@aws-amplify/ui-react";
 // import Index from "../pages/index";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import SignUp from "../../component/signup";
+// import SignUp from "../../component/signup";
 
 Amplify.configure(awsExports);
 
@@ -84,7 +84,7 @@ const SignIn = ({children}: SignInProp) => {
         setError(error.toString());
         console.log('there was an error logging in', error);
       }
-  };
+  }
 
     //<div className="fixed inset-0 overflow-y-auto p-4 pt-[25vh]">
   return (
