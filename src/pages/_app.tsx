@@ -12,18 +12,6 @@ import { useEffect } from "react";
 Amplify.configure(awsconfig);
 
 function MyApp({ Component, pageProps, signOut }: any) {
-  useEffect(() => {
-    async function fetchProject() {
-      try {
-        const project = await API.graphql(graphqlOperation(listProjects));
-        console.log(project);
-      } catch (err) { 
-        console.log(err);
-      }
-    }
-    fetchProject();
-  })
-
   return (
     <Component {...pageProps} signOut={signOut}/>
   );
