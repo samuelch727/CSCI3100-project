@@ -2472,24 +2472,19 @@ exports.handler = async (event) => {
         break;
       case "$disconnect":
         {
-          const index = room[user[connectionId].roomId].ids.indexOf(
-            connectionId
-          );
           const roomId = user[connectionId].roomId;
+          console.log("disconnect: code: ", code[roomId].Item);
+          const index = room[roomId].ids.indexOf(connectionId);
           if (index > -1) {
             room[user[connectionId].roomId].ids.splice(index, 1);
             room[user[connectionId].roomId].users.splice(index, 1);
           }
-          delete user[connectionId];
-          await sendToAll(room[roomId].ids, {
-            users: room[roomId].users,
-          });
-          if (room[roomId].ids.length() === 0) {
+          if (room[roomId].ids.length === 1) {
             await db
               .update({
                 TableName: "Code-4d4jjy7xifabfifsoxvklyotf4-dev",
                 Key: {
-                  id: code[roomId].Item.projectCodeId,
+                  id: code[roomId].Item.id,
                 },
                 UpdateExpression: "set sourceCode = :s",
                 ExpressionAttributeValues: {
@@ -2497,8 +2492,12 @@ exports.handler = async (event) => {
                 },
               })
               .promise();
-            delete room[roomId];
+            delete code[roomId];
           }
+          delete user[connectionId];
+          await sendToAll(room[roomId].ids, {
+            users: room[roomId].users,
+          });
         }
         break;
       case "$default":

@@ -1,13 +1,6 @@
 {
   "version": 1,
   "paths": {
-    "/collab": {
-      "name": "/collab",
-      "lambdaFunction": "collab",
-      "permissions": {
-        "setting": "open"
-      }
-    },
     "/compile": {
       "name": "/compile",
       "lambdaFunction": "runCodeFunction",

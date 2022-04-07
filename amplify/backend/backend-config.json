@@ -30,14 +30,6 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "collab",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
-        {
-          "category": "function",
           "resourceName": "runCodeFunction",
           "attributes": [
             "Name",

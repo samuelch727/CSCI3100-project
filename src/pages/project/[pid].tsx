@@ -8,6 +8,8 @@ import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { Auth } from "aws-amplify";
 import { diff_match_patch } from "../../functions/diff_match_patch_uncompressed";
 import { v4 as uuidv4 } from "uuid";
+import CodeInputOutput from "../../components/CodeInputOutput";
+import awsconfig from "../../aws-exports";
 
 interface CodeLocation {
   lineNumber: number;
@@ -20,18 +22,23 @@ interface UserData {
 }
 
 export default function Code() {
+  API.configure(awsconfig);
   const socket = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [users, setUsers] = useState<UserData[]>([]);
   const [sourceCode, setSourceCode] = useState("This\nis\na\ntest");
   const codeBlock = useRef(null);
+  const codeBar = useRef(null);
   let lastSentCode = "";
   let sentUUId = "";
+  // let outPut = "";
   const [connectionId, setConnectionId] = useState("");
   const originalText = "This\nis\na\ntest";
   const router = useRouter();
   const { pid } = router.query;
   const [project, setProject] = useState<Project>();
+  const [outPut, setOutPut] = useState("");
+  const CIORef = useRef(null);
   const socketUrl =
     "wss://fq6x2i22xb.execute-api.ap-southeast-1.amazonaws.com/production";
 
@@ -91,7 +98,7 @@ export default function Code() {
     if (data.initCode) {
       console.log(data.initCode);
       lastSentCode = data.initCode;
-      codeBlock.current(null, data.initCode);
+      codeBlock.current.updateSourceCode(null, data.initCode);
     }
     if (data.sourceCode) {
       // let patchResult = dmp.patch_apply(
@@ -105,7 +112,7 @@ export default function Code() {
           .patch_apply(dmp.patch_fromText(data.sourceCode), lastSentCode)[0]
           .toString();
         console.log("lastSentCode: ", lastSentCode);
-        codeBlock.current(data.sourceCode);
+        codeBlock.current.updateSourceCode(data.sourceCode);
       }
     }
   }, []);
@@ -185,6 +192,31 @@ export default function Code() {
     };
   }
 
+  async function runCode() {
+    console.log("run click");
+    codeBar.current.setIsRunning(true);
+    API.post("restapi", "/compile", {
+      body: {
+        code: codeBlock.current.sourceCode,
+        language: "PYTHON",
+        input:
+          CIORef.current.inputValue === "" ? "\n" : CIORef.current.inputValue,
+        expected: "",
+      },
+    })
+      .then((res) => {
+        CIORef.current.setOutPut(res.output);
+        setOutPut(res.output);
+        console.log(res);
+        codeBar.current.setIsRunning(false);
+      })
+      .catch((err) => {
+        console.log("error when running code");
+        console.log(err.response.data);
+        codeBar.current.setIsRunning(false);
+      });
+  }
+
   function updateLocation(location: CodeLocation) {
     socket.current?.send(
       JSON.stringify({ action: "sendCodeLocation", codeLocation: location })
@@ -219,24 +251,35 @@ export default function Code() {
   }, [pid]);
 
   return (
-    <div>
-      <CodeControlBar
-        height="10vh"
-        width="100vw"
-        title={project?.projectName ?? "Untitled Project"}
-      />
-      <CodeBlock
-        updateCodeFromSocket={codeBlock}
-        language="python"
-        width="100vw"
-        height="90vh"
-        connectionId={connectionId}
-        id={project?.projectCodeId}
-        users={users}
-        updateCode={(code: string, userLocation: any) =>
-          updateCode(code, userLocation)
-        }
-      />
+    <div className="flex">
+      <div>
+        <CodeControlBar
+          height="10vh"
+          width="75vw"
+          title={project?.projectName ?? "Untitled Project"}
+          disableRun={project?.language ? false : true}
+          runCode={runCode}
+          refFromParent={codeBar}
+        />
+        <CodeBlock
+          updateCodeFromSocket={codeBlock}
+          language="python"
+          width="75vw"
+          height="70vh"
+          connectionId={connectionId}
+          id={project?.projectCodeId}
+          users={users}
+          updateCode={(code: string, userLocation: any) =>
+            updateCode(code, userLocation)
+          }
+        />
+        <CodeInputOutput
+          width="75vw"
+          height="20vh"
+          refFromParent={CIORef}
+          outPut={outPut}
+        />
+      </div>
     </div>
   );
 }

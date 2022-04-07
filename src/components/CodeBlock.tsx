@@ -62,13 +62,12 @@ export default function CodeBlock({
   const dmp = new diff_match_patch();
 
   useEffect(() => {
-    updateCodeFromSocket.current = updateSourceCode;
+    updateCodeFromSocket.current = {updateSourceCode: updateSourceCode, sourceCode: sourceCode};
   })
 
   function handleEditorDidMount(editor: any, monaco: any) {
     editorRef.current = editor;
     setOtherUserTag();
-    
   }
 
     function updateSourceCode(patch: string, code: string) {
