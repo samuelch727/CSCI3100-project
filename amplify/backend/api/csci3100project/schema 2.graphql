@@ -1,0 +1,62 @@
+type Code @model 
+  @auth(rules: [
+    { allow: owner },
+    { allow: owner, ownerField: "shareTo", operations: [read, update] }
+  ]) {
+  id: ID!
+  codeURL: AWSURL
+  shareTo: [String]
+}
+
+type Todo @model 
+  @auth(rules: [
+    { allow: owner }, 
+    { allow: owner, ownerField: "shareTo", operations: [read, update] }
+  ]) {
+  id: ID!
+  todoURL: AWSURL
+  todoTitle: String
+  lineNumber: Int
+  check: Boolean
+  projectID: ID! @index(name: "byProject")
+  shareTo: [String]
+}
+
+type Project @model
+  @auth(
+    # query: [
+    #     { rule: """query {
+    #         queryProject(filter: { isPublic: { eq: true } } ) {
+    #             id
+    #         }
+    #     }""" }
+    # ]
+    rules: [
+        { allow: owner },
+        { allow: owner, ownerField: "shareTo", operations: [read, update] }
+    ]
+  ) {
+  id: ID!
+  documents: [Doc] @hasMany(indexName: "byProject", fields: ["id"])
+  projectName: String!
+  language: String!
+  code: String #???
+  todo: String #???
+  runResult: String
+  createTime: AWSTimestamp
+  shareTo: [String]
+  Todos: [Todo] @hasMany(indexName: "byProject", fields: ["id"])
+  Code: Code @hasOne
+}
+
+type Doc @model 
+  @auth(rules: [
+    { allow: owner },
+    { allow: owner, ownerField: "shareTo", operations: [read, update] }
+  ]) {
+  id: ID!
+  docURL: AWSURL!
+  docType: String
+  projectID: ID! @index(name: "byProject")
+  shareTo: [String]
+}

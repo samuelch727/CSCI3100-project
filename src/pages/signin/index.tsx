@@ -51,7 +51,7 @@ const SignIn = ({children}: SignInProp) => {
 
   async function signUp() {
     try {
-      const { username, email, password } = formState
+      const { username, email, password, name } = formState
       await Auth.signUp({ username, password, attributes: {email, name}})
       updateFormState(()=>({...formState, formType: "confirmSignUp"}))
     } catch(error) {

@@ -2,6 +2,195 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createProject = /* GraphQL */ `
+  mutation CreateProject(
+    $input: CreateProjectInput!
+    $condition: ModelProjectConditionInput
+  ) {
+    createProject(input: $input, condition: $condition) {
+      id
+      projectName
+      language
+      runResult
+      shareTo
+      docs {
+        items {
+          docURL
+          docType
+          projectID
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      todos {
+        items {
+          id
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      code {
+        id
+        sourceCode
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
+        createdAt
+        updatedAt
+        codeProjectId
+        owner
+      }
+      createdAt
+      updatedAt
+      projectCodeId
+      owner
+    }
+  }
+`;
+export const updateProject = /* GraphQL */ `
+  mutation UpdateProject(
+    $input: UpdateProjectInput!
+    $condition: ModelProjectConditionInput
+  ) {
+    updateProject(input: $input, condition: $condition) {
+      id
+      projectName
+      language
+      runResult
+      shareTo
+      docs {
+        items {
+          docURL
+          docType
+          projectID
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      todos {
+        items {
+          id
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      code {
+        id
+        sourceCode
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
+        createdAt
+        updatedAt
+        codeProjectId
+        owner
+      }
+      createdAt
+      updatedAt
+      projectCodeId
+      owner
+    }
+  }
+`;
+export const deleteProject = /* GraphQL */ `
+  mutation DeleteProject(
+    $input: DeleteProjectInput!
+    $condition: ModelProjectConditionInput
+  ) {
+    deleteProject(input: $input, condition: $condition) {
+      id
+      projectName
+      language
+      runResult
+      shareTo
+      docs {
+        items {
+          docURL
+          docType
+          projectID
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      todos {
+        items {
+          id
+          todoURL
+          todoTitle
+          lineNumber
+          check
+          projectID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      code {
+        id
+        sourceCode
+        project {
+          id
+          projectName
+          language
+          runResult
+          shareTo
+          createdAt
+          updatedAt
+          projectCodeId
+          owner
+        }
+        createdAt
+        updatedAt
+        codeProjectId
+        owner
+      }
+      createdAt
+      updatedAt
+      projectCodeId
+      owner
+    }
+  }
+`;
 export const createCode = /* GraphQL */ `
   mutation CreateCode(
     $input: CreateCodeInput!
@@ -9,25 +198,35 @@ export const createCode = /* GraphQL */ `
   ) {
     createCode(input: $input, condition: $condition) {
       id
-      codeURL
-      shareTo
+      sourceCode
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
-      owner
-    }
-  }
-`;
-export const updateCode = /* GraphQL */ `
-  mutation UpdateCode(
-    $input: UpdateCodeInput!
-    $condition: ModelCodeConditionInput
-  ) {
-    updateCode(input: $input, condition: $condition) {
-      id
-      codeURL
-      shareTo
-      createdAt
-      updatedAt
+      codeProjectId
       owner
     }
   }
@@ -39,8 +238,65 @@ export const deleteCode = /* GraphQL */ `
   ) {
     deleteCode(input: $input, condition: $condition) {
       id
-      codeURL
-      shareTo
+      sourceCode
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
+      createdAt
+      updatedAt
+      codeProjectId
+      owner
+    }
+  }
+`;
+export const createDoc = /* GraphQL */ `
+  mutation CreateDoc(
+    $input: CreateDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    createDoc(input: $input, condition: $condition) {
+      docURL
+      docType
+      projectID
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteDoc = /* GraphQL */ `
+  mutation DeleteDoc(
+    $input: DeleteDocInput!
+    $condition: ModelDocConditionInput
+  ) {
+    deleteDoc(input: $input, condition: $condition) {
+      docURL
+      docType
+      projectID
+      id
       createdAt
       updatedAt
       owner
@@ -59,26 +315,31 @@ export const createTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
-  ) {
-    updateTodo(input: $input, condition: $condition) {
-      id
-      todoURL
-      todoTitle
-      lineNumber
-      check
-      projectID
-      shareTo
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
@@ -97,197 +358,73 @@ export const deleteTodo = /* GraphQL */ `
       lineNumber
       check
       projectID
-      shareTo
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const createProject = /* GraphQL */ `
-  mutation CreateProject(
-    $input: CreateProjectInput!
-    $condition: ModelProjectConditionInput
-  ) {
-    createProject(input: $input, condition: $condition) {
-      id
-      documents {
-        items {
-          id
-          docURL
-          docType
-          projectID
-          shareTo
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      projectName
-      language
-      code
-      todo
-      runResult
-      createTime
-      shareTo
-      Todos {
-        items {
-          id
-          todoURL
-          todoTitle
-          lineNumber
-          check
-          projectID
-          shareTo
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Code {
+      project {
         id
-        codeURL
+        projectName
+        language
+        runResult
         shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
         createdAt
         updatedAt
+        projectCodeId
         owner
       }
       createdAt
       updatedAt
-      projectCodeId
       owner
     }
   }
 `;
-export const updateProject = /* GraphQL */ `
-  mutation UpdateProject(
-    $input: UpdateProjectInput!
-    $condition: ModelProjectConditionInput
+export const updateCode = /* GraphQL */ `
+  mutation UpdateCode(
+    $input: UpdateCodeInput!
+    $condition: ModelCodeConditionInput
   ) {
-    updateProject(input: $input, condition: $condition) {
+    updateCode(input: $input, condition: $condition) {
       id
-      documents {
-        items {
-          id
-          docURL
-          docType
-          projectID
-          shareTo
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      projectName
-      language
-      code
-      todo
-      runResult
-      createTime
-      shareTo
-      Todos {
-        items {
-          id
-          todoURL
-          todoTitle
-          lineNumber
-          check
-          projectID
-          shareTo
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Code {
+      sourceCode
+      project {
         id
-        codeURL
+        projectName
+        language
+        runResult
         shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
         createdAt
         updatedAt
+        projectCodeId
         owner
       }
       createdAt
       updatedAt
-      projectCodeId
-      owner
-    }
-  }
-`;
-export const deleteProject = /* GraphQL */ `
-  mutation DeleteProject(
-    $input: DeleteProjectInput!
-    $condition: ModelProjectConditionInput
-  ) {
-    deleteProject(input: $input, condition: $condition) {
-      id
-      documents {
-        items {
-          id
-          docURL
-          docType
-          projectID
-          shareTo
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      projectName
-      language
-      code
-      todo
-      runResult
-      createTime
-      shareTo
-      Todos {
-        items {
-          id
-          todoURL
-          todoTitle
-          lineNumber
-          check
-          projectID
-          shareTo
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Code {
-        id
-        codeURL
-        shareTo
-        createdAt
-        updatedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      projectCodeId
-      owner
-    }
-  }
-`;
-export const createDoc = /* GraphQL */ `
-  mutation CreateDoc(
-    $input: CreateDocInput!
-    $condition: ModelDocConditionInput
-  ) {
-    createDoc(input: $input, condition: $condition) {
-      id
-      docURL
-      docType
-      projectID
-      shareTo
-      createdAt
-      updatedAt
+      codeProjectId
       owner
     }
   }
@@ -298,28 +435,53 @@ export const updateDoc = /* GraphQL */ `
     $condition: ModelDocConditionInput
   ) {
     updateDoc(input: $input, condition: $condition) {
-      id
       docURL
       docType
       projectID
-      shareTo
+      id
       createdAt
       updatedAt
       owner
     }
   }
 `;
-export const deleteDoc = /* GraphQL */ `
-  mutation DeleteDoc(
-    $input: DeleteDocInput!
-    $condition: ModelDocConditionInput
+export const updateTodo = /* GraphQL */ `
+  mutation UpdateTodo(
+    $input: UpdateTodoInput!
+    $condition: ModelTodoConditionInput
   ) {
-    deleteDoc(input: $input, condition: $condition) {
+    updateTodo(input: $input, condition: $condition) {
       id
-      docURL
-      docType
+      todoURL
+      todoTitle
+      lineNumber
+      check
       projectID
-      shareTo
+      project {
+        id
+        projectName
+        language
+        runResult
+        shareTo
+        docs {
+          nextToken
+        }
+        todos {
+          nextToken
+        }
+        code {
+          id
+          sourceCode
+          createdAt
+          updatedAt
+          codeProjectId
+          owner
+        }
+        createdAt
+        updatedAt
+        projectCodeId
+        owner
+      }
       createdAt
       updatedAt
       owner
