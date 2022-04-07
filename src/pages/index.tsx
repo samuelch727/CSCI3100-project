@@ -28,7 +28,6 @@ export default function Home(props:any) {
       
         <h1 className={styles.header}><Logo src="/Logo.png" alt="me" width="82" height="74" />CodeCodeGuide</h1>
 
-        <Logo src="/Logo.png" alt="me" width="82" height="74" />
         <nav style={{backgroundColor: "grey", width: "100%"}}>
             <ul>
                 <li>

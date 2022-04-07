@@ -12,6 +12,7 @@ import { TextField } from "@aws-amplify/ui-react";
 // import Index from "../pages/index";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Logo from "next/image";
 // import SignUp from "../../component/signup";
 
 Amplify.configure(awsExports);
@@ -88,12 +89,14 @@ const SignIn = ({children}: SignInProp) => {
     //<div className="fixed inset-0 overflow-y-auto p-4 pt-[25vh]">
   return (
     <div className="main">
+          <div style={{color: "white", backgroundColor: "black", width:"100%"}}> 
+          <p className="text-6xl"><Logo src="/Logo.png" alt="me" width="55" height="50" />Code Code Guide</p></div>
       {console.log("formType: ", formType)}
       { user ? children : <div className="">
         {
           formType === 'signIn' && (
             <div>
-              <h1>Sign In</h1>
+              <h1>Log in your CodeCodeGuide account</h1>
               <input name="username" onChange={onChange} placeholder="username" /><br />
               <input name="password" type="password" onChange={onChange} placeholder="password" /><br />
               {/* <TextField 
@@ -120,7 +123,7 @@ const SignIn = ({children}: SignInProp) => {
         {
           formType === 'signUp' && (
             <div>
-              <h1>Sign Up</h1>
+              <h1><p className="text-5xl">Log in your CodeCodeGuide account</p></h1>
               <input name="username" onChange={onChange} placeholder="username" /><br />
               <input name="password" type="password" onChange={onChange} placeholder="password" /><br />
               <input name="email" onChange={onChange} placeholder="email" /><br />

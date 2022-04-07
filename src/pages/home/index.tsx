@@ -15,6 +15,7 @@ import { Project, ListProjectsQuery } from "../../API";
 import { useEffect, useState } from "react";
 //import { useUser } from "../context/AuthContext"
 import awsconfig from "../../aws-exports"
+import Logo from "next/image";
 // import {Paper} from "@material-ui/core";
 // import GraphQLAPI from "@aws-amplify/api-graphql";
 // import Login from "../login";
@@ -99,7 +100,8 @@ export default function Home(props:any) {
 
         
         
-        <div style={{color: "white", backgroundColor: "black", width:"100%"}}>Code Code Guide</div>
+        <div style={{color: "white", backgroundColor: "black", width:"100%"}}> 
+          <p className="text-6xl"><Logo src="/Logo.png" alt="me" width="55" height="50" />Code Code Guide</p></div>
         {/* <nav style={{backgroundColor: "grey"}}>
             <ul>
                 <li>
