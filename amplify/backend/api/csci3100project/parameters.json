@@ -2,7 +2,7 @@
   "AppSyncApiName": "csci3100project",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2022-04-01T05:22:17.882Z",
+  "AuthModeLastUpdated": "2022-04-07T05:21:39.117Z",
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
       "authcsci3100project75aea3c4",
