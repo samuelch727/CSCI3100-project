@@ -1,3 +1,5 @@
+
+{/* 
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from 'next/link'
@@ -73,7 +75,9 @@ export default function Home(props:any) {
 
 // export default Home;
 
-{/* import React from 'react';
+*/}
+
+ import React from 'react';
 import Image from 'next/image';
 import Logo from '../../public/icon.png';
 import background from '../../public/home-background.jpg';
@@ -110,4 +114,4 @@ function home() {
   )
 }
 
-export default home */}
+export default home 
