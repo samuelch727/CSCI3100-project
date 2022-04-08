@@ -1,7 +1,8 @@
-import React from 'react'
-import Image from 'next/image'
-import Logo from '../../public/icon.png'
-import background from '../../public/home-background.jpg'
+import React from 'react';
+import Image from 'next/image';
+import Logo from '../../public/icon.png';
+import background from '../../public/home-background.jpg';
+import Header from "./component/header";
 
 function home() {
   return (
@@ -9,14 +10,7 @@ function home() {
       <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden"}}>
         <Image src={background} className="opacity-30" layout='fill'/>
         </div>
-        <div className='flex justify-center items-center bg-navbg relative z-10 bg-opacity-80' id='navbar'> 
-          <div className='inline-block w-20 h-20 px-2 flex justify-center items-center'>
-            <Image src={Logo}
-                  alt="logo"
-                  />
-          </div>
-            <h1 className='z-10 inline text-4xl text-transparent bg-clip-text bg-gradient-to-b from-navtexttop via-navtextmiddle to-navtextbottom'>CodeCodeGuide</h1>
-        </div>
+        <Header/>
 
         <div className='z-10'> 
           <div className='flex justify-end p-8'>
