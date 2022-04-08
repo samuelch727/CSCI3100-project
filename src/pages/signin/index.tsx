@@ -12,7 +12,9 @@ import { TextField } from "@aws-amplify/ui-react";
 // import Index from "../pages/index";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Logo from "next/image";
+import Logotry from "next/image";
+import Logo from '../../public/icon.png'
+import Background from '../../public/login_background.png'
 // import SignUp from "../../component/signup";
 
 Amplify.configure(awsExports);
@@ -90,7 +92,7 @@ const SignIn = ({children}: SignInProp) => {
   return (
     <div className="main">
           <div style={{color: "white", backgroundColor: "black", width:"100%"}}> 
-          <p className="text-6xl"><Logo src="/Logo.png" alt="me" width="55" height="50" />Code Code Guide</p></div>
+          <p className="text-6xl"><Logotry src="/Logo.png" alt="me" width="55" height="50" />Code Code Guide</p></div>
       {console.log("formType: ", formType)}
       { user ? children : <div className="">
         {
