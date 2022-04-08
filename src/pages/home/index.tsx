@@ -47,7 +47,7 @@ export default function Home(props:any) {
       try {
           const user = await Auth.currentAuthenticatedUser();
           updateUser(user);
-          setUsername(user.username)
+          setUsername(user.username);
           console.log(user);
           setLoggedIn(true);
           // router.push("/home");
@@ -72,7 +72,7 @@ export default function Home(props:any) {
   const [ sharedProject, setSharedProject ] = useState<any[]>([]);
   const [ title, setTitle ] = useState();
   const [ language, setLanguage ] = useState();
-  // const [ listProjects, setListProjects ] = useState()
+  const [ newProject, setCreateProject ] = useState();
   
   // const allProjects = await API.graphql(graphqlOperation(listProjects));
   // project = 10 setProject(10)
@@ -100,21 +100,23 @@ export default function Home(props:any) {
 
     fetchSharedProject()
 
-  }, []);
+  }, [newProject]); // immediate update the new Project to the home
 
   const [ formState, updateFormState ] = useState(initialFormState)
   const { formType } = formState
 
-  const createProject = async (e) => {
-    e.preventDefault()
+  const createProject = async () => {
+    // e.preventDefault()
+    // updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
 
     const projectDetails = {
       projectName: title,
       language: language
     }
-    // const { title, language } = formState
-    // console.log(title)project
+
     const newProject = await API.graphql(graphqlOperation(mutations.createProject, {input: projectDetails}))
+    setCreateProject(newProject)
+    console.log("Sucessfully created!")
     // setCreateProject()
   }
 
@@ -164,33 +166,43 @@ export default function Home(props:any) {
         {/* <div><Button onClick={()=>createProjectForm()}>+</Button></div> */}
         { formType==='createProject' && (
           <div>
-            <form className="createProject" onSubmit={()=>createProject(e)}>
+            {/* <form className="createProject" onSubmit={()=>createProject()}> */}
+              <h1>Enter your Project Title:</h1>
               <input id="title" name="title" placeholder="Enter project title" onChange={e=> setTitle(e.target.value)}/><br />
-              <input id="language" name="language" placeholder="language" onChange={e=> setLanguage(e.target.value)}/><br />
-              <Button type="submit">Create</Button>
+              <h1>Choose language:</h1>
+              <button value="PYTHON" id="python" name="python" onClick={e=> setLanguage(e.target.value)}>PYTHON</button><br />
+              <button value="C" id="c" name="c" onClick={e=> setLanguage(e.target.value)}>C</button><br />
+              <button value="C++" id="c++" name="c++" onClick={e=> setLanguage(e.target.value)}>C++</button><br />
+              <button value="JAVA" id="java" name="java" onClick={e=> setLanguage(e.target.value)}>JAVA</button><br />
+              <Button onClick={()=>createProject()}>Create</Button>
               <Button>Cancel</Button>
-            </form>
+            {/* </form> */}
           </div>
           )
         }
-        {/* { console.log(title, language) } */}
+        <div>New Project to be created: <br/>
+          Title: {title} <br />
+          Language: {language}
+        </div>
+        <br/>
 
         <div className="projectList">
-          <h1>All Projects</h1>
+          <h1><b>All Projects</b></h1>
           {
             project.map(item => {
               return (
                 <li key={item.id}>
                   {item.projectName}{item.language}{item.updatedAt}
                   {item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>}
+                  <button>Rubbish</button>
                 </li>
               )
             })
           }
-          <button>Rubbish</button>
+          
         </div>
         <div className="sharedProjectList">
-          <h1>Projects that Share to you</h1>
+          <h1><b>Projects that Share to you</b></h1>
           {
             sharedProject.map(item => {
               return (
