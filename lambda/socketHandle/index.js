@@ -2575,6 +2575,9 @@ exports.handler = async (event) => {
           );
           room[user[connectionId].roomId].users[index].peerId = body.peerId;
           await sendToAll(room[user[connectionId].roomId].ids, {
+            callId: body.peerId,
+          });
+          await sendToAll(room[user[connectionId].roomId].ids, {
             users: room[user[connectionId].roomId].users,
           });
         }

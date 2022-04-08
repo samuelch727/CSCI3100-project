@@ -4,12 +4,21 @@ import CodeControlBar from "../../components/CodeControlBar";
 import { API, graphqlOperation } from "aws-amplify";
 import { getProject } from "../../graphql/queries";
 import { Project } from "../../API";
-import { useEffect, useState, useCallback, useRef, useMemo } from "react";
+import {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  useMemo,
+  useLayoutEffect,
+} from "react";
 import { Auth } from "aws-amplify";
 import { diff_match_patch } from "../../functions/diff_match_patch_uncompressed";
 import { v4 as uuidv4 } from "uuid";
 import CodeInputOutput from "../../components/CodeInputOutput";
 import awsconfig from "../../aws-exports";
+import stream from "../../components/stream";
+import Stream from "../../components/stream";
 
 interface CodeLocation {
   lineNumber: number;
@@ -29,6 +38,7 @@ export default function Code() {
   const [sourceCode, setSourceCode] = useState("This\nis\na\ntest");
   const codeBlock = useRef(null);
   const codeBar = useRef(null);
+  const [videoHeight, setVideoHeight] = useState(0);
   let lastSentCode = "";
   let sentUUId = "";
   // let outPut = "";
@@ -39,6 +49,7 @@ export default function Code() {
   const [project, setProject] = useState<Project>();
   const [outPut, setOutPut] = useState("");
   const CIORef = useRef(null);
+  const StreamRef = useRef(null);
   const socketUrl =
     "wss://fq6x2i22xb.execute-api.ap-southeast-1.amazonaws.com/production";
 
@@ -114,6 +125,9 @@ export default function Code() {
         console.log("lastSentCode: ", lastSentCode);
         codeBlock.current.updateSourceCode(data.sourceCode);
       }
+    }
+    if (data.callId) {
+      StreamRef.current.call(data.callId);
     }
   }, []);
 
@@ -217,11 +231,23 @@ export default function Code() {
       });
   }
 
-  function updateLocation(location: CodeLocation) {
+  function setPeerId(pid: string | null) {
     socket.current?.send(
-      JSON.stringify({ action: "sendCodeLocation", codeLocation: location })
+      JSON.stringify({
+        action: "sendVideoStream",
+        peerId: pid,
+      })
     );
   }
+
+  useLayoutEffect(() => {
+    setVideoHeight(((window.innerWidth * 0.2) / 4) * 3);
+    function resizeWindow() {
+      console.log("height:", window.innerHeight);
+      setVideoHeight(((window.innerWidth * 0.2) / 4) * 3);
+    }
+    window.addEventListener("resize", resizeWindow);
+  });
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -235,14 +261,14 @@ export default function Code() {
           error: any;
         };
 
-        if (project.data) {
+        if (project.data.getProject) {
           setProject(project.data.getProject);
           console.log(project.data.getProject);
           let codeId = project.data.getProject.projectCodeId;
           onConnect(pid.toString(), codeId.toString());
           return project.data;
         } else {
-          throw new Error("fail to get project");
+          console.log("fail to load project");
         }
       }
     };
@@ -280,6 +306,13 @@ export default function Code() {
           outPut={outPut}
         />
       </div>
+      <Stream
+        refFromParent={StreamRef}
+        width="25vw"
+        height={videoHeight.toString().concat("px")}
+        setPeerId={setPeerId}
+        user={users}
+      />
     </div>
   );
 }
