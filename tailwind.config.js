@@ -26,7 +26,8 @@ module.exports = {
         'navtexttop': '#A8658D',
         'navtextbottom': '#534F82',
         'buttoncolor': '#905C4E',
-        'homepagetitle': '#CE9291'
+        'homepagetitle': '#CE9291',
+        'inputboxcolor': '#C4C4C4'
 
   
       },

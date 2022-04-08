@@ -24,14 +24,14 @@ function login() {
             <span className='text-homepagetitle text-center text-4xl pb-8 z-10'>Log in your CodeCodeGuide Account</span>
             <form className=' relative z-20 grid bg-zinc-800 bg-opacity-60 justify-items-center content-center rounded-lg border-2 border-transparent' style={{width:"60vw" ,height:"50vh"}}>   
                 <div className=" grid self-center items-center justify-items-center pt-4">  
-                <div className='h-14'>
-                <input className='bg-gray-100 border-2 border-slate-800 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' placeholder='Your Email Address or Your Username'></input>
+                <div className='h-14 pb-16'>
+                <input className='bg-inputboxcolor bg-opacity-10 border border-transparent w-96 rounded-lg py-0.5 px-2' placeholder='Your Email Address or Your Username'></input>
                 </div>
                 <div className='h-14'>
-                <input type="password" className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' placeholder='Your Password'></input>
+                <input type="password" className='bg-inputboxcolor bg-opacity-10 w-96 border-transparent rounded-lg py-0.5 px-2' placeholder='Your Password'></input>
                 </div>
-                <div className='h-14'>
-                <input type="checkbox" className='bg-black text-white'></input>
+                <div className='h-14 justify-self-start'>
+                <input type="checkbox"></input>
                 <span className='pl-2 text-slate-300 h-24'>show password</span> 
                 </div>
                     <button className='bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center'>Log in Account</button>
