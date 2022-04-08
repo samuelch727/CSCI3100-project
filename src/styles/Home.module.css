@@ -13,6 +13,7 @@
   align-items: center;
 }
 
+<<<<<<< HEAD
 .content {
   width: 100%;
   /* height: 70px; */
@@ -21,6 +22,15 @@
   color: white;
   font-weight: 500;
   font-size: 60px;
+=======
+.nav {
+  width: 100%;
+  height: 70px;
+  /* background-color: black; */
+  background-color: darkgrey;
+  font-weight: 200;
+  font-size: 30px;
+>>>>>>> 7/4LoginPageAdded
   text-align: center;
   align-items: center;
   padding: 10px;
@@ -28,7 +38,7 @@
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  /* padding: 4rem 0; */
   flex: 1;
   display: flex;
   flex-direction: column;

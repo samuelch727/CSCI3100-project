@@ -17,12 +17,15 @@ export type AmplifyDependentResourcesAttributes = {
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
+<<<<<<< HEAD
         },
         "collab": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
+=======
+>>>>>>> 7/4LoginPageAdded
         }
     }
 }

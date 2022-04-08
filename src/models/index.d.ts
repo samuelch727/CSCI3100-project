@@ -4,7 +4,7 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-type CodeMetaData = {
+type ProjectMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -12,7 +12,7 @@ type TodoMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type ProjectMetaData = {
+type CodeMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -20,21 +20,29 @@ type DocMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class Code {
+export declare class Project {
   readonly id: string;
-  readonly codeURL?: string;
+  readonly projectName: string;
+  readonly language: string;
+  readonly runResult?: string;
+  readonly createTime?: number;
+  readonly shareTo?: (string | null)[];
+  readonly byProjectdoc?: (Todo | null)[];
+  readonly byProjectTodo?: (Todo | null)[];
+  readonly byProjectCode?: Code;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Code, CodeMetaData>);
-  static copyOf(source: Code, mutator: (draft: MutableModel<Code, CodeMetaData>) => MutableModel<Code, CodeMetaData> | void): Code;
+  readonly projectByProjectCodeId?: string;
+  constructor(init: ModelInit<Project, ProjectMetaData>);
+  static copyOf(source: Project, mutator: (draft: MutableModel<Project, ProjectMetaData>) => MutableModel<Project, ProjectMetaData> | void): Project;
 }
 
 export declare class Todo {
   readonly id: string;
-  readonly todoURL?: string;
+  readonly todoURL: string;
   readonly todoTitle?: string;
-  readonly lineNumber?: number;
-  readonly Check?: boolean;
+  readonly lineNumber?: string;
+  readonly check?: boolean;
   readonly projectID: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
@@ -42,22 +50,13 @@ export declare class Todo {
   static copyOf(source: Todo, mutator: (draft: MutableModel<Todo, TodoMetaData>) => MutableModel<Todo, TodoMetaData> | void): Todo;
 }
 
-export declare class Project {
+export declare class Code {
   readonly id: string;
-  readonly documents?: (Doc | null)[];
-  readonly projectName?: string;
-  readonly language?: string;
-  readonly code?: string;
-  readonly todo?: string;
-  readonly runResult?: string;
-  readonly createTime?: number;
-  readonly Todos?: (Todo | null)[];
-  readonly Code?: Code;
+  readonly codeURL: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  readonly projectCodeId?: string;
-  constructor(init: ModelInit<Project, ProjectMetaData>);
-  static copyOf(source: Project, mutator: (draft: MutableModel<Project, ProjectMetaData>) => MutableModel<Project, ProjectMetaData> | void): Project;
+  constructor(init: ModelInit<Code, CodeMetaData>);
+  static copyOf(source: Code, mutator: (draft: MutableModel<Code, CodeMetaData>) => MutableModel<Code, CodeMetaData> | void): Code;
 }
 
 export declare class Doc {
