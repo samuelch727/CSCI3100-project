@@ -25,21 +25,24 @@ function verify_email() {
        <span className='text-homepagetitle text-3xl'>Verifying Your Email</span>
    </div>
     <div className='relative z-20 pt-8 grid content-center justify-center'>
-        <form className='grid bg-zinc-800 bg-opacity-60 justify-center content-center border border-transparent rounded-lg' style={{height:"35vh", width:"60vw"}}>
+        <form className='grid bg-zinc-800 bg-opacity-60 justify-center content-center border border-transparent rounded-lg' style={{height:"40vh", width:"60vw"}}>
             <div style={{width:"40vw"}}>
                 <span className='text-xl text-homepagetitle font-bold'>Now Everything Is Almost Done!<br /> We Have Sent A Verification Code To Your Email</span>
             </div>
             <div className='flex justify-between pt-8'>
-                <span className='text-white'>Please Input Your Verification Code Here</span>
+                <span className='text-gray-400'>Please Input Your Verification Code Here</span>
                 <button className='text-sm text-buttoncolor underline'>Re-send Verification Code</button>
             </div>
             <div className='pt-2'>
             <input placeholder="Verification Code" className='bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-0.5 px-2' style={{width:"40vw", height:"5.5vh"}}></input>
             </div>
             <div className='pt-8 grid justify-items-center'>
-            <button className='text-white bg-homepagetitle border border-transparent rounded-lg' style={{width:"40vw", height:"4.5vh"}}>Reset Password</button>
+            <button className='text-white bg-homepagetitle border border-transparent rounded-lg' style={{width:"40vw", height:"4.5vh"}}>Verify</button>
             </div>
         </form>
+        <div className='text-right pt-2'>
+            <span className='text-gray-300 text-xs font-thin'>clicking "Verify" means user accept our service agreement</span>
+        </div>
     </div>
     </div>
 
