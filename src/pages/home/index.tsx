@@ -63,9 +63,9 @@ export default function Home(props:any) {
 
 
   const router = useRouter();
-  const { pid, pName } = router.query;
-  console.log(pid);
-  console.log(pName);
+  // const { pid, pName } = router.query;
+  // console.log(pid);
+  // console.log(pName);
   //const { user } = useUser();
   
   const [ project, setProject ] = useState<any[]>([]);
@@ -73,7 +73,10 @@ export default function Home(props:any) {
   const [ title, setTitle ] = useState();
   const [ language, setLanguage ] = useState();
   const [ newProject, setCreateProject ] = useState();
-  
+  const [ newcode, setCreateCode ] = useState();
+  const [ pid, setDeleteProject ] = useState();
+  const [ codeID, setCode ] = useState();
+
   // const allProjects = await API.graphql(graphqlOperation(listProjects));
   // project = 10 setProject(10)
   useEffect(() => {
@@ -111,7 +114,8 @@ export default function Home(props:any) {
 
     const projectDetails = {
       projectName: title,
-      language: language
+      language: language,
+      projectCodeId: codeID
     }
 
     const newProject = await API.graphql(graphqlOperation(mutations.createProject, {input: projectDetails}))
@@ -120,21 +124,11 @@ export default function Home(props:any) {
     // setCreateProject()
   }
 
-  // const createProjectForm = () => {
-  //   {
-  //     return (
-  //       <div>
-  //         <form className="createProject">
-  //           <input name="title" placeholder="Enter project title" /><br />
-  //           <input name="language" placeholder="language" /><br />
-  //           <button type='submit'//onClick={()=>createProject()}
-  //           >Submit</button>
-  //           <Button>Cancel</Button>
-  //         </form>
-  //       </div>
-  //     )
-  //   }
-  // }
+  const deleteProject = async () => {
+    const deleteProject = await API.graphql(graphqlOperation(mutations.deleteProject, {input: {id: pid}}))
+    setDeleteProject(deleteProject)
+    console.log("Successfully deleted!")
+  }
   
   const signOut = async () => {
     try {
@@ -194,7 +188,7 @@ export default function Home(props:any) {
                 <li key={item.id}>
                   {item.projectName}{item.language}{item.updatedAt}
                   {item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>}
-                  <button>Rubbish</button>
+                  <button value={item.id} onClick={e=>setDeleteProject(e.target.value)}>Rubbish</button>
                 </li>
               )
             })
@@ -208,11 +202,12 @@ export default function Home(props:any) {
               return (
                 <li key={item.id}>
                   {item.projectName}{item.language}{item.updatedAt}{item.shareTo}
+                  <button value={item.id} onClick={e=>setDeleteProject(e.target.value)}>Rubbish</button>
                 </li>
               )  
             })
           }
-          <button>Rubbish</button>
+          
         </div>
         <div>
           <Button onClick={()=>signOut()}>Sign Out</Button>
