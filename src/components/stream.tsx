@@ -19,12 +19,16 @@ interface streamInterface {
   width: string;
   height: string;
   user: UserData[];
+  selectedPid: string;
+  setSelectedPid: any;
   setPeerId: (id: string | null) => void;
+  disPeerId: (id: string) => void;
   refFromParent: any;
 }
 
 function Stream({
   setPeerId,
+  disPeerId,
   width,
   height,
   user,
@@ -38,8 +42,9 @@ function Stream({
   const [userPid, setUserPid] = useState("");
   const [localStream, setLocalStream] = useState<MediaStream>();
   const [remoteStream, setRemoteStream] = useState({});
-  const [selectedPid, setSelectedPid] = useState("");
+  const [selectedPid, setSelectedPid] = useState("n/a");
   const [numOfConnection, setNumOfConnection] = useState(0);
+  const [calledId, setClalledId] = useState([]);
   const remoteVideoRef = useRef([]);
   const remoteAudioRef = useRef([]);
   remoteAudioRef.current = [];
@@ -51,6 +56,7 @@ function Stream({
   useEffect(() => {
     refFromParent.current = {
       call: call,
+      disconnect: disconnect,
     };
     console.log("audio ref: ", remoteAudioRef.current);
     import("peerjs").then(({ default: Peer }) => {
@@ -68,17 +74,44 @@ function Stream({
     });
   }, []);
 
+  useEffect(() => {
+    console.log("user: ", user);
+    if (!currentUserVideoRef.current) {
+      console.log("there are no video element render, skipping call");
+      return;
+    } else {
+      user.map((user, index) => {
+        console.log("calling ", user.userName, " with id: ", user.peerId);
+        if (!user.peerId) {
+          console.log("no pid, no call");
+        } else call(user.peerId);
+      });
+    }
+  }, [user]);
+
+  function disconnect(pid: string) {
+    console.log("remote user disconnected, pid: ", pid);
+    let storageSelectedPid = localStorage.getItem("selectedPid");
+    console.log("selected: ", storageSelectedPid);
+    console.log("is currently selected? ", storageSelectedPid === pid);
+    let index = calledId.indexOf(pid);
+    setClalledId((temp) => {
+      return temp.slice(index, 1);
+    });
+    if (storageSelectedPid === pid) {
+      setSelectedPid("");
+      currentUserVideoRef.current.srcObject = null;
+    }
+  }
+
   function leaveStream() {
     setIsJoined(false);
     localStream?.getAudioTracks()[0].stop();
     localStream?.getVideoTracks()[0].stop();
     if (selectedPid === userPid) {
       currentUserVideoRef.current.srcObject = null;
-    } else {
-      console.log("selectedPid: ", selectedPid);
-      console.log("userPid: ", userPid);
     }
-    setPeerId(null);
+    disPeerId(userPid);
   }
 
   function joinStream() {
@@ -151,6 +184,10 @@ function Stream({
 
   const call = (remotePeerId: string) => {
     if (remotePeerId === userPid || remoteAudioRef.current.length === 0) return;
+    if (calledId.includes(remotePeerId)) {
+      console.log("already called this id");
+      return;
+    }
     console.log("calling new user checked");
     var call = peerInstance.current.call(
       remotePeerId,
@@ -160,8 +197,8 @@ function Stream({
     call.on("stream", (remoteStream) => {
       if (remoteAudioRef.current.length == 0) return;
       console.log(remoteAudioRef.current);
-      remoteAudioRef.current[numOfConnection].src = [remoteStream];
-      // remoteAudioRef.current[numOfConnection].play();
+      remoteAudioRef.current[numOfConnection].srcObject = remoteStream;
+      remoteAudioRef.current[numOfConnection].play();
       setNumOfConnection((numOfConnection) => numOfConnection + 1);
       console.log("calling new user, stream: ", remoteStream);
       // let temp = remoteUserPid;
@@ -172,6 +209,10 @@ function Stream({
       });
     });
     console.log("done");
+    setClalledId((temp) => {
+      temp.push(remotePeerId);
+      return temp;
+    });
   };
 
   function displayChanging(peerId: string) {
@@ -180,6 +221,7 @@ function Stream({
     console.log("remoteUserPid: ", Object.keys(remoteUserPid));
     console.log("target: ", remoteUserPid[peerId]);
     setSelectedPid(peerId);
+    localStorage.setItem("selectedPid", peerId);
     currentUserVideoRef.current.srcObject = remoteUserPid[peerId];
     currentUserVideoRef.current.play();
   }
@@ -199,7 +241,8 @@ function Stream({
         <div className="box-content h-48 justify-end" style={{ width }}>
           {user.map((user, key) => {
             return (
-              <audio
+              <video
+                // autoPlay
                 ref={addToAudioRef}
                 key={key}
                 style={{
@@ -209,7 +252,7 @@ function Stream({
                   // zIndex: "1",
                   width: "1px",
                 }}
-                controls
+                // controls
               />
             );
           })}

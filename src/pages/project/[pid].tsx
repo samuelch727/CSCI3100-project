@@ -19,6 +19,7 @@ import CodeInputOutput from "../../components/CodeInputOutput";
 import awsconfig from "../../aws-exports";
 import stream from "../../components/stream";
 import Stream from "../../components/stream";
+import Chat from "../../components/chat";
 
 interface CodeLocation {
   lineNumber: number;
@@ -30,10 +31,20 @@ interface UserData {
   peerId: string;
 }
 
+interface chatData {
+  name: string;
+  message: string;
+  id: string;
+}
+
 export default function Code() {
   API.configure(awsconfig);
   const socket = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [tabSelected, setTabSelected] = useState(0);
+  const [chatHeight, setChatHeight] = useState(0);
+  const [tabBarHeight, setTabBarHeight] = useState(0);
+  const [chatData, setChatData] = useState<chatData[]>([]);
   const [users, setUsers] = useState<UserData[]>([]);
   const [sourceCode, setSourceCode] = useState("This\nis\na\ntest");
   const codeBlock = useRef(null);
@@ -50,6 +61,7 @@ export default function Code() {
   const [outPut, setOutPut] = useState("");
   const CIORef = useRef(null);
   const StreamRef = useRef(null);
+  // const TabRef = useRef(null);
   const socketUrl =
     "wss://fq6x2i22xb.execute-api.ap-southeast-1.amazonaws.com/production";
 
@@ -126,8 +138,20 @@ export default function Code() {
         codeBlock.current.updateSourceCode(data.sourceCode);
       }
     }
+    if (data.disconnectId) {
+      StreamRef.current.disconnect(data.disconnectId);
+    }
     if (data.callId) {
       StreamRef.current.call(data.callId);
+    }
+    if (data.running != null) {
+      codeBar.current.setIsRunning(data.running);
+    }
+    if (data.result) {
+      CIORef.current.setOutPut(data.result);
+    }
+    if (data.chat) {
+      setChatData(data.chat);
     }
   }, []);
 
@@ -192,9 +216,13 @@ export default function Code() {
     };
 
     return (...args) => {
+      console.log("trottle, should wait? ", shouldWait);
       if (shouldWait) {
         waitingArgs = args;
+        console.log("throttle waiting, waiting args: ", waitingArgs);
         return;
+      } else {
+        waitingArgs = args;
       }
       if (!init) {
         originalCode = args[1];
@@ -209,6 +237,12 @@ export default function Code() {
   async function runCode() {
     console.log("run click");
     codeBar.current.setIsRunning(true);
+    socket.current?.send(
+      JSON.stringify({
+        action: "sendCodeResult",
+        running: true,
+      })
+    );
     API.post("restapi", "/compile", {
       body: {
         code: codeBlock.current.sourceCode,
@@ -219,12 +253,25 @@ export default function Code() {
       },
     })
       .then((res) => {
-        CIORef.current.setOutPut(res.output);
+        socket.current?.send(
+          JSON.stringify({
+            action: "sendCodeResult",
+            running: false,
+            result: res.output === "" ? res.status : res.output,
+          })
+        );
+        CIORef.current.setOutPut(res.output === "" ? res.status : res.output);
         setOutPut(res.output);
         console.log(res);
         codeBar.current.setIsRunning(false);
       })
       .catch((err) => {
+        socket.current?.send(
+          JSON.stringify({
+            action: "sendCodeResult",
+            running: false,
+          })
+        );
         console.log("error when running code");
         console.log(err.response.data);
         codeBar.current.setIsRunning(false);
@@ -240,11 +287,41 @@ export default function Code() {
     );
   }
 
+  function disconnectStream(pid: string) {
+    console.log("send disconnect signal");
+    socket.current?.send(
+      JSON.stringify({
+        action: "disconnectStream",
+        peerId: pid,
+      })
+    );
+  }
+
+  function sendChat(message: string) {
+    console.log("send message: ", message);
+    socket.current?.send(
+      JSON.stringify({
+        action: "sendChat",
+        message: message,
+      })
+    );
+  }
+
   useLayoutEffect(() => {
     setVideoHeight(((window.innerWidth * 0.2) / 4) * 3);
+    setChatHeight(
+      window.innerHeight - ((window.innerWidth * 0.2) / 4) * 3 - tabBarHeight
+    );
+    console.log(
+      "chat height: ",
+      window.innerHeight - ((window.innerWidth * 0.2) / 4) * 3 - tabBarHeight
+    );
     function resizeWindow() {
       console.log("height:", window.innerHeight);
       setVideoHeight(((window.innerWidth * 0.2) / 4) * 3);
+      setChatHeight(
+        window.innerWidth - ((window.innerWidth * 0.2) / 4) * 3 - tabBarHeight
+      );
     }
     window.addEventListener("resize", resizeWindow);
   });
@@ -265,6 +342,7 @@ export default function Code() {
           setProject(project.data.getProject);
           console.log(project.data.getProject);
           let codeId = project.data.getProject.projectCodeId;
+          // TODO: activate
           onConnect(pid.toString(), codeId.toString());
           return project.data;
         } else {
@@ -276,6 +354,12 @@ export default function Code() {
     // console.log("pid: ", pid);
   }, [pid]);
 
+  const TabRef = useCallback((e) => {
+    if (!e) return;
+    console.log("tabRef: ", e.clientHeight);
+    setTabBarHeight(e.clientHeight);
+  }, []);
+
   return (
     <div className="flex">
       <div>
@@ -286,6 +370,7 @@ export default function Code() {
           disableRun={project?.language ? false : true}
           runCode={runCode}
           refFromParent={codeBar}
+          users={users}
         />
         <CodeBlock
           updateCodeFromSocket={codeBlock}
@@ -306,13 +391,54 @@ export default function Code() {
           outPut={outPut}
         />
       </div>
-      <Stream
-        refFromParent={StreamRef}
-        width="25vw"
-        height={videoHeight.toString().concat("px")}
-        setPeerId={setPeerId}
-        user={users}
-      />
+      <div className="flex-col">
+        <Stream
+          refFromParent={StreamRef}
+          width="25vw"
+          height={videoHeight.toString().concat("px")}
+          setPeerId={setPeerId}
+          user={users}
+          disPeerId={disconnectStream}
+        />
+        <div
+          className="flex"
+          style={{
+            marginTop: videoHeight.toString().concat("px"),
+            position: "absolute",
+            top: 0,
+            width: "25vw",
+          }}
+          ref={TabRef}
+        >
+          <button
+            className={
+              tabSelected !== 0
+                ? "bg-gray-300 basis-1/2 grid justify-items-center py-1 hover:bg-gray-200 transition duration-300 ease-in-out"
+                : "bg-gray-50 basis-1/2 grid justify-items-center py-1"
+            }
+            onClick={() => setTabSelected(0)}
+          >
+            Document
+          </button>
+          <button
+            className={
+              tabSelected !== 1
+                ? "bg-gray-300 basis-1/2 grid justify-items-center py-1 hover:bg-gray-200 transition duration-300 ease-in-out"
+                : "bg-gray-50 basis-1/2 grid justify-items-center py-1"
+            }
+            onClick={() => setTabSelected(1)}
+          >
+            Chat
+          </button>
+        </div>
+        <Chat
+          height={chatHeight.toString().concat("px")}
+          width="25vw"
+          data={chatData}
+          connectionId={connectionId}
+          sendMessage={sendChat}
+        />
+      </div>
     </div>
   );
 }

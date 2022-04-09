@@ -2435,6 +2435,13 @@ const room = {};
  */
 const code = {};
 
+/**
+ * chat{
+ *  roomId: [{name, message, id}]
+ * }
+ */
+const chat = {};
+
 const sendToOne = async (id, body) => {
   try {
     await client
@@ -2564,6 +2571,9 @@ exports.handler = async (event) => {
         await sendToAll(room[body.roomId].ids, {
           users: room[body.roomId].users,
         });
+        await sendToOne(connectionId, {
+          chat: chat[user[connectionId].roomId],
+        });
         // await sendToAll(room[body.roomId].ids, {
         //   systemMessage: `${user[connectionId].userName} has joined`,
         // });
@@ -2576,6 +2586,20 @@ exports.handler = async (event) => {
           room[user[connectionId].roomId].users[index].peerId = body.peerId;
           await sendToAll(room[user[connectionId].roomId].ids, {
             callId: body.peerId,
+          });
+          await sendToAll(room[user[connectionId].roomId].ids, {
+            users: room[user[connectionId].roomId].users,
+          });
+        }
+        break;
+      case "disconnectStream":
+        {
+          const index = room[user[connectionId].roomId].ids.indexOf(
+            connectionId
+          );
+          room[user[connectionId].roomId].users[index].peerId = null;
+          await sendToAll(room[user[connectionId].roomId].ids, {
+            disconnectId: body.peerId,
           });
           await sendToAll(room[user[connectionId].roomId].ids, {
             users: room[user[connectionId].roomId].users,
@@ -2605,8 +2629,34 @@ exports.handler = async (event) => {
         }
         break;
       case "sendCodeResult":
+        {
+          await sendToAll(room[user[connectionId].roomId].ids, {
+            running: body.running,
+            result: body.result,
+          });
+        }
         break;
       case "sendDoc":
+        break;
+      case "sendChat":
+        if (chat[user[connectionId].roomId]) {
+          chat[user[connectionId].roomId].push({
+            name: user[connectionId].userName,
+            message: body.message,
+            id: connectionId,
+          });
+        } else {
+          chat[user[connectionId].roomId] = [
+            {
+              name: user[connectionId].userName,
+              message: body.message,
+              id: connectionId,
+            },
+          ];
+        }
+        await sendToAll(room[user[connectionId].roomId].ids, {
+          chat: chat[user[connectionId].roomId],
+        });
         break;
       default:
       // code

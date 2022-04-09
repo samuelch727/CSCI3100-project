@@ -41,6 +41,19 @@ interface CodeLocation {
   column: number;
 }
 
+const userColors = [
+  " bg-red-300 text-red-900",
+  " bg-orange-300 text-orange-900",
+  " bg-green-300 text-green-900",
+  " bg-emerald-300 text-emerald-900",
+  " bg-cyan-300 text-cyan-900",
+  " bg-sky-300 text-sky-900",
+  " bg-indigo-300 text-indigo-900",
+  " bg-purple-300 text-purple-900",
+  " bg-fuchsia-300 text-fuchsia-900",
+  " bg-rose-300 text-rose-900",
+];
+
 export default function CodeBlock({
   language,
   defaultValue,
@@ -138,7 +151,7 @@ export default function CodeBlock({
             this.domNode = document.createElement("div");
             // const userName = await Auth.currentUserInfo();
             this.domNode.innerHTML =
-              '<div class="bg-yellow-500 rounded-full px-2">' + element.userName + '</div>';
+              '<div class="rounded-full px-2' + userColors[index % userColors.length] + '">' + element.userName + '</div>';
             // this.domNode.style.background = "grey";
           }
           return this.domNode;
@@ -173,8 +186,8 @@ export default function CodeBlock({
         options={{ fontSize: 16 }}
         onChange={(e) => {
           setPosition(editorRef?.current?.getPosition());
-          editorRef?.current?.removeContentWidget(myContentWidget);
-          editorRef?.current?.addContentWidget(myContentWidget);
+          // editorRef?.current?.removeContentWidget(myContentWidget);
+          // editorRef?.current?.addContentWidget(myContentWidget);
           setSourceCode(escapeHtml(e));
           setOtherUserTag();
           updateCode(escapeHtml(e), editorRef?.current?.getPosition());
