@@ -14,8 +14,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Logotry from "next/image";
 import Logo from '../../public/icon.png'
-import Background from '../../public/login_background.png'
+import Background from '../../../public/login_background.png'
 // import SignUp from "../../component/signup";
+import Header from "../component/header";
+import Image from 'next/image';
+import React from 'react'
 
 Amplify.configure(awsExports);
 
@@ -90,17 +93,42 @@ const SignIn = ({children}: SignInProp) => {
 
     //<div className="fixed inset-0 overflow-y-auto p-4 pt-[25vh]">
   return (
-    <div className="main">
-          <div style={{color: "white", backgroundColor: "black", width:"100%"}}> 
-          <p className="text-6xl"><Logotry src="/Logo.png" alt="me" width="55" height="50" />Code Code Guide</p></div>
+    <div className='bg-black opacity-100' style={{height:"100vh"}}>
+    <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden"}}>
+    <Image src={Background} layout="fill"/>
+          <Header/>
+          </div>
+    
+    <div className='grid justify-center content-center p-32'>
+    <span className='text-homepagetitle text-center text-4xl pb-8 z-10'>Log in your CodeCodeGuide Account</span>
+    <div className='flex justify-end p-8'>
+    <div><Link href="/"><button className='relative z-10 text-white rounded-xl text-xl px-8 py-1.5 bg-navtextbottom'>Back to home</button></Link></div>
+    </div>
+    <form className=' relative z-20 grid bg-zinc-800 bg-opacity-60 justify-items-center content-center rounded-lg border-2 border-transparent' style={{width:"60vw" ,height:"50vh"}}>
+      
+
+
+    <div className=" grid self-center items-center justify-items-center pt-4">  
+
       {console.log("formType: ", formType)}
       { user ? children : <div className="">
         {
           formType === 'signIn' && (
             <div>
-              <h1>Log in your CodeCodeGuide account</h1>
-              <input name="username" onChange={onChange} placeholder="username" /><br />
-              <input name="password" type="password" onChange={onChange} placeholder="password" /><br />
+              <div className='h-14'>
+              <input className='bg-gray-100 border-2 border-slate-800 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' onChange={onChange} placeholder="Your Username" /><br />
+                </div>
+
+                <div className='h-14'>
+                <input type="password" className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' onChange={onChange} placeholder='Your Password'></input>
+                </div>
+
+                <div className='h-14'>
+                <input type="checkbox" className='bg-black text-white'></input>
+                <span className='pl-2 text-slate-300 h-24'>show password</span> 
+                </div>
+                <Button className='bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center' onClick={()=>signIn()} >Log in Account</Button>
+
               {/* <TextField 
                 id = 'username'
                 label = 'Username'
@@ -114,27 +142,36 @@ const SignIn = ({children}: SignInProp) => {
                   value = {password}
                   onChange = {e => setPassword(e.target.value)}
                 /> */}
-              <Button onClick={()=>signIn()}>Sign In</Button>
-              <Button id = 'SignUpButton' onClick ={()=> {
-                updateFormState(()=> ({...formState, formType: "signUp"}));
-                setError("");
-                }}>Sign Up</Button>
+
+                <div className='h-6 pt-16 select-none flex justify-self-end justify-content-end'>
+                    <button className='flex text-homepagetitle items-center'>Forget Password?</button>
+                   <button  id = 'SignUpButton' onClick ={()=> {
+                  updateFormState(()=> ({...formState, formType: "signUp"}));
+                   setError("");
+                }}className='flex text-homepagetitle pl-4 items-center'>New to CodeCodeGuide?</button>
+                </div>
             </div>
+            
+
+
+
+
           )
         }
         {
           formType === 'signUp' && (
             <div>
-              <h1><p className="text-5xl">Log in your CodeCodeGuide account</p></h1>
               <input name="username" onChange={onChange} placeholder="username" /><br />
               <input name="password" type="password" onChange={onChange} placeholder="password" /><br />
               <input name="email" onChange={onChange} placeholder="email" /><br />
               <input name="name" onChange={onChange} placeholder="nickname" />
+              <div>
               <Button onClick={()=>signUp()} onChange={onChange}>Sign Up</Button>
               <Button id = 'SignInButton' onClick ={()=> {
                 updateFormState(()=> ({...formState, formType: "signIn"}));
                 setError("");
                 }}>Back to Sign In</Button>
+                </div>
             </div>
           )
         }
@@ -158,7 +195,6 @@ const SignIn = ({children}: SignInProp) => {
         <div>
           { error != null ? error : any }
         </div>
-        <div><Link href="/"><button>Back to home</button></Link></div>
       </div>  
 
      /* <TextField 
@@ -180,7 +216,78 @@ const SignIn = ({children}: SignInProp) => {
         }))}>Sign Up</Button> */
     }
     </div>
+    </form>
+    </div>
+    </div>
   )
 }
 
 export default SignIn
+
+
+{/* import React from 'react'
+import Image from 'next/image'
+import Logo from '../../public/icon.png'
+import Background from '../../public/login_background.png'
+
+function login() {
+  return (
+    <div className='bg-black opacity-100' style={{height:"100vh"}}>
+        <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden"}}>
+        <Image src={Background} layout="fill"/>
+        </div>
+
+
+        <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden"}}>
+        <Image src={background} className="opacity-30"/>
+        </div> 
+        <div className='flex justify-center items-center bg-navbg relative z-10 bg-opacity-80' id='navbar'> 
+          <div className='inline-block w-20 h-20 px-2 flex justify-center items-center'>
+            <Image src={Logo}
+                  alt="logo"
+                  />
+          </div>
+            <h1 className='z-10 inline text-4xl text-transparent bg-clip-text bg-gradient-to-b from-navtexttop via-navtextmiddle to-navtextbottom'>CodeCodeGuide</h1>
+        </div>
+
+
+        <div className='grid justify-center content-center p-32'>
+
+            <span className='text-homepagetitle text-center text-4xl pb-8 z-10'>Log in your CodeCodeGuide Account</span>
+            <form className=' relative z-20 grid bg-zinc-800 bg-opacity-60 justify-items-center content-center rounded-lg border-2 border-transparent' style={{width:"60vw" ,height:"50vh"}}>   
+                
+            
+            <div className=" grid self-center items-center justify-items-center pt-4">  
+                <div className='h-14'>
+                <input className='bg-gray-100 border-2 border-slate-800 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' placeholder='Your Email Address or Your Username'></input>
+                </div>
+
+
+
+                <div className='h-14'>
+                <input type="password" className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' placeholder='Your Password'></input>
+                </div>
+                <div className='h-14'>
+                <input type="checkbox" className='bg-black text-white'></input>
+                <span className='pl-2 text-slate-300 h-24'>show password</span> 
+                </div>
+                    <button className='bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center'>Log in Account</button>
+            
+                    
+                <div className='h-6 pt-16 select-none flex justify-self-end justify-content-end'>
+                    <button className='flex text-homepagetitle items-center'>Forget Password?</button>
+                </div>
+                <div className='h-6 pt-8 select-none flex justify-self-end justify-content-end'>
+                    <button className='flex text-homepagetitle pl-4 items-center'>New to CodeCodeGuide?</button>
+                </div>
+                </div>
+                
+            </form>
+        </div>
+
+        
+    </div>
+  )
+}
+
+export default login */}

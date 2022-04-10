@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import Logo from '../../../public/Logo.png'
+import Logo from '../../../public/icon.png'
 
 function header() {
   return (
