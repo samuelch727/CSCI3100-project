@@ -58,4 +58,14 @@ type Subscription {
   onUpdateByCodeId(id: ID!): Code
     @aws_subscribe(mutations: ["updateCode"])
 }
+
+type User @model(subscriptions: { level: off })
+  @auth(rules:[
+    { allow: groups, groups: ["Admin"]},
+    { allow: private, operations:[read]}
+  ]) {
+  id: ID! @auth(rules:[{ allow: groups, groups: ["Admin"]}])
+  username: String!
+  email: String! @auth(rules:[{ allow: groups, groups: ["Admin"]}])
+  }
  

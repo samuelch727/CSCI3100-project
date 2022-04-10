@@ -1,6 +1,11 @@
-import { ChevronDownIcon, PlayIcon } from "@heroicons/react/solid";
+import {
+  ChevronDownIcon,
+  PlayIcon,
+  HomeIcon,
+  SearchIcon,
+} from "@heroicons/react/solid";
 import { useEffect, useState, Fragment } from "react";
-import { HomeIcon, SearchIcon } from "@heroicons/react/solid";
+import { TrashIcon, PlusIcon } from "@heroicons/react/outline";
 import { Popover, Transition } from "@headlessui/react";
 
 interface CodeLocation {
@@ -44,7 +49,18 @@ export default function CodeControlBar({
   refFromParent,
   users,
 }: CodeBlockProps) {
+  const userList = [
+    { username: "samuel" },
+    { username: "ryan" },
+    { username: "kim" },
+    { username: "kingsley" },
+    { username: "sarah" },
+  ];
+
+  const sharedWith = ["samuel", "ryan"];
+
   const [isRunning, setIsRunning] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
   useEffect(() => {
     refFromParent.current = {
       setIsRunning: setIsRunning,
@@ -109,17 +125,52 @@ export default function CodeControlBar({
                       className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 w-[20vw] bg-white"
                       // style={{ width: "20vw" }}
                     >
-                      <div className="relative grid gap-8 bg-white p-4 text-xl subpixel-antialiased w-full">
+                      <div className="relative grid gap-6 bg-white p-4 subpixel-antialiased w-full">
                         {/* Sharing With: */}
                         <div className="flex">
                           <input
                             placeholder="Invite a friend"
                             className="p-1 px-2 bg-gray-100 rounded-tl-lg rounded-bl-lg grow"
+                            onChange={(e) => setSearchInput(e.target.value)}
+                            value={searchInput}
                           />
-                          <div className="w-10 h-10 bg-sky-700 rounded-tr-lg rounded-br-lg grid place-content-center">
+                          <button className="w-10 h-10 bg-sky-900 rounded-tr-lg rounded-br-lg grid place-content-center hover:shadow-lg transition ease-in-out duration-300">
                             <SearchIcon className="w-7 h-7 text-gray-100" />
-                          </div>
+                          </button>
                         </div>
+                        {searchInput !== "" ? (
+                          <ul className="divide-y divide-slate-200 text-lg text-gray-800">
+                            {userList.map((value, key) => {
+                              if (sharedWith.includes(value.username)) {
+                                return null;
+                              }
+                              if (value.username.includes(searchInput))
+                                return (
+                                  <li className="py-4 flex first:pt-0 last:pb-0 items-center justify-between px-1">
+                                    {value.username}
+                                    <button className="bg-green-100 rounded p-1 hover:shadow transition ease-in-out duration-300">
+                                      <PlusIcon className="h-6 text-green-900" />
+                                    </button>
+                                  </li>
+                                );
+                            })}
+                          </ul>
+                        ) : null}
+                      </div>
+                      <div className="relative grid gap-6 p-4 subpixel-antialiased w-full bg-gray-100 text-xl text-gray-600">
+                        Shared with
+                        <ul className="divide-y divide-slate-200 text-lg text-gray-800">
+                          {sharedWith.map((value, key) => {
+                            return (
+                              <li className="py-4 flex first:pt-0 last:pb-0 items-center justify-between px-1">
+                                {value}
+                                <button className="bg-rose-100 rounded p-1 hover:shadow transition ease-in-out duration-300">
+                                  <TrashIcon className="h-6 text-rose-900" />
+                                </button>
+                              </li>
+                            );
+                          })}
+                        </ul>
                       </div>
                     </div>
                   </Popover.Panel>

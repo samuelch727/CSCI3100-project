@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-csci3100project-dev-160242-unauthRole",
       "StackName": "amplify-csci3100project-dev-160242",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:138498565467:stack/amplify-csci3100project-dev-160242/a4397e30-a111-11ec-88c2-061920df77b4",
-      "AmplifyAppId": "d3cvqnrn2xt9cl"
+      "AmplifyAppId": "d3cvqnrn2xt9cl",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-csci3100project-dev-160242-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -24,6 +25,10 @@
         "collab": {
           "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
           "s3Key": "amplify-builds/collab-6768387a657641467653-build.zip"
+        },
+        "csci3100project75aea3c4PostConfirmation": {
+          "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
+          "s3Key": "amplify-builds/csci3100project75aea3c4PostConfirmation-2f4d4e2b38432b54724b-build.zip"
         }
       }
     }
