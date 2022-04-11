@@ -18,28 +18,18 @@ import { useEffect, useState } from "react";
 import awsconfig from "../../aws-exports"
 import Logo from "next/image";
 // import {Paper} from "@material-ui/core";
-// import GraphQLAPI from "@aws-amplify/api-graphql";
-// import Login from "../login";
-
-// const QUERY_LIST_OF_COUNTRIES = `
-//   {
-//     query ListProjects {
-//       pid
-//       pName
-//     }
-//   }
-// `;
 
 const initialFormState = {
-  title: '', language: '', formType: 'createProject'
+  title: '', language: '', formType: ''
 }
 
 export default function Home(props:any) {
   
   API.configure(awsconfig);
-  const [loggedIn,setLoggedIn] = useState(true)
+  const [loggedIn,setLoggedIn] = useState(false)
   const [user, updateUser] = useState(null)
   const [uname, setUsername] = useState(null)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
 
@@ -73,8 +63,8 @@ export default function Home(props:any) {
   const [ title, setTitle ] = useState();
   const [ language, setLanguage ] = useState();
   const [ newProject, setCreateProject ] = useState();
+  const [ deletedProject, setDeleteProject ] = useState();
   const [ newcode, setCreateCode ] = useState();
-  const [ pid, setDeleteProject ] = useState();
   const [ codeID, setCode ] = useState();
 
   // const allProjects = await API.graphql(graphqlOperation(listProjects));
@@ -82,28 +72,20 @@ export default function Home(props:any) {
   useEffect(() => {
     
     const fetchProject = async ()  => {
-      const project = await API.graphql(graphqlOperation(queries.listProjects));
-      //  as {
-      //   data: Project;
-      //   error: any;
-      // };
-      console.log(project)
-      setProject(project.data.listProjects.items)
-      // setProject(project.data.items)
-      // return project
+        const project = await API.graphql(graphqlOperation(queries.listProjects));
+        console.log(project)
+        setProject(project.data.listProjects.items)
+        // setProject(project.data.items)
+        // return project
+
+        const sharedProject = await API.graphql(graphqlOperation(queries.listProjects, {filter: {shareTo: {attributeExists: true}}}))
+        console.log(sharedProject.data.listProjects.items)
+        setSharedProject(sharedProject.data.listProjects.items)
     };
 
     fetchProject();
 
-    const fetchSharedProject = async () => {
-      const sharedProject = await API.graphql(graphqlOperation(queries.listProjects, {filter: {shareTo: {attributeExists: true}}}))
-      console.log(sharedProject.data.listProjects.items)
-      setSharedProject(sharedProject.data.listProjects.items)
-    };
-
-    fetchSharedProject()
-
-  }, [newProject]); // immediate update the new Project to the home
+  }, [newProject, deletedProject]); // immediate update the new Project to the home
 
   const [ formState, updateFormState ] = useState(initialFormState)
   const { formType } = formState
@@ -111,23 +93,37 @@ export default function Home(props:any) {
   const createProject = async () => {
     // e.preventDefault()
     // updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
-
-    const projectDetails = {
-      projectName: title,
-      language: language,
-      projectCodeId: codeID
+    try {
+      const newCode = await API.graphql(graphqlOperation(mutations.createCode, {input: {}}))
+      setCode(newCode.data.createCode.id)
+      // const codeID = newCode.id
+      // setCode()
+      console.log("Sucessfully created code! Code id:", codeID)
+      
+      const projectDetails = {
+        projectName: title,
+        language: language,
+        projectCodeId: codeID
+      }
+  
+      const newProject = await API.graphql(graphqlOperation(mutations.createProject, {input: projectDetails}))
+      setCreateProject(newProject)
+      console.log("Sucessfully created with codeID:", newProject.data.createProject.projectCodeId)
+    } catch (error) {
+      setError(error.toString());
+      console.log('there was an error creating project CodeID:', error)
     }
-
-    const newProject = await API.graphql(graphqlOperation(mutations.createProject, {input: projectDetails}))
-    setCreateProject(newProject)
-    console.log("Sucessfully created!")
-    // setCreateProject()
   }
 
-  const deleteProject = async () => {
-    const deleteProject = await API.graphql(graphqlOperation(mutations.deleteProject, {input: {id: pid}}))
-    setDeleteProject(deleteProject)
-    console.log("Successfully deleted!")
+  const deleteProject = async (pid: string) => {
+    try {
+      const deletedProject = await API.graphql(graphqlOperation(mutations.deleteProject, {input: {id: pid}}))
+      setDeleteProject(deletedProject)
+      console.log("Successfully deleted!")
+    } catch (e) {
+      console.log("There is error in deleting!", e)
+    }
+    
   }
   
   const signOut = async () => {
@@ -157,7 +153,10 @@ export default function Home(props:any) {
         {console.log("Login Status in home:",loggedIn)}
         <div>Welcome on9 {uname}!</div>
         {console.log("formType: ", formType)}
-        {/* <div><Button onClick={()=>createProjectForm()}>+</Button></div> */}
+        {/* <div><Button onClick={()=>createCode()}>Create Code</Button></div> */}
+        <div><Button onClick ={()=> {
+                updateFormState(()=> ({...formState, formType: "createProject"}))
+                }}>+</Button></div>
         { formType==='createProject' && (
           <div>
             {/* <form className="createProject" onSubmit={()=>createProject()}> */}
@@ -169,40 +168,44 @@ export default function Home(props:any) {
               <button value="C++" id="c++" name="c++" onClick={e=> setLanguage(e.target.value)}>C++</button><br />
               <button value="JAVA" id="java" name="java" onClick={e=> setLanguage(e.target.value)}>JAVA</button><br />
               <Button onClick={()=>createProject()}>Create</Button>
-              <Button>Cancel</Button>
-            {/* </form> */}
+              <Button className="cancelButton" onClick ={()=> {
+                updateFormState(()=> ({...formState, formType: ""}))}}>Cancel</Button>
+              <div>New Project to be created: <br/>
+                Title: {title} <br />
+                Language: {language}
+              </div>
+              <div>
+              { error != null ? error : <div></div> }
+              </div>
           </div>
           )
         }
-        <div>New Project to be created: <br/>
-          Title: {title} <br />
-          Language: {language}
-        </div>
+        
         <br/>
 
         <div className="projectList">
           <h1><b>All Projects</b></h1>
           {
-            project.map(item => {
+            loggedIn && project.map(item => {
               return (
                 <li key={item.id}>
                   {item.projectName}{item.language}{item.updatedAt}
                   {item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>}
-                  <button value={item.id} onClick={e=>setDeleteProject(e.target.value)}>Rubbish</button>
+                  <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
                 </li>
               )
             })
           }
-          
         </div>
+
         <div className="sharedProjectList">
           <h1><b>Projects that Share to you</b></h1>
           {
-            sharedProject.map(item => {
+            loggedIn && sharedProject.map(item => {
               return (
                 <li key={item.id}>
                   {item.projectName}{item.language}{item.updatedAt}{item.shareTo}
-                  <button value={item.id} onClick={e=>setDeleteProject(e.target.value)}>Rubbish</button>
+                  <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
                 </li>
               )  
             })

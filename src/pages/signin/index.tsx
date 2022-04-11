@@ -26,10 +26,12 @@ interface SignInProp {
 const initialFormState = {
   username: "",
   password: "",
+  verifypassword: "",
   email: "",
   name: "",
   authCode: "",
   formType: "signIn",
+  resetCode: "",
 };
 
 const SignIn = ({ children }: SignInProp) => {
@@ -67,9 +69,18 @@ const SignIn = ({ children }: SignInProp) => {
   }
 
   async function signUp() {
+    const { username, email, password, name, verifypassword } = formState;
+    if (password !== verifypassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     try {
-      const { username, email, password, name } = formState;
-      await Auth.signUp({ username, password, attributes: { email, name } });
+      await Auth.signUp({
+        username,
+        password,
+        attributes: { email, name: username },
+      });
       updateFormState(() => ({ ...formState, formType: "confirmSignUp" }));
     } catch (error) {
       setError(error.toString());
@@ -424,8 +435,8 @@ function login() {
 
         
     </div>
-  )
-}
+  );
+};
 
 export default login */
 }

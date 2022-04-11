@@ -20,7 +20,7 @@ import { Sign } from "crypto";
 Amplify.configure(awsconfig);
 
 export default function Login(props:any) {
-  const [loggedIn,setLoggedIn] = useState(true)
+  const [loggedIn,setLoggedIn] = useState(false)
   // const [auth,checkAuth] = useState('')
   
   const router = useRouter()
@@ -33,11 +33,12 @@ export default function Login(props:any) {
         try {
             await Auth.currentAuthenticatedUser();
             setLoggedIn(true);
+            {console.log("Login status in index:", loggedIn)}
             // router.push("/home");
-            return true
+            // return true
         } catch {
           setLoggedIn(false);
-          return false
+          // return false
         }
     }
 
@@ -87,7 +88,6 @@ export default function Login(props:any) {
           {/* {loggedIn ? <div><Button onClick={()=> signOut()}>Sign Out</Button></div> : <div></div>}           */}
         </div> : <div><SignIn children = {props.children}/></div>
       }
-      {console.log("Login status in index:", loggedIn)}
       </div>
     </div>
   );
