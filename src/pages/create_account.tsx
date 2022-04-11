@@ -1,9 +1,10 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Image from 'next/image'
 import Logo from '../../public/icon.png'
 import Background from '../../public/login_background.png'
 
 function create_account() {
+    const [passwordShown, setPasswordShown] = useState(false)
   return (
     <div className='bg-black opacity-100' style={{height:"100vh"}}>
         <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden", zIndex:"0"}}>
@@ -25,31 +26,27 @@ function create_account() {
                 <button className='text-white bg-homepagetitle border-2 border-transparent rounded-lg px-4 py-2 text-center'>Log In</button>
         </div>
 
-        <div className='relative z-20 grid content-center justify-start pl-48'>
-            <span className='text-homepagetitle text-2xl font-semibold'>Create Your CodeCodeGuide Account</span>
+        <div className='relative z-20 grid content-center justify-items-center'>
+            <span className='text-homepagetitle text-3xl font-semibold'>Create Your CodeCodeGuide Account</span>
         </div>
 
         <div className='relative z-20 pt-8 grid content-center justify-center'>
             <form className='grid bg-zinc-800 bg-opacity-60 justify-center content-center border border-transparent rounded-lg' style={{height:"55vh", width:"70vw"}}>
                 <div className='grid justify-center content-center justify-items-center' style={{height:"55vh", width:"55vw"}}>
-                <div style={{width:"55vw"}} className='flex justify-between'>
-                    <input placeholder='First Name' className='text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 py-1 md:text-sm' style={{width:"25vw"}}/>
-                    <input placeholder='Last Name' className='text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 py-1 md:text-sm' style={{width:"25vw"}}/>
+                <div >
+                    <input placeholder='Your Email Address' className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 mx-6 py-1 md:text-xs' style={{width:"55vw",height:'4vh'}}/>
                 </div>
                 <div className='pt-8'>
-                    <input placeholder='Your Email Address' className='text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 mx-6 py-1 md:text-xs' style={{width:"55vw"}}/>
+                    <input placeholder='User Name' className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 mx-6 py-1 md:text-xs' style={{width:"55vw",height:'4vh'}}/>
                 </div>
                 <div className='pt-8'>
-                    <input placeholder='User Name' className='text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 mx-6 py-1 md:text-xs' style={{width:"55vw"}}/>
+                    <input type={passwordShown?'any':"password"} placeholder='Password' className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg  px-2 mx-6 py-1 md:text-xs' style={{width:"55vw",height:'4vh'}}/>
                 </div>
                 <div className='pt-8'>
-                    <input type="password" placeholder='Password' className='text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg  px-2 mx-6 py-1 md:text-xs' style={{width:"55vw"}}/>
-                </div>
-                <div className='pt-8'>
-                    <input type="password" placeholder='Confirm Password' className='text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 mx-6 py-1 md:text-xs' style={{width:"55vw"}}/>
+                    <input type={passwordShown?'any':"password"} placeholder='Confirm Password' className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 mx-6 py-1 md:text-xs' style={{width:"55vw",height:'4vh'}}/>
                 </div>
                 <div className='justify-items-start justify-self-start mx-7 pt-3'>
-                    <input type="checkbox"/>
+                    <input type="checkbox" onClick={() =>setPasswordShown((prev) => !prev)}/>
                     <span className='text-white pl-2'>Show Password</span>
                 </div>
                 <div className='pt-6'>

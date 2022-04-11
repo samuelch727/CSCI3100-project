@@ -4,10 +4,8 @@ import Logo from '../../public/icon.png'
 import Background from '../../public/login_background.png'
 import {useState} from 'react'
 
-
-function my_account() {
+function my_project() {
     const [isNavOpen, setIsNavOpen] = useState(false); 
-    const [passwordShown, setPasswordShown] = useState(false);
   return (
     <div className='bg-black opacity-100' style={{height:"100vh"}}>
         <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden", zIndex:"0"}}>
@@ -38,9 +36,9 @@ function my_account() {
             </svg>
             </div>
             <form>
-                <input placeholder='Search' className='text-white bg-transparent outline-none' style={{height:'4vh',width:'16vw'}}/>
+                <input placeholder='Search' className='text-white bg-transparent outline-none' style={{height:'4vh'}}/>
             </form>
-            </div>  
+            </div>
             <div className='flex content-center items-center'>
             <button className='pr-4 outline-none'> 
                 <svg xmlns="http://www.w3.org/2000/svg" className="text-white active:text-gray-900" style={{height:"5vh"}}fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
@@ -86,45 +84,50 @@ function my_account() {
                     </button>
                 </div>
             </div>
-            </div>        
-
-            <div className={isNavOpen?'relative z-10 grid content-center justify-center col-start-3 col-span-6 justify-items-center':'relative z-10 grid content-center justify-center'} style={isNavOpen?{height:'82.5vh',width:'60vw'}:{height:'82.5vh',width:'100vw'}}>
-                <form className='bg-zinc-800 bg-opacity-60 grid justify-center content-center border border-transparent rounded-lg' style={{height:"60vh", width:"60vw"}}>
-                    <div className=' grid content-center justify-center justify-items-center ' style={{width:'40vw', height:'60vh'}}>
-                    <div className='grid content-center justify-start pl-1 pb-1' style={{width:'40vw'}}>
-                        <span className='self-start text-2xl text-homepagetitle'>Account</span>
-                    </div>
-                    <input placeholder='Username' style={{width:'40vw',height:'4vh'}} className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4'/>
-                    <div style={{width:'40vw',height:'8vh'}} className='flex justify-between pt-2 items-center'>
-                        <input placeholder='First Name' style={{width:'19.5vw',height:'4vh'}} className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4'/>
-                        <input placeholder='Last Name' style={{width:'19.5vw',height:'4vh'}} className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4' />
-                    </div>
-                    <div style={{width:'40vw',height:'5vh'}} className=' pl-1 grid content-center text-start pt-2 pb-2' >
-                        <span className='text-homepagetitle text-2xl '>Email</span>
-                    </div>
-                        <input type='email' placeholder='Email' style={{width:'40vw',height:'4vh'}} className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4 mt-2 mb-2' />
-                    <div style={{width:'40vw',height:'5vh'}} className=' pl-1 grid content-center text-start pt-4 pb-2' >
-                        <span className='text-homepagetitle text-2xl '>Update Password</span>
-                    </div>
-                    <div style={{width:'40vw',height:'5vh'}} className='flex justify-between pt-2 content-center'>
-                        <input type={passwordShown?'any':'password'} placeholder='Current Password' style={{width:'19.5vw',height:'4vh'}} className='outline-none bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4 text-white'/>
-                        <input type={passwordShown?'any':'password'} placeholder='New  Password' style={{width:'19.5vw',height:'4vh'}} className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4' />
-                    </div>
-                    <div style={{width:'40vw',height:'5vh'}} className='pl-1 pt-2'>
-                        <input type='checkbox' onClick={()=> setPasswordShown((prev) => !prev)}/>
-                        <span className='pl-2 text-white opacity-70'>Show Password</span>
-                    </div>
-                    <div style={{width:'40vw',height:'5vh'}} className='flex justify-end gap-4 pt-4'>
-                        <button className='py-1 px-6 text-white bg-homepagetitle border border-transparent rounded-lg text-lg grid content-center justify-center' style={{height:'4.5vh',width:'8vw'}}>Cancel</button>
-                        <button className='py-1 px-6 text-white bg-homepagetitle border border-transparent rounded-lg text-lg grid content-center justify-center' style={{height:'4.5vh', width:'8vw'}}>Update</button>
-                    </div>
-                    </div>
-                </form>
             </div>
-        </div>    
-        
+
+            <div className={isNavOpen?'relative z-10 ml-14 mt-14':'relative z-10 ml-40 mt-14'} style={isNavOpen?{width:'70vw'}:{width:'80vw'}}>
+                 <div className='pt-8'></div>
+                 <div className='flex pl-2 pr-4' style={{width:'80vw'}}>
+                    <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'10vw'}}>My Project</span>
+                    <button className='grid content-center justify-center text-homepagetitle border border-homepagetitle rounded-lg'>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                    </button>
+                 </div>
+                 <div className={isNavOpen?'pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4':'pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4'}>
+                 <div  className='grid content-center justify-center' >
+                    <button className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
+                        <span className='pl-6 text-lg'> Project Name</span>
+                        <div className='grid grid-cols-2 content-center items-center justify-items-end justify-end'>
+                        <span className='pr-3'>last edit time</span> 
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        </div>
+                    </button>
+                 </div>
+                 <div  className='grid content-center justify-center' >
+                    <button className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
+                        <span className='pl-6 text-lg'> Project Name</span>
+                        <div className='grid grid-cols-2 content-center items-center justify-items-end justify-end'>
+                        <span className='pr-3'>last edit time</span> 
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        </div>
+                    </button>
+                 </div>
+                
+                </div>
+                
+            </div>
+
+            
+        </div>
     </div>
   )
 }
 
-export default my_account
+export default my_project
