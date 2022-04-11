@@ -19,8 +19,8 @@ import awsconfig from "../../aws-exports"
 // import {Paper} from "@material-ui/core";
 import React from 'react'
 import Image from 'next/image'
-import Logo from '../../public/icon.png'
 import Background from '../../public/login_background.png'
+import Header from '../../component/header'
 
 const initialFormState = {
   title: '', language: '', formType: ''
@@ -151,7 +151,8 @@ export default function Home(props:any) {
 
       <main>        
         <div style={{color: "white", backgroundColor: "black", width:"100%"}}> 
-          <p className="text-6xl"><Logo src="/Logo.png" alt="me" width="55" height="50" />Code Code Guide</p></div>
+        <Header />
+          </div>
 
         {console.log("Login Status in home:",loggedIn)}
         <div>Welcome on9 {uname}!</div>

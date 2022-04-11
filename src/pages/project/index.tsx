@@ -5,6 +5,7 @@ import Head from "next/head";
 import { Auth } from "aws-amplify";
 import Link from "next/link";
 import { ConsoleLogger } from "@aws-amplify/core";
+import Header from "../../component/header";
 
 export default function Home(props:any) {
   Auth.currentAuthenticatedUser().then((user) => {
@@ -30,7 +31,7 @@ export default function Home(props:any) {
 
       <main>
         
-        <div style={{color: "white", backgroundColor: "black", width:"100%"}}>Code Code Guide</div>
+        <Header />
         <nav style={{backgroundColor: "grey"}}>
             <ul>
                 <li>
