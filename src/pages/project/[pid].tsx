@@ -430,18 +430,22 @@ export default function Code() {
           owner={project?.owner ?? ""}
           updateShareList={updateShareList}
         />
-        <CodeBlock
-          updateCodeFromSocket={codeBlock}
-          language={project?.language.toString().toLowerCase() ?? ""}
-          width="75vw"
-          height="74vh"
-          connectionId={connectionId}
-          id={project?.projectCodeId}
-          users={users}
-          updateCode={(code: string, userLocation: any) =>
-            updateCode(code, userLocation)
-          }
-        />
+        {project?.language ? (
+          <CodeBlock
+            updateCodeFromSocket={codeBlock}
+            language={project?.language.toString().toLowerCase() ?? ""}
+            width="75vw"
+            height="74vh"
+            connectionId={connectionId}
+            id={project?.projectCodeId}
+            users={users}
+            updateCode={(code: string, userLocation: any) =>
+              updateCode(code, userLocation)
+            }
+          />
+        ) : (
+          <div style={{ height: "74vh" }}></div>
+        )}
         <CodeInputOutput
           width="75vw"
           height="20vh"
