@@ -38,6 +38,7 @@ export default function Home(props:any) {
         <div className='z-10'> 
           <div className='absolute grid top-0 text-center content-center self-center w-full h-screen select-none'>
             <div>
+            
             <span className='relative z-10 text-white text-4xl font-bold sm:text-2xl lg:text-3xl'>Welcome to </span>
             <span className='relative z-10 text-homepagetitle text-4xl font-bold sm:text-2xl lg:text-3xl'>CodeCodeGuide!</span>
             </div>

@@ -10,7 +10,6 @@ import { AppProps } from "next/app";
 import { useState, useEffect } from "react";
 import { TextField } from "@aws-amplify/ui-react";
 // import Index from "../pages/index";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Logotry from "next/image";
 import Logo from '../../public/icon.png'
@@ -96,13 +95,12 @@ const SignIn = ({children}: SignInProp) => {
     <div className='bg-black opacity-100' style={{height:"100vh"}}>
     <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden"}}>
     <Image src={Background} layout="fill"/>
-          <Header/>
+    <Header/>
           </div>
     
     <div className='grid justify-center content-center p-32'>
     <span className='text-homepagetitle text-center text-4xl pb-8 z-10'>Log in your CodeCodeGuide Account</span>
     <div className='flex justify-end p-8'>
-    <div><Link href="/"><button className='relative z-10 text-white rounded-xl text-xl px-8 py-1.5 bg-navtextbottom'>Back to home</button></Link></div>
     </div>
     <form className=' relative z-20 grid bg-zinc-800 bg-opacity-60 justify-items-center content-center rounded-lg border-2 border-transparent' style={{width:"60vw" ,height:"50vh"}}>
       
@@ -127,7 +125,7 @@ const SignIn = ({children}: SignInProp) => {
                 <input type="checkbox" className='bg-black text-white'></input>
                 <span className='pl-2 text-slate-300 h-24'>show password</span> 
                 </div>
-                <Button className='bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center' onClick={()=>signIn()} >Log in Account</Button>
+                <Button className='bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center' style={{color:'white',backgroundColor:'#534F82'}} onClick={()=>signIn()} >Log in Account</Button>
 
               {/* <TextField 
                 id = 'username'
@@ -161,13 +159,27 @@ const SignIn = ({children}: SignInProp) => {
         {
           formType === 'signUp' && (
             <div>
-              <input name="username" onChange={onChange} placeholder="username" /><br />
-              <input name="password" type="password" onChange={onChange} placeholder="password" /><br />
-              <input name="email" onChange={onChange} placeholder="email" /><br />
-              <input name="name" onChange={onChange} placeholder="nickname" />
+                
+              <div className='h-14'>
+              <input name="username" className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' onChange={onChange} placeholder="username"></input>
+              </div>
+
+              <div className='h-14'>
+              <input name="password" type="password" className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' onChange={onChange} placeholder="password" ></input>
+              </div>
+
+              <div className='h-14'>
+              <input name="email" className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' onChange={onChange} placeholder="email"></input>
+              </div>
+
+              <div className='h-14'>
+              <input name="name" className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' onChange={onChange} placeholder="nickname"></input>
+              </div>
+              
+              
               <div>
-              <Button onClick={()=>signUp()} onChange={onChange}>Sign Up</Button>
-              <Button id = 'SignInButton' onClick ={()=> {
+              <Button style={{color:'white',backgroundColor:'#534F82'}} onClick={()=>signUp()} onChange={onChange}>Sign Up</Button>
+              <Button id = 'SignInButton' style={{color:'white',backgroundColor:'#534F82'}} onClick ={()=> {
                 updateFormState(()=> ({...formState, formType: "signIn"}));
                 setError("");
                 }}>Back to Sign In</Button>
@@ -178,17 +190,23 @@ const SignIn = ({children}: SignInProp) => {
         {
           formType === 'confirmSignUp' && (
             <div>
-              <input name="authCode" onChange={onChange} placeholder="Confirmation code" />
-              <Button onClick={()=>{
+              <div className='grid justify-center content-center p-2'>
+              <span className='text-homepagetitle text-center text-4xl pb-8 z-10'>Please verify your Account</span>
+              </div>
+              <div className='grid content-center p-10'>
+              <input className=' text-xl pb-1 z-5' name="authCode" onChange={onChange} placeholder="Confirmation code" />
+              </div>
+              <div className='grid content-center p-10'>
+              <div><Button style={{color:'white',backgroundColor:'#534F82' }} onClick={()=>{
                 confirmSignUp();
                 setError("");
                 }}>Confirm Sign Up
               </Button>
-              <Button onClick={()=>{
-                signUp();
+              <Button id = 'SignInButton' style={{color:'white',backgroundColor:'#534F82'}} onClick ={()=> {
+                updateFormState(()=> ({...formState, formType: "signUp"}));
                 setError("");
-                }}>Back To Sign Up
-              </Button>
+                }}>Back to Sign Up</Button></div>
+                </div>
             </div>
           )
         }
