@@ -1,0 +1,197 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-csci3100project-dev-160242-authRole",
+      "UnauthRoleArn": "arn:aws:iam::138498565467:role/amplify-csci3100project-dev-160242-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::138498565467:role/amplify-csci3100project-dev-160242-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
+      "UnauthRoleName": "amplify-csci3100project-dev-160242-unauthRole",
+      "StackName": "amplify-csci3100project-dev-160242",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:138498565467:stack/amplify-csci3100project-dev-160242/a4397e30-a111-11ec-88c2-061920df77b4",
+      "AmplifyAppId": "d3cvqnrn2xt9cl"
+    }
+  },
+  "api": {
+    "csci3100project": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authcsci3100project75aea3c4"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 30,
+                "apiKeyExpirationDate": "2022-05-01T05:22:13.854Z",
+                "description": "databaseAPIKey"
+              }
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "4d4jjy7xifabfifsoxvklyotf4",
+        "GraphQLAPIEndpointOutput": "https://sdvg5zwz4bgz3fzm7qqhtbtknm.appsync-api.ap-southeast-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-kvs6zkz3ljdshd2yn4nfmtpgua"
+      },
+      "lastPushTimeStamp": "2022-04-04T06:27:42.784Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-csci3100project-dev-160242-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apicsci3100project"
+      },
+      "lastPushDirHash": "+tKhVP4KW5ZJ5415H5E7V5BTbmw=",
+      "testMode": true
+    },
+    "restapi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "collab",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "runCodeFunction",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "lastPushTimeStamp": "2022-04-04T06:27:42.787Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-csci3100project-dev-160242-deployment/amplify-cfn-templates/api/restapi-cloudformation-template.json",
+        "logicalId": "apirestapi"
+      },
+      "output": {
+        "ApiName": "restapi",
+        "RootUrl": "https://vlkr045cl9.execute-api.ap-southeast-1.amazonaws.com/dev",
+        "ApiId": "vlkr045cl9"
+      },
+      "lastPushDirHash": "Lb8Jv6FoPUvCA1DO2j4zAfF2Cy4="
+    }
+  },
+  "auth": {
+    "csci3100project75aea3c4": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL",
+          "NAME"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "output": {
+        "UserPoolId": "ap-southeast-1_wn1NRDV2x",
+        "AppClientIDWeb": "e82gaee1ul83v07413iirf827",
+        "AppClientID": "1eee8705ousj5j6v99h53nbur4",
+        "IdentityPoolId": "ap-southeast-1:364e39d2-408b-4b2a-9465-d950ca503f2e",
+        "UserPoolArn": "arn:aws:cognito-idp:ap-southeast-1:138498565467:userpool/ap-southeast-1_wn1NRDV2x",
+        "IdentityPoolName": "csci3100project75aea3c4_identitypool_75aea3c4__dev",
+        "UserPoolName": "csci3100project75aea3c4_userpool_75aea3c4"
+      },
+      "lastPushTimeStamp": "2022-04-04T06:27:42.788Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-csci3100project-dev-160242-deployment/amplify-cfn-templates/auth/csci3100project75aea3c4-cloudformation-template.json",
+        "logicalId": "authcsci3100project75aea3c4"
+      }
+    }
+  },
+  "storage": {
+    "s3csci3100projectstorageaededc65": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "BucketName": "csci3100project-storage-aededc65160242-dev",
+        "Region": "ap-southeast-1",
+        "service": "S3"
+      },
+      "lastPushTimeStamp": "2022-04-04T06:27:45.585Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-csci3100project-dev-160242-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storages3csci3100projectstorageaededc65"
+      },
+      "testMode": true,
+      "resourceName": "s3csci3100projectstorageaededc65"
+    }
+  },
+  "video": {},
+  "function": {
+    "runCodeFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2022-03-31T15:17:59.735Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-03-31T15:18:00.190Z",
+      "distZipFilename": "runCodeFunction-5261787a44684d354568-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
+        "s3Key": "amplify-builds/runCodeFunction-5261787a44684d354568-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-csci3100project-dev-160242-deployment/amplify-cfn-templates/function/runCodeFunction-cloudformation-template.json",
+        "logicalId": "functionrunCodeFunction"
+      },
+      "lastPushTimeStamp": "2022-04-04T06:27:42.790Z",
+      "output": {
+        "Region": "ap-southeast-1",
+        "Arn": "arn:aws:lambda:ap-southeast-1:138498565467:function:runCodeFunction-dev",
+        "Name": "runCodeFunction-dev",
+        "LambdaExecutionRole": "csci3100projectLambdaRolee99073a1-dev"
+      },
+      "lastPushDirHash": "/gMCoGm1wp60OrLxX+EKG179JdQ="
+    },
+    "collab": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2022-04-02T05:42:46.607Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-04-02T05:42:47.333Z",
+      "distZipFilename": "collab-6768387a657641467653-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
+        "s3Key": "amplify-builds/collab-6768387a657641467653-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-csci3100project-dev-160242-deployment/amplify-cfn-templates/function/collab-cloudformation-template.json",
+        "logicalId": "functioncollab"
+      },
+      "lastPushTimeStamp": "2022-04-04T06:27:42.792Z",
+      "output": {
+        "Region": "ap-southeast-1",
+        "Arn": "arn:aws:lambda:ap-southeast-1:138498565467:function:collab-dev",
+        "Name": "collab-dev",
+        "LambdaExecutionRole": "csci3100projectLambdaRole4a852e6c-dev"
+      },
+      "lastPushDirHash": "NDfx9WuxhakfAOB4aKzaSJk6QEM="
+    }
+  }
+}
