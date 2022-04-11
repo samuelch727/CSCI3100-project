@@ -54,7 +54,7 @@ export default function Home(props: any) {
             </div>
             <div className="p-8">
               <button className="relative z-10 text-white rounded-lg bg-navtextbottom  px-24 py-1.5 hover:shadow">
-                <Link href="./signin">Click here to start coding now</Link>
+                <Link href="./home">Click here to start coding now</Link>
               </button>
             </div>
           </div>
