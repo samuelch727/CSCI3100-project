@@ -60,15 +60,6 @@ const SignIn = ({ children }: SignInProp) => {
 
   const { formType } = formState;
 
-  function Toggle() {
-    var temp = document.getElementById("typepass");
-    if (temp.type === "password") {
-      temp.type = "text";
-    } else {
-      temp.type = "password";
-    }
-  }
-
   async function signUp() {
     const { username, email, password, name, verifypassword } = formState;
     if (password !== verifypassword) {
@@ -114,6 +105,7 @@ const SignIn = ({ children }: SignInProp) => {
       console.log("there was an error logging in", error);
     }
   };
+
   const forgotPassword = async () => {
     const { username } = formState;
     if (!username || username === "") {
