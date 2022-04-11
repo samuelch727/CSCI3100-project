@@ -7,7 +7,7 @@ import {
 } from "@aws-amplify/ui-react";
 //import "../project/index.css"
 import { AppProps } from "next/app";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { TextField } from "@aws-amplify/ui-react";
 // import Index from "../pages/index";
 import { useRouter } from "next/router";
@@ -45,6 +45,7 @@ const SignIn = ({children}: SignInProp) => {
   const [formState, updateFormState] = useState(initialFormState)
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
+  const passwordRef = useRef(null);
 
   function onChange(e) {
     e.persist()
@@ -52,6 +53,16 @@ const SignIn = ({children}: SignInProp) => {
   }
 
   const{ formType } = formState
+
+  function Toggle() {
+    var temp = document.getElementById("typepass");
+    if (temp.type === "password") {
+        temp.type = "text";
+    }
+    else {
+        temp.type = "password";
+    }
+}
 
   async function signUp() {
     try {
@@ -76,6 +87,7 @@ const SignIn = ({children}: SignInProp) => {
       console.log('there was an error', error);
     }   
   }
+
 
   const signIn = async () => {    
       try {
@@ -118,13 +130,19 @@ const SignIn = ({children}: SignInProp) => {
                 </div>
 
                 <div className='h-14'>
-                <input type="password" className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' onChange={onChange} placeholder='Your Password'></input>
+                <input type="password" ref = {passwordRef} className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' onChange={onChange} placeholder='Your Password'></input>
                 </div>
 
                 <div className='h-14'>
                 <input type="checkbox" className='bg-black text-white'></input>
-                <span className='pl-2 text-slate-300 h-24'>show password</span> 
+                <span className='pl-2 text-slate-300 h-24' onClick ={()=> {
+                updateFormState(()=> ({...formState, formType: "password"}));
+                setError("");
+                }}>show password</span> 
                 </div>
+
+
+
                 <Button className='bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center' style={{color:'white',backgroundColor:'#534F82'}} onClick={()=>signIn()} >Log in Account</Button>
 
               {/* <TextField 
