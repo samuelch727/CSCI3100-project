@@ -164,7 +164,7 @@ export default function Home(props:any) {
                 )
               }
             })}
-          </div>: <div></div>}
+          </div>: null}
         </div>
 
         <div>
@@ -214,7 +214,7 @@ export default function Home(props:any) {
                 <li key={item.id}>
                   <button onClick={()=>{console.log("Onclick:", item.id)}}>
                     {item.projectName}{item.language}{item.updatedAt}
-                    {item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>}
+                    {item.shareTo!=null ? <p>{item.shareTo}</p> : null}
                   </button>
                   <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
                 </li>
