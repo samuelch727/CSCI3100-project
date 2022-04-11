@@ -26,6 +26,10 @@ interface CodeBlockProps {
   refFromParent: any;
   runCode: () => void;
   users: UserData[];
+  userList: any[];
+  owner: string;
+  sharedWith: any;
+  updateShareList: () => void;
 }
 
 const userColors = [
@@ -48,19 +52,24 @@ export default function CodeControlBar({
   runCode,
   refFromParent,
   users,
+  userList,
+  owner,
+  sharedWith,
+  updateShareList,
 }: CodeBlockProps) {
-  const userList = [
-    { username: "samuel" },
-    { username: "ryan" },
-    { username: "kim" },
-    { username: "kingsley" },
-    { username: "sarah" },
-  ];
+  // const userList = [
+  //   { username: "samuel" },
+  //   { username: "ryan" },
+  //   { username: "kim" },
+  //   { username: "kingsley" },
+  //   { username: "sarah" },
+  // ];
 
-  const sharedWith = ["samuel", "ryan"];
+  // const sharedWith = ["samuel", "ryan"];
 
   const [isRunning, setIsRunning] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const [updatingShare, setUpdatingShare] = useState(false);
   useEffect(() => {
     refFromParent.current = {
       setIsRunning: setIsRunning,
@@ -70,9 +79,28 @@ export default function CodeControlBar({
     console.log(state);
     setIsRunning(state);
   }
+
+  function addShareUser(index: number) {
+    setUpdatingShare(true);
+    const newList = sharedWith;
+    newList.push(userList[index].username);
+    updateShareList(newList);
+    userList.splice(index, 1);
+    console.log(newList);
+    setUpdatingShare(false);
+  }
+
+  function removeShareUser(index: number) {
+    setUpdatingShare(true);
+    const newList = sharedWith;
+    newList.splice(index, 1);
+    updateShareList(newList);
+    console.log(newList);
+    setUpdatingShare(false);
+  }
   return (
     <div
-      style={{ width }}
+      style={{ width, height }}
       className="flex flex-row content-center px-3 bg-gray-100 justify-between items-center"
     >
       <div className="flex items-center">
@@ -146,9 +174,19 @@ export default function CodeControlBar({
                               }
                               if (value.username.includes(searchInput))
                                 return (
-                                  <li className="py-4 flex first:pt-0 last:pb-0 items-center justify-between px-1">
+                                  <li
+                                    className="py-4 flex first:pt-0 last:pb-0 items-center justify-between px-1"
+                                    key={key}
+                                  >
                                     {value.username}
-                                    <button className="bg-green-100 rounded p-1 hover:shadow transition ease-in-out duration-300">
+                                    <button
+                                      className="bg-green-100 rounded p-1 hover:shadow transition ease-in-out duration-300"
+                                      onClick={() => {
+                                        setUpdatingShare(true);
+                                        addShareUser(key);
+                                      }}
+                                      disabled={updatingShare}
+                                    >
                                       <PlusIcon className="h-6 text-green-900" />
                                     </button>
                                   </li>
@@ -157,14 +195,30 @@ export default function CodeControlBar({
                           </ul>
                         ) : null}
                       </div>
-                      <div className="relative grid gap-6 p-4 subpixel-antialiased w-full bg-gray-100 text-xl text-gray-600">
+                      <div className="relative grid gap-6 p-4 subpixel-antialiased w-full bg-gray-100 text-xl text-gray-600 select-none">
                         Shared with
                         <ul className="divide-y divide-slate-200 text-lg text-gray-800">
+                          <li className="py-4 flex first:pt-0 last:pb-0 items-center justify-between px-1">
+                            {owner}
+                            <div className="px-3 text-sm text-gray-500">
+                              owner
+                            </div>
+                          </li>
                           {sharedWith.map((value, key) => {
                             return (
-                              <li className="py-4 flex first:pt-0 last:pb-0 items-center justify-between px-1">
+                              <li
+                                className="py-4 flex first:pt-0 last:pb-0 items-center justify-between px-1"
+                                key={key}
+                              >
                                 {value}
-                                <button className="bg-rose-100 rounded p-1 hover:shadow transition ease-in-out duration-300">
+                                <button
+                                  className="bg-rose-100 rounded p-1 hover:shadow transition ease-in-out duration-300"
+                                  onClick={() => {
+                                    setUpdatingShare(true);
+                                    removeShareUser(key);
+                                  }}
+                                  disabled={updatingShare}
+                                >
                                   <TrashIcon className="h-6 text-rose-900" />
                                 </button>
                               </li>

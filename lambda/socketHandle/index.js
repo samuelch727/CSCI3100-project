@@ -2636,7 +2636,10 @@ exports.handler = async (event) => {
           });
         }
         break;
-      case "sendDoc":
+      case "updateShare":
+        await sendToAll(room[user[connectionId].roomId].ids, {
+          updateProject: true,
+        });
         break;
       case "sendChat":
         if (chat[user[connectionId].roomId]) {

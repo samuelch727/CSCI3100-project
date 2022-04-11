@@ -2,8 +2,9 @@ import CodeBlock from "../../components/CodeBlock";
 import { useRouter } from "next/router";
 import CodeControlBar from "../../components/CodeControlBar";
 import { API, graphqlOperation } from "aws-amplify";
-import { getProject } from "../../graphql/queries";
-import { Project } from "../../API";
+import { getProject, listUsers } from "../../graphql/queries";
+import { updateProject } from "../../graphql/mutations";
+import { Project, User } from "../../API";
 import {
   useEffect,
   useState,
@@ -19,7 +20,8 @@ import CodeInputOutput from "../../components/CodeInputOutput";
 import awsconfig from "../../aws-exports";
 import stream from "../../components/stream";
 import Stream from "../../components/stream";
-import Chat from "../../components/chat";
+import Chat from "../../components/Chat";
+import Document from "../../components/Document";
 
 interface CodeLocation {
   lineNumber: number;
@@ -41,7 +43,8 @@ export default function Code() {
   API.configure(awsconfig);
   const socket = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-  const [tabSelected, setTabSelected] = useState(0);
+  const [avaUser, setAvaUser] = useState([]);
+  const [tabSelected, setTabSelected] = useState(1);
   const [chatHeight, setChatHeight] = useState(0);
   const [tabBarHeight, setTabBarHeight] = useState(0);
   const [chatData, setChatData] = useState<chatData[]>([]);
@@ -153,6 +156,9 @@ export default function Code() {
     if (data.chat) {
       setChatData(data.chat);
     }
+    if (data.updateProject) {
+      fetchProject();
+    }
   }, []);
 
   const onConnect = useCallback((pid: string, codeId: string) => {
@@ -246,7 +252,7 @@ export default function Code() {
     API.post("restapi", "/compile", {
       body: {
         code: codeBlock.current.sourceCode,
-        language: "PYTHON",
+        language: project?.language,
         input:
           CIORef.current.inputValue === "" ? "\n" : CIORef.current.inputValue,
         expected: "",
@@ -326,33 +332,81 @@ export default function Code() {
     window.addEventListener("resize", resizeWindow);
   });
 
-  useEffect(() => {
-    const fetchProject = async () => {
-      const user = await Auth.currentAuthenticatedUser();
-      console.log(user.username);
-      if (pid) {
-        const project = (await API.graphql(
-          graphqlOperation(getProject, { id: pid })
-        )) as {
-          data: Project;
-          error: any;
-        };
+  const fetchProject = async () => {
+    const user = await Auth.currentAuthenticatedUser();
+    console.log(user.username);
+    if (pid) {
+      const project = (await API.graphql(
+        graphqlOperation(getProject, { id: pid })
+      )) as {
+        data: Project;
+        error: any;
+      };
 
-        if (project.data.getProject) {
-          setProject(project.data.getProject);
-          console.log(project.data.getProject);
-          let codeId = project.data.getProject.projectCodeId;
-          // TODO: activate
-          onConnect(pid.toString(), codeId.toString());
-          return project.data;
-        } else {
-          console.log("fail to load project");
-        }
+      if (project.data.getProject) {
+        setProject(project.data.getProject);
+        console.log(project.data.getProject);
+        let codeId = project.data.getProject.projectCodeId;
+        // TODO: activate
+        onConnect(pid.toString(), codeId.toString());
+        return project.data;
+      } else {
+        console.log("fail to load project");
       }
-    };
+    }
+  };
+  useEffect(() => {
     fetchProject();
     // console.log("pid: ", pid);
   }, [pid]);
+
+  const updateShareList = async (list: string[]) => {
+    const projectDetail = {
+      id: project?.id,
+      shareTo: list,
+    };
+    const updatedProject = await API.graphql(
+      graphqlOperation(updateProject, { input: projectDetail })
+    );
+    console.log("updated project: ", updatedProject);
+    setProject(updatedProject.data.updateProject);
+    socket.current?.send(
+      JSON.stringify({
+        action: "updateShare",
+      })
+    );
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await Auth.currentAuthenticatedUser();
+      // console.log(user.username);
+      console.log("fetching user");
+      const users = await API.graphql(
+        graphqlOperation(`
+        query ListUsers(
+          $filter: ModelUserFilterInput
+          $limit: Int
+          $nextToken: String
+        ) {
+          listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+            items {
+              username
+            }
+            nextToken
+          }
+        }
+      `)
+      );
+      console.log("Users fetched: ", users.data.listUsers.items);
+      setAvaUser(users.data.listUsers.items);
+      // console.log("Users fetched: ", project.error);
+      console.log("fetch user complete");
+    };
+    fetchUser();
+  }, []);
+
+  // const;
 
   const TabRef = useCallback((e) => {
     if (!e) return;
@@ -361,22 +415,26 @@ export default function Code() {
   }, []);
 
   return (
-    <div className="flex">
-      <div>
+    <div className="flex h-screen">
+      <div className="h-screen">
         <CodeControlBar
-          height="10vh"
+          height="6vh"
           width="75vw"
           title={project?.projectName ?? "Untitled Project"}
           disableRun={project?.language ? false : true}
           runCode={runCode}
           refFromParent={codeBar}
           users={users}
+          userList={avaUser}
+          sharedWith={project?.shareTo ?? []}
+          owner={project?.owner ?? ""}
+          updateShareList={updateShareList}
         />
         <CodeBlock
           updateCodeFromSocket={codeBlock}
-          language="python"
+          language={project?.language.toString().toLowerCase() ?? ""}
           width="75vw"
-          height="70vh"
+          height="74vh"
           connectionId={connectionId}
           id={project?.projectCodeId}
           users={users}
@@ -410,7 +468,7 @@ export default function Code() {
           }}
           ref={TabRef}
         >
-          <button
+          {/* <button
             className={
               tabSelected !== 0
                 ? "bg-gray-300 basis-1/2 grid justify-items-center py-1 hover:bg-gray-200 transition duration-300 ease-in-out"
@@ -419,12 +477,12 @@ export default function Code() {
             onClick={() => setTabSelected(0)}
           >
             Document
-          </button>
+          </button> */}
           <button
             className={
               tabSelected !== 1
-                ? "bg-gray-300 basis-1/2 grid justify-items-center py-1 hover:bg-gray-200 transition duration-300 ease-in-out"
-                : "bg-gray-50 basis-1/2 grid justify-items-center py-1"
+                ? "bg-gray-300 grow grid justify-items-center py-1 hover:bg-gray-200 transition duration-300 ease-in-out"
+                : "bg-gray-50 grow grid justify-items-center py-1"
             }
             onClick={() => setTabSelected(1)}
           >
@@ -438,6 +496,7 @@ export default function Code() {
           connectionId={connectionId}
           sendMessage={sendChat}
         />
+        {/* <Document height={chatHeight.toString().concat("px")} width="25vw" /> */}
       </div>
     </div>
   );
