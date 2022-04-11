@@ -96,8 +96,6 @@ export default function Home(props:any) {
     try {
       const newCode = await API.graphql(graphqlOperation(mutations.createCode, {input: {}}))
       setCode(newCode.data.createCode.id)
-      // const codeID = newCode.id
-      // setCode()
       console.log("Sucessfully created code! Code id:", codeID)
       
       const projectDetails = {
@@ -111,7 +109,7 @@ export default function Home(props:any) {
       console.log("Sucessfully created with codeID:", newProject.data.createProject.projectCodeId)
     } catch (error) {
       setError(error.toString());
-      console.log('there was an error creating project CodeID:', error)
+      console.log('there was an error creating project', error)
     }
   }
 
@@ -136,8 +134,6 @@ export default function Home(props:any) {
     }
   };
 
- // <CodeBlock language="python" width="100vw" height="90vh" />
-
   return (
     <div>       
       <Head>
@@ -151,12 +147,21 @@ export default function Home(props:any) {
           <p className="text-6xl"><Logo src="/Logo.png" alt="me" width="55" height="50" />Code Code Guide</p></div>
 
         {console.log("Login Status in home:",loggedIn)}
+
         <div>Welcome on9 {uname}!</div>
+        <div>
+          <button onClick={()=>router.push("/home/user")}>Go to User</button>
+        </div>
+        
         {console.log("formType: ", formType)}
         {/* <div><Button onClick={()=>createCode()}>Create Code</Button></div> */}
         <div><Button onClick ={()=> {
-                updateFormState(()=> ({...formState, formType: "createProject"}))
-                }}>+</Button></div>
+                if (formType == "") {
+                  updateFormState(()=> ({...formState, formType: "createProject"}))
+                } else if (formType == "createProject") {
+                  updateFormState(()=> ({...formState, formType: ""}))
+                }
+              }}>+</Button></div>
         { formType==='createProject' && (
           <div>
             {/* <form className="createProject" onSubmit={()=>createProject()}> */}
@@ -175,7 +180,7 @@ export default function Home(props:any) {
                 Language: {language}
               </div>
               <div>
-              { error != null ? error : <div></div> }
+              { error != null ? error : null }
               </div>
           </div>
           )
