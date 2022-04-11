@@ -4,14 +4,31 @@ export type AmplifyDependentResourcesAttributes = {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
+        },
+        "restapi": {
+            "RootUrl": "string",
+            "ApiName": "string",
+            "ApiId": "string"
         }
     },
-    "video": {
-        "csci3100livevideostream": {
-            "oMediaLiveChannelName": "string",
-            "oMediaLiveChannelId": "string",
-            "oMediaLivePrimaryIngestUrl": "string",
-            "oMediaLiveBackupIngestUrl": "string"
+    "function": {
+        "runCodeFunction": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "collab": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "csci3100project75aea3c4PostConfirmation": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
         }
     }
 }

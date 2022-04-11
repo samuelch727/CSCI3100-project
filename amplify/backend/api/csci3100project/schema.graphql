@@ -1,70 +1,71 @@
+type Project @model 
+  @auth(rules: [
+    { allow: owner, operations: [delete, read, update, create] },
+    { allow: owner, ownerField: "shareTo", operations: [read, update] }
+  ]) {
+  id: ID!
+  projectName: String!
+  language: String!
+  runResult: String
+  # createTime: AWSTimestamp
+  shareTo: [String]
+  docs: [Doc] @hasMany(indexName: "byProject", fields: ["id"])
+  todos: [Todo] @hasMany(indexName: "byProject", fields: ["id"])
+  code: Code @hasOne
+}
+
 type Code @model 
   @auth(rules: [
-    { allow: public, operations: [read, update] },
-    { allow: private, operations: [read, update] },
+    { allow: public, operations: [read, update] }, 
+    { allow: private, operations: [read, update] }, 
     { allow: owner, operations: [delete, read, update, create] },
     # { allow: owner, ownerField: "shareTo", operations: [read, update] }
   ]) {
   id: ID!
-  codeURL: AWSURL
-  # shareTo: [String]
-}
-
-type Todo @model 
-  @auth(rules: [
-    { allow: public, operations: [read, update] },
-    { allow: private, operations: [read, update] },
-    { allow: owner, operations: [delete, read, update, create] }, 
-    # { allow: owner, ownerField: "shareTo", operations: [read, update] }
-  ]) {
-  id: ID!
-  todoURL: AWSURL
-  todoTitle: String
-  lineNumber: Int
-  check: Boolean
-  projectID: ID! @index(name: "byProject")
-  # shareTo: [String]
-}
-
-type Project @model
-  @auth(
-    # query: [
-    #     { rule: """query {
-    #         queryProject(filter: { isPublic: { eq: true } } ) {
-    #             id
-    #         }
-    #     }""" }
-    # ]
-    rules: [
-        { allow: owner, operations: [delete, read, update, create] },
-        { allow: owner, ownerField: "shareTo", operations: [read, update] },
-        # { allow: groups, groupsField: "groupsCanAccess" }
-    ]
-  ) {
-  id: ID!
-  documents: [Doc] @hasMany(indexName: "byProject", fields: ["id"])
-  projectName: String!
-  language: String!
-  code: String
-  todo: String
-  runResult: String
-  createTime: AWSTimestamp
-  shareTo: [String]
-  # groupsCanAccess: [String]
-  Todos: [Todo] @hasMany(indexName: "byProject", fields: ["id"])
-  Code: Code @hasOne
+  sourceCode: String
+  project: Project @belongsTo
 }
 
 type Doc @model 
   @auth(rules: [
-    { allow: public, operations: [read, update] },
-    { allow: private, operations: [read, update] },
+    { allow: public, operations: [read, update] }, 
+    { allow: private, operations: [read, update] }, 
+    { allow: owner, operations: [delete, read, update, create] },
+    # { allow: owner, ownerField: "shareTo", operations: [read, update] }
+  ]) {
+  docURL: AWSURL!
+  docType: String
+  projectID: ID! @index(name: "byProject")
+}
+
+type Todo @model 
+  @auth(rules: [
+    { allow: public, operations: [read, update] }, 
+    { allow: private, operations: [read, update] }, 
     { allow: owner, operations: [delete, read, update, create] },
     # { allow: owner, ownerField: "shareTo", operations: [read, update] }
   ]) {
   id: ID!
-  docURL: AWSURL!
-  docType: String
+  todoURL: AWSURL!
+  todoTitle: String
+  lineNumber: String
+  check: Boolean
   projectID: ID! @index(name: "byProject")
-  # shareTo: [String]
+  project: Project @belongsTo
 }
+
+type Subscription {
+  onUpdateByCodeId(id: ID!): Code
+    @aws_subscribe(mutations: ["updateCode"])
+}
+
+type User @model(subscriptions: { level: off })
+  @auth(rules:[
+    { allow: groups, groups: ["Admin"]},
+    { allow: private, operations:[read]}
+  ]) {
+  id: ID! @auth(rules:[{ allow: groups, groups: ["Admin"]}])
+  username: String!
+  email: String! @auth(rules:[{ allow: groups, groups: ["Admin"]}])
+  }
+ 
