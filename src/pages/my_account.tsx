@@ -91,8 +91,9 @@ function my_account() {
             <div className={isNavOpen?'relative z-10 grid content-center justify-center col-start-3 col-span-6 justify-items-center':'relative z-10 grid content-center justify-center'} style={isNavOpen?{height:'82.5vh',width:'60vw'}:{height:'82.5vh',width:'100vw'}}>
                 <form className='bg-zinc-800 bg-opacity-60 grid justify-center content-center border border-transparent rounded-lg' style={{height:"60vh", width:"60vw"}}>
                     <div className=' grid content-center justify-center justify-items-center ' style={{width:'40vw', height:'60vh'}}>
-                    <div className='grid content-center justify-start pl-1 pb-1' style={{width:'40vw'}}>
+                    <div className='flex justify-between content-center pl-1 pb-4' style={{width:'40vw'}}>
                         <span className='self-start text-2xl text-homepagetitle'>Account</span>
+                        <button className='py-1 px-6 text-white bg-homepagetitle border border-transparent rounded-lg text-medium grid content-center justify-center' style={{height:'4vh',width:'8vw'}}>Sign Out</button>
                     </div>
                     <input placeholder='Username' style={{width:'40vw',height:'4vh'}} className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4'/>
                     <div style={{width:'40vw',height:'8vh'}} className='flex justify-between pt-2 items-center'>

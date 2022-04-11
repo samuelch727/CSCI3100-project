@@ -3,9 +3,11 @@ import Image from 'next/image'
 import Logo from '../../public/icon.png'
 import Background from '../../public/login_background.png'
 import {useState} from 'react'
+import {Tab} from '@headlessui/react'
 
 function my_project() {
     const [isNavOpen, setIsNavOpen] = useState(false); 
+    const [createProject, setCreateProject] = useState(false);
   return (
     <div className='bg-black opacity-100' style={{height:"100vh"}}>
         <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden", zIndex:"0"}}>
@@ -86,15 +88,42 @@ function my_project() {
             </div>
             </div>
 
-            <div className={isNavOpen?'relative z-10 ml-14 mt-14':'relative z-10 ml-40 mt-14'} style={isNavOpen?{width:'70vw'}:{width:'80vw'}}>
+            <div className={isNavOpen?'relative z-10 ml-14 mt-14 overflow-scroll':'relative z-10 ml-40 mt-14 overflow-scroll'} style={isNavOpen?{width:'70vw',height:'75vh'}:{width:'80vw',height:'75vh'}}>
                  <div className='pt-8'></div>
-                 <div className='flex pl-2 pr-4' style={{width:'80vw'}}>
+                 <div className='flex pl-2 pr-4 items-center' style={{width:'80vw'}}>
                     <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'10vw'}}>My Project</span>
-                    <button className='grid content-center justify-center text-homepagetitle border border-homepagetitle rounded-lg'>
+                    <button className='grid content-center justify-center text-homepagetitle border border-homepagetitle rounded-lg w-6 h-6 subpixel-antialiased' onClick={() => setCreateProject(() => true)}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>
                     </button>
+                 </div>
+
+                 <div className={isNavOpen?'pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4':'pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4'}>
+                     <div className={createProject?'grid content-center justify-center':'hidden grid content-center justify-center'}>
+                        <form className='border border-homepagetitle rounded-lg grid grid-rows-5 content-center justify-center' style={isNavOpen?{width:'69vw',height:'50vh'}:{width:'79vw',height:'50vh'}}>
+                            <div style={isNavOpen?{width:'59vw'}:{width:'69vw'}} className='row-start-1 row-span-1 grid content-center justify-end'>
+                            <button className='text-homepagetitle' onClick={(e)=> {e.preventDefault();setCreateProject((prev)=> false)}}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                            </div>
+
+                            <div className='row-start-2 row-span-1 flex content-center justify-center items-center'>
+                                <label className='text-homepagetitle'>Title: </label>
+                                <input placeholder='Your Project Title'style={{width:'40vw',height:'4vh'}} className='outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4'></input>
+                            </div>
+                            
+                            <div className='row-start-4 row-span-1 flex content-center justify-center items-center'>
+                                <label className='text-homepagetitle'>Language: </label>
+                                <button>C</button>
+                                <button>C++</button>
+                                <button>Python</button>
+                                <button>Java</button>
+                            </div>
+                        </form>
+                    </div>
                  </div>
                  <div className={isNavOpen?'pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4':'pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4'}>
                  <div  className='grid content-center justify-center' >
