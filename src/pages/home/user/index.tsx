@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import awsconfig from "../../../aws-exports";
 import { API, graphqlOperation } from "aws-amplify";
 import Image from "next/image";
-import Logo from "../../../../public/Logo.png";
-import Background from "../../public/login_background.png";
+import Logo from "../../../../public/icon.png";
+import Background from "../../../../public/login_background.png";
+import { useRouter } from "next/router";
 
 export default function User(props: any) {
   API.configure(awsconfig);
@@ -12,30 +13,39 @@ export default function User(props: any) {
   const [uname, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
   // const [pw, setPassword] = useState(null)
+  const [verifyPassword, setVerifyPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const router = useRouter();
 
   async function changePw() {
+    if (newPassword !== verifyPassword) {
+      setError("Passwords do not match");
+      return;
+    }
     Auth.currentAuthenticatedUser()
       .then((user) => {
         return Auth.changePassword(user, oldPassword, newPassword);
       })
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+      .then((data) => {
+        setSuccess(true);
+        console.log(data);
+      })
+      .catch((err) => {
+        setError(err);
+        console.log(err);
+      });
   }
 
   useEffect(() => {
     async function AccessLoggedInState() {
       try {
         const user = await Auth.currentAuthenticatedUser();
-        // updateUser(user);
-        setUsername(user.username);
-        setEmail(user.attributes.email);
-        setPassword(user.password); // cant get pw!!
-        // const email = user.attribute
         setLoggedIn(true);
         console.log(user);
         return true;
@@ -188,6 +198,9 @@ export default function User(props: any) {
               <button
                 className="text-white text-xl font-bold flex text-white flex items-center justify-start"
                 style={{ height: "8vh" }}
+                onClick={() => {
+                  router.push("/home");
+                }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -256,108 +269,72 @@ export default function User(props: any) {
               : { height: "82.5vh", width: "100vw" }
           }
         >
+          <div className="relative z-20 grid content-center justify-center mb-10">
+            <span className="text-homepagetitle text-2xl">Change Password</span>
+          </div>
           <form
-            className="bg-zinc-800 bg-opacity-60 grid justify-center content-center border border-transparent rounded-lg"
-            style={{ height: "60vh", width: "60vw" }}
+            className="grid bg-zinc-800 bg-opacity-60 justify-center content-center border border-transparent rounded-lg"
+            style={{ height: "45vh", width: "60vw" }}
           >
-            <div
-              className=" grid content-center justify-center justify-items-center "
-              style={{ width: "40vw", height: "60vh" }}
-            >
-              <div
-                className="grid content-center justify-start pl-1 pb-1"
-                style={{ width: "40vw" }}
-              >
-                <span className="self-start text-2xl text-homepagetitle">
-                  Account
-                </span>
-              </div>
+            <div className=" pt-2 pb-5 px-5">
               <input
-                placeholder="Username"
-                style={{ width: "40vw", height: "4vh" }}
-                className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
-              />
-              <div
-                style={{ width: "40vw", height: "8vh" }}
-                className="flex justify-between pt-2 items-center"
-              >
-                <input
-                  placeholder="First Name"
-                  style={{ width: "19.5vw", height: "4vh" }}
-                  className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
-                />
-                <input
-                  placeholder="Last Name"
-                  style={{ width: "19.5vw", height: "4vh" }}
-                  className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
-                />
-              </div>
-              <div
+                placeholder="Old Password"
+                className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
                 style={{ width: "40vw", height: "5vh" }}
-                className=" pl-1 grid content-center text-start pt-2 pb-2"
-              >
-                <span className="text-homepagetitle text-2xl ">Email</span>
-              </div>
+                type="password"
+                value={oldPassword}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setOldPassword(e.target.value);
+                }}
+              />
+            </div>
+            <div className="p-5">
               <input
-                type="email"
-                placeholder="Email"
-                style={{ width: "40vw", height: "4vh" }}
-                className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4 mt-2 mb-2"
+                placeholder="New Password"
+                className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
+                style={{ width: "40vw", height: "5vh" }}
+                type="password"
+                value={newPassword}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setNewPassword(e.target.value);
+                }}
               />
-              <div
+            </div>
+            <div className="p-5">
+              <input
+                placeholder="Re-Enter New Password"
+                className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
                 style={{ width: "40vw", height: "5vh" }}
-                className=" pl-1 grid content-center text-start pt-4 pb-2"
-              >
-                <span className="text-homepagetitle text-2xl ">
-                  Update Password
-                </span>
+                type="password"
+                value={verifyPassword}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setVerifyPassword(e.target.value);
+                }}
+              />
+            </div>
+            {success ? (
+              <div className="text-green-500 pl-5">
+                Password changed successfully.
               </div>
-              <div
-                style={{ width: "40vw", height: "5vh" }}
-                className="flex justify-between pt-2 content-center"
+            ) : null}
+            <div className="text-red-500 pl-5">
+              {error !== "" ? "Error: " + error : ""}
+            </div>
+            <div className="grid justify-items-center pt-6">
+              <button
+                className="py-1 px-6 text-white bg-homepagetitle border border-transparent rounded-lg text-lg "
+                onClick={(e) => {
+                  setSuccess(false);
+                  setError("");
+                  e.preventDefault();
+                  changePw();
+                }}
               >
-                <input
-                  type={passwordShown ? "any" : "password"}
-                  placeholder="Current Password"
-                  style={{ width: "19.5vw", height: "4vh" }}
-                  className="outline-none bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4 text-white"
-                />
-                <input
-                  type={passwordShown ? "any" : "password"}
-                  placeholder="New  Password"
-                  style={{ width: "19.5vw", height: "4vh" }}
-                  className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
-                />
-              </div>
-              <div
-                style={{ width: "40vw", height: "5vh" }}
-                className="pl-1 pt-2"
-              >
-                <input
-                  type="checkbox"
-                  onClick={() => setPasswordShown((prev) => !prev)}
-                />
-                <span className="pl-2 text-white opacity-70">
-                  Show Password
-                </span>
-              </div>
-              <div
-                style={{ width: "40vw", height: "5vh" }}
-                className="flex justify-end gap-4 pt-4"
-              >
-                <button
-                  className="py-1 px-6 text-white bg-homepagetitle border border-transparent rounded-lg text-lg grid content-center justify-center"
-                  style={{ height: "4.5vh", width: "8vw" }}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="py-1 px-6 text-white bg-homepagetitle border border-transparent rounded-lg text-lg grid content-center justify-center"
-                  style={{ height: "4.5vh", width: "8vw" }}
-                >
-                  Update
-                </button>
-              </div>
+                Reset
+              </button>
             </div>
           </form>
         </div>
