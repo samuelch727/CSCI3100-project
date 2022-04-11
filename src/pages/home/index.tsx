@@ -66,6 +66,7 @@ export default function Home(props:any) {
   const [ deletedProject, setDeleteProject ] = useState();
   const [ newcode, setCreateCode ] = useState();
   const [ codeID, setCode ] = useState();
+  const [ searchInput, setSearchInput ] = useState("");
 
   // const allProjects = await API.graphql(graphqlOperation(listProjects));
   // project = 10 setProject(10)
@@ -149,6 +150,23 @@ export default function Home(props:any) {
         {console.log("Login Status in home:",loggedIn)}
 
         <div>Welcome on9 {uname}!</div>
+
+        <div>
+          <input value={searchInput} placeholder="Search here..." onChange={(e)=>{setSearchInput(e.target.value)}} />
+          {searchInput !== "" ? 
+          <div>
+            {project.map(item=>{
+              if (item.projectName.includes(searchInput)) {
+                return (
+                  <li key={item.id}>
+                    <button onClick={()=>{console.log("Onclick:", item.id)}}>{item.projectName}{item.language}{item.updatedAt}{item.shareTo}</button>
+                  </li>
+                )
+              }
+            })}
+          </div>: <div></div>}
+        </div>
+
         <div>
           <button onClick={()=>router.push("/home/user")}>Go to User</button>
         </div>
@@ -194,8 +212,10 @@ export default function Home(props:any) {
             loggedIn && project.map(item => {
               return (
                 <li key={item.id}>
-                  {item.projectName}{item.language}{item.updatedAt}
-                  {item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>}
+                  <button onClick={()=>{console.log("Onclick:", item.id)}}>
+                    {item.projectName}{item.language}{item.updatedAt}
+                    {item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>}
+                  </button>
                   <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
                 </li>
               )
@@ -209,7 +229,8 @@ export default function Home(props:any) {
             loggedIn && sharedProject.map(item => {
               return (
                 <li key={item.id}>
-                  {item.projectName}{item.language}{item.updatedAt}{item.shareTo}
+                  <button onClick={()=>{console.log("Onclick:", item.id)}}>
+                  {item.projectName}{item.language}{item.updatedAt}{item.shareTo}</button>
                   <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
                 </li>
               )  
