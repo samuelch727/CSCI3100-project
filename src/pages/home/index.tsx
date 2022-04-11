@@ -26,7 +26,7 @@ const initialFormState = {
 export default function Home(props:any) {
   
   API.configure(awsconfig);
-  const [loggedIn,setLoggedIn] = useState(true)
+  const [loggedIn,setLoggedIn] = useState(false)
   const [user, updateUser] = useState(null)
   const [uname, setUsername] = useState(null)
   const [error, setError] = useState(null)
