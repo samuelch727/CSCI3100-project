@@ -62,7 +62,11 @@ const SignIn = ({ children }: SignInProp) => {
     }
 
     try {
-      await Auth.signUp({ username, password, attributes: { email, name } });
+      await Auth.signUp({
+        username,
+        password,
+        attributes: { email, name: username },
+      });
       updateFormState(() => ({ ...formState, formType: "confirmSignUp" }));
     } catch (error) {
       setError(error.toString());
@@ -137,27 +141,28 @@ const SignIn = ({ children }: SignInProp) => {
         </p>
       </div>
       {console.log("formType: ", formType)}
-      {user ? (
-        children
-      ) : (
-        <div className="">
-          {formType === "signIn" && (
-            <div>
-              <h1>Log in your CodeCodeGuide account</h1>
-              <input
-                name="username"
-                onChange={onChange}
-                placeholder="username"
-              />
-              <br />
-              <input
-                name="password"
-                type="password"
-                onChange={onChange}
-                placeholder="password"
-              />
-              <br />
-              {/* <TextField 
+      {
+        user ? (
+          children
+        ) : (
+          <div className="">
+            {formType === "signIn" && (
+              <div>
+                <h1>Log in your CodeCodeGuide account</h1>
+                <input
+                  name="username"
+                  onChange={onChange}
+                  placeholder="username"
+                />
+                <br />
+                <input
+                  name="password"
+                  type="password"
+                  onChange={onChange}
+                  placeholder="password"
+                />
+                <br />
+                {/* <TextField 
                 id = 'username'
                 label = 'Username'
                 value = {username}
@@ -170,172 +175,187 @@ const SignIn = ({ children }: SignInProp) => {
                   value = {password}
                   onChange = {e => setPassword(e.target.value)}
                 /> */}
-              <Button onClick={() => signIn()}>Sign In</Button>
-              <Button
-                id="SignUpButton"
-                onClick={() => {
-                  updateFormState(() => ({ ...formState, formType: "signUp" }));
-                  setError("");
-                }}
-              >
-                Sign Up
-              </Button>
-              <Button
-                onClick={() => {
-                  updateFormState(() => ({
-                    ...formState,
-                    formType: "forgotPassword",
-                  }));
-                  setError("");
-                }}
-              >
-                Forgot Password
-              </Button>
-            </div>
-          )}
-          {formType === "signUp" && (
+                <Button onClick={() => signIn()}>Sign In</Button>
+                <Button
+                  id="SignUpButton"
+                  onClick={() => {
+                    updateFormState(() => ({
+                      ...formState,
+                      formType: "signUp",
+                    }));
+                    setError("");
+                  }}
+                >
+                  Sign Up
+                </Button>
+                <Button
+                  onClick={() => {
+                    updateFormState(() => ({
+                      ...formState,
+                      formType: "forgotPassword",
+                    }));
+                    setError("");
+                  }}
+                >
+                  Forgot Password
+                </Button>
+              </div>
+            )}
+            {formType === "signUp" && (
+              <div>
+                <h1>
+                  <p className="text-5xl">Log in your CodeCodeGuide account</p>
+                </h1>
+                <input
+                  name="username"
+                  onChange={onChange}
+                  placeholder="username"
+                />
+                <br />
+                <input
+                  name="password"
+                  type="password"
+                  onChange={onChange}
+                  placeholder="password"
+                />
+                <br />
+                <input
+                  name="verifypassword"
+                  type="password"
+                  onChange={onChange}
+                  placeholder="verify password"
+                />
+                <br />
+                <input name="email" onChange={onChange} placeholder="email" />
+                <br />
+                {/* <input name="name" onChange={onChange} placeholder="nickname" /> */}
+                <Button onClick={() => signUp()} onChange={onChange}>
+                  Sign Up
+                </Button>
+                {/* <Button
+                  id="SignInButton"
+                  onClick={() => {
+                    updateFormState(() => ({
+                      ...formState,
+                      formType: "signIn",
+                    }));
+                    setError("");
+                  }}
+                >
+                  Back to Sign In
+                </Button> */}
+              </div>
+            )}
+            {formType === "confirmSignUp" && (
+              <div>
+                <input
+                  name="authCode"
+                  onChange={onChange}
+                  placeholder="Confirmation code"
+                />
+                <Button
+                  onClick={() => {
+                    confirmSignUp();
+                    setError("");
+                  }}
+                >
+                  Confirm Sign Up
+                </Button>
+                <Button
+                  onClick={() => {
+                    updateFormState(() => ({
+                      ...formState,
+                      formType: "signUp",
+                    }));
+                    setError("");
+                  }}
+                >
+                  Back To Sign Up
+                </Button>
+              </div>
+            )}
+            {formType === "forgotPassword" && (
+              <div>
+                <input
+                  name="username"
+                  onChange={onChange}
+                  placeholder="username"
+                />
+                <Button
+                  onClick={() => {
+                    forgotPassword();
+                    setError("");
+                  }}
+                >
+                  Reset password
+                </Button>
+                <Button
+                  id="SignInButton"
+                  onClick={() => {
+                    updateFormState(() => ({
+                      ...formState,
+                      formType: "signIn",
+                    }));
+                    setError("");
+                  }}
+                >
+                  Back to Sign In
+                </Button>
+              </div>
+            )}{" "}
+            {formType === "forgotPasswordSent" && (
+              <div>
+                An reset email had been send to your mailbox
+                <input
+                  name="resetCode"
+                  onChange={onChange}
+                  placeholder="confirmation code"
+                />
+                <input
+                  name="password"
+                  type="password"
+                  onChange={onChange}
+                  placeholder="new password"
+                />
+                <br />
+                <input
+                  name="verifypassword"
+                  type="password"
+                  onChange={onChange}
+                  placeholder="verify new password"
+                />
+                <Button
+                  onClick={() => {
+                    setError("");
+                    forgotPasswordSubmit();
+                  }}
+                >
+                  Reset password
+                </Button>
+                <Button
+                  id="SignInButton"
+                  onClick={() => {
+                    updateFormState(() => ({
+                      ...formState,
+                      formType: "signIn",
+                    }));
+                    setError("");
+                  }}
+                >
+                  Back to Sign In
+                </Button>
+              </div>
+            )}
+            <div>{error != null ? error : null}</div>
             <div>
-              <h1>
-                <p className="text-5xl">Log in your CodeCodeGuide account</p>
-              </h1>
-              <input
-                name="username"
-                onChange={onChange}
-                placeholder="username"
-              />
-              <br />
-              <input
-                name="password"
-                type="password"
-                onChange={onChange}
-                placeholder="password"
-              />
-              <br />
-              <input
-                name="verifypassword"
-                type="password"
-                onChange={onChange}
-                placeholder="verify password"
-              />
-              <br />
-              <input name="email" onChange={onChange} placeholder="email" />
-              <br />
-              <input name="name" onChange={onChange} placeholder="nickname" />
-              <Button onClick={() => signUp()} onChange={onChange}>
-                Sign Up
-              </Button>
-              <Button
-                id="SignInButton"
-                onClick={() => {
-                  updateFormState(() => ({ ...formState, formType: "signIn" }));
-                  setError("");
-                }}
-              >
-                Back to Sign In
-              </Button>
+              <Link href="/">
+                <button>Back to home</button>
+              </Link>
             </div>
-          )}
-          {formType === "confirmSignUp" && (
-            <div>
-              <input
-                name="authCode"
-                onChange={onChange}
-                placeholder="Confirmation code"
-              />
-              <Button
-                onClick={() => {
-                  confirmSignUp();
-                  setError("");
-                }}
-              >
-                Confirm Sign Up
-              </Button>
-              <Button
-                onClick={() => {
-                  signUp();
-                  setError("");
-                }}
-              >
-                Back To Sign Up
-              </Button>
-            </div>
-          )}
-          {formType === "forgotPassword" && (
-            <div>
-              <input
-                name="username"
-                onChange={onChange}
-                placeholder="username"
-              />
-              <Button
-                onClick={() => {
-                  forgotPassword();
-                  setError("");
-                }}
-              >
-                Reset password
-              </Button>
-              <Button
-                id="SignInButton"
-                onClick={() => {
-                  updateFormState(() => ({ ...formState, formType: "signIn" }));
-                  setError("");
-                }}
-              >
-                Back to Sign In
-              </Button>
-            </div>
-          )}{" "}
-          {formType === "forgotPasswordSent" && (
-            <div>
-              An reset email had been send to your mailbox
-              <input
-                name="resetCode"
-                onChange={onChange}
-                placeholder="confirmation code"
-              />
-              <input
-                name="password"
-                type="password"
-                onChange={onChange}
-                placeholder="new password"
-              />
-              <br />
-              <input
-                name="verifypassword"
-                type="password"
-                onChange={onChange}
-                placeholder="verify new password"
-              />
-              <Button
-                onClick={() => {
-                  setError("");
-                  forgotPasswordSubmit();
-                }}
-              >
-                Reset password
-              </Button>
-              <Button
-                id="SignInButton"
-                onClick={() => {
-                  updateFormState(() => ({ ...formState, formType: "signIn" }));
-                  setError("");
-                }}
-              >
-                Back to Sign In
-              </Button>
-            </div>
-          )}
-          <div>{error != null ? error : null}</div>
-          <div>
-            <Link href="/">
-              <button>Back to home</button>
-            </Link>
           </div>
-        </div>
-      )
+        )
 
-      /* <TextField 
+        /* <TextField 
        id = 'username'
        label = 'Username'
         value = {username}
@@ -348,8 +368,8 @@ const SignIn = ({ children }: SignInProp) => {
         onChange = {e => setPassword(e.target.value)}
      
       /> */
-      /* <Button id = 'SignInButton' onClick ={()=>signIn()}>Sign In</Button> */
-      /* <Button id = 'SignUpButton' onClick ={()=> updateFormState(()=> ({
+        /* <Button id = 'SignInButton' onClick ={()=>signIn()}>Sign In</Button> */
+        /* <Button id = 'SignUpButton' onClick ={()=> updateFormState(()=> ({
         ...formState, formType: "signUp"
         }))}>Sign Up</Button> */
       }
