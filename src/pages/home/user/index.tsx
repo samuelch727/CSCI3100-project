@@ -29,7 +29,7 @@ export default function User(props:any) {
           // updateUser(user);
           setUsername(user.username);
           setEmail((user.attributes.email));
-          setPassword(user.password) // cant get pw!!
+          // setPassword(user.password) // cant get pw!!
           // const email = user.attribute
           setLoggedIn(true);
           console.log(user);
