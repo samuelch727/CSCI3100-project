@@ -461,6 +461,7 @@ export default function Code() {
           setPeerId={setPeerId}
           user={users}
           disPeerId={disconnectStream}
+          heightValue={videoHeight}
         />
         <div
           className="flex"

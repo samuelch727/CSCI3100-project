@@ -4,6 +4,7 @@ import {
   ChevronDownIcon,
   UsersIcon,
   VideoCameraIcon,
+  MicrophoneIcon,
 } from "@heroicons/react/solid";
 
 interface CodeLocation {
@@ -24,6 +25,7 @@ interface streamInterface {
   setPeerId: (id: string | null) => void;
   disPeerId: (id: string) => void;
   refFromParent: any;
+  heightValue: number;
 }
 
 function Stream({
@@ -33,6 +35,7 @@ function Stream({
   height,
   user,
   refFromParent,
+  heightValue,
 }: streamInterface) {
   console.log("Run Script");
   // const [peerId, setPeerId] = useState('');
@@ -51,6 +54,8 @@ function Stream({
   const [remoteUserPid, setRemoteUserPid] = useState({}); // {pid: stream}
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isVideoStop, setIsVideoStop] = useState(false);
 
   var myVideo: any = undefined;
   useEffect(() => {
@@ -96,7 +101,7 @@ function Stream({
     console.log("is currently selected? ", storageSelectedPid === pid);
     let index = calledId.indexOf(pid);
     setClalledId((temp) => {
-      return temp.slice(index, 1);
+      return temp.splice(index, 1);
     });
     if (storageSelectedPid === pid) {
       setSelectedPid("");
@@ -197,8 +202,8 @@ function Stream({
     call.on("stream", (remoteStream) => {
       if (remoteAudioRef.current.length == 0) return;
       console.log(remoteAudioRef.current);
-      remoteAudioRef.current[numOfConnection].srcObject = remoteStream;
-      remoteAudioRef.current[numOfConnection].play();
+      remoteAudioRef.current[numOfConnection]?.srcObject = remoteStream;
+      remoteAudioRef.current[numOfConnection]?.play();
       setNumOfConnection((numOfConnection) => numOfConnection + 1);
       console.log("calling new user, stream: ", remoteStream);
       // let temp = remoteUserPid;
@@ -222,10 +227,29 @@ function Stream({
     console.log("target: ", remoteUserPid[peerId]);
     setSelectedPid(peerId);
     localStorage.setItem("selectedPid", peerId);
-    currentUserVideoRef.current.srcObject = remoteUserPid[peerId];
-    currentUserVideoRef.current.play();
+    if (peerId === userPid) {
+      currentUserVideoRef.current.srcObject = localStream;
+      currentUserVideoRef.current.play();
+    } else {
+      currentUserVideoRef.current.srcObject = remoteUserPid[peerId];
+      currentUserVideoRef.current.play();
+    }
   }
   let numOfUser = 0;
+
+  function muteAudio() {
+    if (localStream) {
+      localStream.getAudioTracks()[0].enabled = isMuted;
+    }
+    setIsMuted((temp) => !temp);
+  }
+
+  function stopVideo() {
+    if (localStream) {
+      localStream.getVideoTracks()[0].enabled = isVideoStop;
+    }
+    setIsVideoStop((temp) => !temp);
+  }
 
   function addToAudioRef(el: any) {
     if (el && !remoteAudioRef.current.includes(el)) {
@@ -236,7 +260,7 @@ function Stream({
 
   return (
     // <div className="col-start-3 row-start-1 col-span-1 row-span-1 gap-4 justify-end content-end">
-    <div>
+    <div className="relative">
       <div>
         <div className="box-content h-48 justify-end" style={{ width }}>
           {user.map((user, key) => {
@@ -368,6 +392,31 @@ function Stream({
           </Menu>
         </div>
       </div>
+      {isJoined ? (
+        <div
+          className="absolute left-0 p-2 mx-1 grid grid-cols-2 rounded-lg select-none"
+          style={{ top: heightValue - 55 }}
+        >
+          <button onClick={() => stopVideo()}>
+            <VideoCameraIcon
+              className={
+                isVideoStop
+                  ? "w-9 text-white bg-rose-600 p-2 rounded-tl-lg rounded-bl-lg"
+                  : "w-9 text-white bg-emerald-600 p-2 rounded-tl-lg rounded-bl-lg"
+              }
+            />
+          </button>
+          <button onClick={() => muteAudio()}>
+            <MicrophoneIcon
+              className={
+                isMuted
+                  ? "w-9 text-white bg-rose-600 p-2 rounded-tr-lg rounded-br-lg"
+                  : "w-9 text-white bg-emerald-600 p-2 rounded-tr-lg rounded-br-lg"
+              }
+            />
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
