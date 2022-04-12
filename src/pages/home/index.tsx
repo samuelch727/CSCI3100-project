@@ -170,7 +170,21 @@ export default function Home(props:any) {
             </svg>
             </div>
             <form>
-                <input placeholder='Search' className='text-white bg-transparent outline-none' style={{height:'4vh'}}/>
+            <div>
+          <input value={searchInput} placeholder="Search here..." className='text-white bg-transparent outline-none' style={{height:'4vh'}} onChange={(e)=>{setSearchInput(e.target.value)}} />
+          {searchInput !== "" ? 
+          <div>
+            {project.map(item=>{
+              if (item.projectName.includes(searchInput)) {
+                return (
+                  <li key={item.id}>
+                    <button onClick={()=>{console.log("Onclick:", item.id)}}>{item.projectName}{item.language}{item.updatedAt}{item.shareTo}</button>
+                  </li>
+                )
+              }
+            })}
+          </div>: null}
+        </div>
             </form>
             </div>
             <div className='flex content-center items-center'>
