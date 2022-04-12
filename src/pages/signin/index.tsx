@@ -490,7 +490,7 @@ const SignIn = ({ children }: SignInProp) => {
             <div>
               <div className="relative z-20 grid content-center justify-center pt-14">
                 <span className="text-homepagetitle text-2xl">
-                  We have sent the confirmation code to your Email !
+                  We have sent the confirmation code to your Email!
                 </span>
               </div>
 
@@ -502,7 +502,7 @@ const SignIn = ({ children }: SignInProp) => {
                   <div className=" pt-2 pb-5 px-5">
                     <input
                       placeholder="Confirmation Code"
-                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
+                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4 text-white"
                       style={{ width: "40vw", height: "5vh" }}
                       name="resetCode"
                       onChange={onChange}
@@ -511,7 +511,7 @@ const SignIn = ({ children }: SignInProp) => {
                   <div className="p-5">
                     <input
                       placeholder="New Password"
-                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
+                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4 text-white"
                       style={{ width: "40vw", height: "5vh" }}
                       name="password"
                       type="password"
@@ -521,7 +521,7 @@ const SignIn = ({ children }: SignInProp) => {
                   <div className="p-5">
                     <input
                       placeholder="Re-Enter New Password"
-                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
+                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4 text-white"
                       style={{ width: "40vw", height: "5vh" }}
                       name="password"
                       type="password"
@@ -536,6 +536,7 @@ const SignIn = ({ children }: SignInProp) => {
                         e.preventDefault();
                         setError("");
                         forgotPasswordSubmit();
+                        setUsccessMessage("Password reset successfully!");
                       }}
                     >
                       Reset
@@ -582,7 +583,7 @@ const SignIn = ({ children }: SignInProp) => {
                   <div className="pt-2">
                     <input
                       placeholder="Verification Code"
-                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-0.5 px-2"
+                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-0.5 px-2 text-white"
                       style={{ width: "40vw", height: "5.5vh" }}
                       name="authCode"
                       onChange={onChange}
@@ -629,7 +630,7 @@ const SignIn = ({ children }: SignInProp) => {
                   <div>
                     <input
                       placeholder="Your Username"
-                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-0.5 px-2"
+                      className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-0.5 px-2 text-white"
                       style={{ width: "40vw", height: "5.5vh" }}
                       name="username"
                       onChange={onChange}
@@ -674,26 +675,34 @@ const SignIn = ({ children }: SignInProp) => {
                 style={{ width: "60vw", height: "50vh" }}
               >
                 <div className=" grid self-center items-center justify-items-center pt-4">
-                  <div className="h-14 pb-16">
+                  <div className="">
                     <input
-                      className="bg-inputboxcolor bg-opacity-10 border border-transparent w-96 rounded-lg py-0.5 px-2"
+                      className="bg-inputboxcolor bg-opacity-10 border border-transparent w-96 rounded-lg py-2 px-2 my-2 text-white"
                       placeholder="Your Username"
                       name="username"
                       onChange={onChange}
                     ></input>
                   </div>
-                  <div className="h-14">
+                  <div className="">
                     <input
-                      type="password"
-                      className="bg-inputboxcolor bg-opacity-10 w-96 border-transparent rounded-lg py-0.5 px-2"
+                      type={!passwordShown ? "password" : "text"}
+                      className="bg-inputboxcolor bg-opacity-10 w-96 border-transparent rounded-lg py-2 px-2 my-2 text-white"
                       placeholder="Your Password"
                       name="password"
                       onChange={onChange}
                     ></input>
                   </div>
                   <div className="h-14 justify-self-start">
-                    <input type="checkbox"></input>
-                    <span className="pl-2 text-slate-300 h-24">
+                    <input
+                      type="checkbox"
+                      value={passwordShown}
+                      onClick={() => {
+                        setPasswordShown((state) => {
+                          return !state;
+                        });
+                      }}
+                    ></input>
+                    <span className="pl-2 text-slate-300 h-24 mt-2">
                       show password
                     </span>
                   </div>
@@ -704,7 +713,7 @@ const SignIn = ({ children }: SignInProp) => {
                     {successMessage !== "" ? successMessage : null}
                   </div>
                   <button
-                    className="bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center"
+                    className="bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center p-4"
                     onClick={(e) => {
                       e.preventDefault();
                       signIn();
