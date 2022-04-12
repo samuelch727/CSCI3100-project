@@ -103,8 +103,7 @@ export default function Admin(props:any) {
         <div>
           <div>
             <input value={searchUserInput} placeholder="Search user here..." onChange={(e)=>{setSearchUser(e.target.value)}} />
-            {/* {searchUserInput} */}
-            {searchUserInput !== "" ? 
+            {searchUserInput !== "" ?
             <div>
               {userList.map(item=>{
                 if (item.Username.includes(searchUserInput)) {
@@ -117,12 +116,12 @@ export default function Admin(props:any) {
                   )
                 }
               })}
-            </div>: null}
+            </div>: <div>No user found</div>}
           </div>
           <h1><b>User List here</b></h1>
           <div>
           {
-            userList.map(item => {
+            userList&&userList.map(item => {
               return (
                 <li key={item.Username}>
                   {item.Username}
