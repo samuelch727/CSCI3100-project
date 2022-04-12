@@ -21,10 +21,16 @@ import React from 'react'
 import Image from 'next/image'
 import Background from '../../../public/login_background.png'
 import Header from '../../component/header'
+import { Tab } from "@headlessui/react";
 
 const initialFormState = {
   title: '', language: '', formType: ''
 }
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 
 export default function Home(props:any) {
   
@@ -153,7 +159,7 @@ export default function Home(props:any) {
 
       <main>        
       
-        <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden", zIndex:"0"}}>
+        <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"scroll", zIndex:"0"}}>
         <Image src={Background} layout="fill"/>
         
         <Header />
@@ -209,7 +215,7 @@ export default function Home(props:any) {
             <div className='relative z-10 grid col-span-1 col-start-1 bg-zinc-700 grid-row-3 content-start' style={{height:'82.5vh'}}>
                 <style>{`
                  .hideMenuNav{
-                     display:none
+                  display:none
                  }
                 `}</style>
                 <div className='row-span-1 col-start-1 border-y border-zinc-600 grid content-center justify-start' style={{height:'8vh'}}>
@@ -231,28 +237,206 @@ export default function Home(props:any) {
             </div>
             </div>
 
+            <div><Button onClick ={()=> {
+                updateFormState(()=> ({...formState, formType: "createProject"}))
+                }}>+</Button></div>
+        { formType==='createProject' && (
+          <div>
+              <div className="tab">
+              <button value="PYTHON" id="python" name="python" onClick={e=> setLanguage(e.target.value)}>PYTHON</button><br />
+              <button value="C" id="c" name="c" onClick={e=> setLanguage(e.target.value)}>C</button><br />
+              <button value="C++" id="c++" name="c++" onClick={e=> setLanguage(e.target.value)}>C++</button><br />
+              <button value="JAVA" id="java" name="java" onClick={e=> setLanguage(e.target.value)}>JAVA</button><br />
+              </div>
 
+
+
+              <Button onClick={()=>createProject()}>Create</Button>
+              <Button className="cancelButton" onClick ={()=> {
+                updateFormState(()=> ({...formState, formType: ""}))}}>Cancel</Button>
+              <div>New Project to be created: <br/>
+                Title: {title} <br />
+                Language: {language}
+              </div>
+              <div>
+              { error != null ? error : <div></div> }
+              </div>
+          </div>
+          )
+        }
+        
+        <br/>
 
 
 
           <div className={isNavOpen?'relative z-10 ml-14 mt-14':'relative z-10 ml-40 mt-14'} style={isNavOpen?{width:'70vw'}:{width:'80vw'}}>
-          {console.log("Login Status in home:",loggedIn)}
-          <div>Welcome on9 {uname}!</div>
-        {console.log("formType: ", formType)}
             <div className={isNavOpen?'pt-6 grid grid-cols-5 grid-rows-2 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
-              <div className='grid content-center justify-center'>
-              {
-            loggedIn && project.map(item => {
-              return (
-                <div className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle grid content-center justify-center' style={{width:'12vw',height:'auto'}} >
-                <li key={item.id}>
-                  {item.projectName}
-                  {item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>}
-                </li>
+              <div className='grid content-start justify-start'>
+
+
+          <div className="pt-8"></div>
+          <div
+            className="flex pl-2 pr-4 items-center"
+            style={{ width: "80vw" }}
+          >
+            <span
+              className={
+                isNavOpen
+                  ? "text-2xl text-homepagetitle font-semibold pl-3 w-fit pr-4"
+                  : "text-2xl text-homepagetitle font-semibold pl-1 w-fit pr-4"
+              }
+            >
+              New Project
+            </span>
+            <button
+              className="grid content-center justify-center text-homepagetitle border border-homepagetitle rounded-lg w-6 h-6 subpixel-antialiased"
+              onClick={() => setCreateProject(() => true)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div
+            className={
+              isNavOpen
+                ? "pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4"
+                : "pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4"
+            }
+          >
+            <div
+              className={
+                createProject
+                  ? "grid content-center justify-center"
+                  : "hidden grid content-center justify-center"
+              }
+            >
+              <form
+                className="border border-homepagetitle rounded-lg grid content-center justify-center"
+                style={
+                  isNavOpen
+                    ? { width: "69vw", height: "40vh" }
+                    : { width: "79vw", height: "40vh" }
+                }
+              >
+                <div
+                  style={isNavOpen ? { width: "59vw" } : { width: "69vw" }}
+                  className="row-start-1 row-span-1 grid content-center justify-end"
+                >
+                  <button
+                    className="text-homepagetitle"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCreateProject((prev) => false);
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
                 </div>
-              )
-            })
-          }
+
+            
+                <div className="row-start-2 row-span-1 grid content-center justify-center items-center h-fit" style={{width:'80vw'}}>
+                  <span className="text-homepagetitle w-full text-xl p-1">Title: </span>
+                  <input
+                    placeholder="Your Project Title"
+                    style={{ width: "40vw", height: "5vh" }}
+                    className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
+                  ></input>
+                </div>
+
+                <div className="row-start-3 row-span-1 grid content-center justify-center items-center pt-4 h-fit" >
+                  <span className="text-homepagetitle w-full text-xl p-1">Language:</span>
+
+                  <Tab.Group>
+                    <Tab.List className="flex p-1 space-x-1 bg-homepagetitle rounded-xl" style={{width:'40vw'}}>
+                      <Tab
+                        className={({ selected }) =>
+                          classNames(
+                            "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
+                            "focus:outline-none  ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
+                            selected
+                              ? "bg-white shadow"
+                              : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                          )
+                        }
+                      >
+                        C
+                      </Tab>
+                      <Tab
+                        className={({ selected }) =>
+                          classNames(
+                            "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5 outline-none",
+                            "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
+                            selected
+                              ? "bg-white shadow outline-none"
+                              : "text-blue-100 hover:bg-white/[0.12] outline-none hover:text-white"
+                          )
+                        }
+                      >
+                        C++
+                      </Tab>
+                      <Tab 
+                        className={({ selected })  =>
+                          classNames(
+                            "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
+                            "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
+                            selected
+                              ? "bg-white shadow"
+                              : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                          )
+                        } 
+                      >
+                        Python
+                      </Tab>
+                      <Tab
+                        className={({ selected }) =>
+                          classNames(
+                            "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
+                            "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
+                            selected
+                              ? "bg-white shadow"
+                              : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                          )
+                        }
+                      >
+                        Java
+                      </Tab>
+                    </Tab.List>
+                  </Tab.Group>
+                </div>
+
+                <div className="grid content-center justify-center h-fit pt-6">
+            <Button className='text-white text-lg font-bold text-white flex items-center justify-center bg-homepagetitle border border-transparent rounded-lg w-fit' style={{height:'4vh',width:'14vw'}} onClick={()=>createProject()}>Create</Button>
+                </div>
+              </form>
+            </div>
+          </div>
+
               </div>
                 
             </div>
@@ -284,32 +468,8 @@ export default function Home(props:any) {
             })
           }
 
-
-
-
-
                 
-                <div className='pt-8'></div>
-                 <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'20vw'}}>Recent Project</span>
-                 <div className={isNavOpen?'pt-6 grid grid-cols-1 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-1 auto-cols-min auto-rows-min gap-4'}>
-                 <div  className='grid content-center justify-center' >
-                    <button className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
-                        <span className='pl-6 text-lg'> Project Name</span>
-                        <div className='grid grid-cols-2 content-center items-center justify-items-end justify-end'>
-                        <span className='pr-3'>last edit time</span> 
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        </div>
-                    </button>
-                 </div>
-
-                
-                </div>
-                
-            </div>
-
-            
+            </div>       
         </div>
 
         
@@ -547,5 +707,201 @@ function Project_home() {
   )
 }
 
-export default Project_home */}
+export default Project_home 
+
+
+
+
+
+
+
+
+
+
+<div
+className={
+  isNavOpen
+    ? "relative z-10 ml-14 mt-14 overflow-scroll"
+    : "relative z-10 ml-40 mt-14 overflow-scroll"
+}
+style={
+  isNavOpen
+    ? { width: "70vw", height: "75vh" }
+    : { width: "80vw", height: "75vh" }
+}
+>
+<div className="pt-8"></div>
+<div
+  className="flex pl-2 pr-4 items-center"
+  style={{ width: "80vw" }}
+>
+  <span
+    className={
+      isNavOpen
+        ? "text-2xl text-homepagetitle font-semibold pl-3 w-fit pr-4"
+        : "text-2xl text-homepagetitle font-semibold pl-1 w-fit pr-4"
+    }
+  >
+    My Project
+  </span>
+  <button
+    className="grid content-center justify-center text-homepagetitle border border-homepagetitle rounded-lg w-6 h-6 subpixel-antialiased"
+    onClick={() => setCreateProject(() => true)}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+      />
+    </svg>
+  </button>
+</div>
+
+<div
+  className={
+    isNavOpen
+      ? "pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4"
+      : "pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4"
+  }
+>
+  <div
+    className={
+      createProject
+        ? "grid content-center justify-center"
+        : "hidden grid content-center justify-center"
+    }
+  >
+    <form
+      className="border border-homepagetitle rounded-lg grid content-center justify-center"
+      style={
+        isNavOpen
+          ? { width: "69vw", height: "40vh" }
+          : { width: "79vw", height: "40vh" }
+      }
+    >
+      <div
+        style={isNavOpen ? { width: "59vw" } : { width: "69vw" }}
+        className="row-start-1 row-span-1 grid content-center justify-end"
+      >
+        <button
+          className="text-homepagetitle"
+          onClick={(e) => {
+            e.preventDefault();
+            setCreateProject((prev) => false);
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+  
+      <div className="row-start-2 row-span-1 grid content-center justify-center items-center h-fit" style={{width:'80vw'}}>
+        <span className="text-homepagetitle w-full text-xl p-1">Title: </span>
+        <input
+          placeholder="Your Project Title"
+          style={{ width: "40vw", height: "5vh" }}
+          className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
+        ></input>
+      </div>
+
+      <div className="row-start-3 row-span-1 grid content-center justify-center items-center pt-4 h-fit" >
+        <span className="text-homepagetitle w-full text-xl p-1">Language:</span>
+
+        <Tab.Group>
+          <Tab.List className="flex p-1 space-x-1 bg-homepagetitle rounded-xl" style={{width:'40vw'}}>
+            <Tab
+              className={({ selected }) =>
+                classNames(
+                  "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
+                  "focus:outline-none  ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
+                  selected
+                    ? "bg-white shadow"
+                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                )
+              }
+            >
+              C
+            </Tab>
+            <Tab
+              className={({ selected }) =>
+                classNames(
+                  "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5 outline-none",
+                  "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
+                  selected
+                    ? "bg-white shadow outline-none"
+                    : "text-blue-100 hover:bg-white/[0.12] outline-none hover:text-white"
+                )
+              }
+            >
+              C++
+            </Tab>
+            <Tab
+              className={({ selected }) =>
+                classNames(
+                  "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
+                  "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
+                  selected
+                    ? "bg-white shadow"
+                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                )
+              }
+            >
+              Python
+            </Tab>
+            <Tab
+              className={({ selected }) =>
+                classNames(
+                  "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
+                  "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
+                  selected
+                    ? "bg-white shadow"
+                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                )
+              }
+            >
+              Java
+            </Tab>
+          </Tab.List>
+        </Tab.Group>
+      </div>
+
+      <div className="grid content-center justify-center h-fit pt-6">
+          <button className='text-white text-lg font-bold text-white flex items-center justify-center bg-homepagetitle border border-transparent rounded-lg w-fit' style={{height:'4vh',width:'14vw'}}>
+              Create Project
+          </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div
+  className={
+    isNavOpen
+      ? "pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4"
+      : "pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4"
+  }
+> 
+
+
+*/}
 
