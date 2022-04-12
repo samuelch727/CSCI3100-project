@@ -26,12 +26,13 @@ const initialFormState = {
 export default function Home(props:any) {
   
   API.configure(awsconfig);
-  const [loggedIn,setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
   const [user, updateUser] = useState(null)
   const [uname, setUsername] = useState(null)
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    checkAdmin()
 
     async function AccessLoggedInState() {
       try {
@@ -67,6 +68,7 @@ export default function Home(props:any) {
   const [ newcode, setCreateCode ] = useState();
   const [ codeID, setCode ] = useState();
   const [ searchInput, setSearchInput ] = useState("");
+  const [ admin, setAdmin] = useState(false);
 
   // const allProjects = await API.graphql(graphqlOperation(listProjects));
   // project = 10 setProject(10)
@@ -135,6 +137,17 @@ export default function Home(props:any) {
     }
   };
 
+  const checkAdmin = async() => {
+    const user =  await Auth.currentAuthenticatedUser();
+    // console.log(user)
+    const group = user.signInUserSession.accessToken.payload["cognito:groups"]
+    
+    if (group.includes('Admin')) {
+      setAdmin(true);
+      console.log(group)
+    }
+  }
+
   return (
     <div>       
       <Head>
@@ -150,6 +163,11 @@ export default function Home(props:any) {
         {console.log("Login Status in home:",loggedIn)}
 
         <div>Welcome on9 {uname}!</div>
+
+        {
+          admin ? <div><button onClick={()=>router.push("/home/admin")}>Manage User</button></div> : <div>Not Admin</div>
+        }
+        
 
         <div>
           <input value={searchInput} placeholder="Search here..." onChange={(e)=>{setSearchInput(e.target.value)}} />

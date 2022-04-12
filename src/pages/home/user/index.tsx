@@ -48,7 +48,7 @@ export default function User(props:any) {
       Hello {user}!<br />
       Username: {uname}<br />
       Email: {email}<br />
-      Password: {oldPassword}<br />
+      {/* Password: {oldPassword}<br /> */}
       <div>
         <input value={oldPassword} type="password" placeholder="Enter Your Old Password" onChange={e=> setOldPassword(e.target.value)} />
         <input type="password" placeholder="Enter New Password" value = {newPassword}onChange={e=> setNewPassword(e.target.value)} /><br />
