@@ -250,7 +250,7 @@ export default function Home(props:any) {
             
 
           <div className={isNavOpen?'relative z-10 ml-14 mt-14':'relative z-10 ml-40 mt-14'} style={isNavOpen?{width:'70vw'}:{width:'80vw'}}>
-            <div className={isNavOpen?'pt-6 grid grid-cols-5 grid-rows-2 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
+            <div className={isNavOpen?'pt-6 grid grid-cols-5 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
               <div className='grid content-start justify-start'>
 
 
@@ -446,11 +446,13 @@ export default function Home(props:any) {
               {
             loggedIn && project.map(item => {
               return (
-                <div className={isNavOpen?'pt-6 grid grid-cols-5 grid-rows-2 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
-                <div className='grid content-start justify-start'>
-                  <button className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
-                        <span className='pl-6 text-lg w-fit'>{item.projectName}</span>
-                        <span className="w-fit">{item.language}</span> 
+                <div className={isNavOpen?'pt-6 grid grid-cols-5 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
+                <div className='flex content-start justify-start border border-homepagetitle rounded-lg' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
+                  <button className='py-2 px-4  text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'59vw',height:'6vh'}:{width:'69vw',height:'6vh'}}>
+                    <div style={{width:'12vw'}}>
+                        <span className='pl-6 text-lg' style={{width:'12vw'}}>{item.projectName}</span>
+                    </div>
+                        <span style={{width:'12vw'}} className='grid content-center'>{ item.language}</span> 
                         <div className='grid  content-center items-center justify-items-end justify-end'>
                         <span className='pr-3'>{item.updatedAt}</span> 
                         </div>
@@ -461,15 +463,17 @@ export default function Home(props:any) {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
                           </div> : null}
-                          <div className="pl-4">
+                          </div>
+                          </button>
+                          <div className="pl-4 grid content-center text-homepagetitle">
                             <button value={item.id} onClick={e=>deleteProject(e.target.value)} className="grid content-center">
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                               </svg>
                             </button>
-                          </div>
+                          
                         </div>
-                </button>
+                
             </div>
             </div>
               )
@@ -487,20 +491,6 @@ export default function Home(props:any) {
         
         <br/>
 
-        <div className="sharedProjectList">
-          <h1><b>Projects that Share to you</b></h1>
-          {
-            loggedIn && sharedProject.map(item => {
-              return (
-                <li key={item.id}>
-                  {item.projectName}{item.language}{item.updatedAt}{item.shareTo}
-                  <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
-                </li>
-              )  
-            })
-          }
-          
-        </div>
         
           {/* <div>
             <button onClick={props.signUp}>Help</button>
