@@ -47,13 +47,15 @@ export default function Home(props: any) {
     async function AccessLoggedInState() {
       try {
         const user = await Auth.currentAuthenticatedUser();
-        const group =
-          user.signInUserSession.accessToken.payload["cognito:groups"];
+        try {
+          const group =
+            user.signInUserSession?.accessToken?.payload["cognito:groups"];
 
-        if (group.includes("Admin")) {
-          setAdmin(true);
-          // console.log(group)
-        }
+          if (group.includes("Admin")) {
+            setAdmin(true);
+            // console.log(group)
+          }
+        } catch {}
         updateUser(user);
         setUsername(user.username);
         console.log(user);
@@ -62,6 +64,7 @@ export default function Home(props: any) {
         return true;
       } catch {
         setLoggedIn(false);
+        console.log("fail login");
         return false;
       }
     }
@@ -88,29 +91,29 @@ export default function Home(props: any) {
 
   // const allProjects = await API.graphql(graphqlOperation(listProjects));
   // project = 10 setProject(10)
+  const fetchProject = async () => {
+    const project = await API.graphql(graphqlOperation(queries.listProjects));
+    console.log("fetched project", project.data.listProjects.items);
+    //@ts-ignore
+    setProject(project.data.listProjects.items);
+    // setProject(project.data.items)
+    // return project
+
+    const sharedProject = await API.graphql(
+      graphqlOperation(queries.listProjects, {
+        filter: { shareTo: { attributeExists: true } },
+      })
+    );
+    //@ts-ignore
+    console.log(sharedProject.data.listProjects.items);
+    //@ts-ignore
+    setSharedProject(sharedProject.data.listProjects.items);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchProject = async () => {
-      const project = await API.graphql(graphqlOperation(queries.listProjects));
-      console.log(project);
-      //@ts-ignore
-      setProject(project.data.listProjects.items);
-      // setProject(project.data.items)
-      // return project
-
-      const sharedProject = await API.graphql(
-        graphqlOperation(queries.listProjects, {
-          filter: { shareTo: { attributeExists: true } },
-        })
-      );
-      //@ts-ignore
-      console.log(sharedProject.data.listProjects.items);
-      //@ts-ignore
-      setSharedProject(sharedProject.data.listProjects.items);
-      setLoading(false);
-    };
-
     fetchProject();
-  }, [newProject, deletedProject]); // immediate update the new Project to the home
+  }, []); // immediate update the new Project to the home
 
   const [formState, updateFormState] = useState(initialFormState);
   const { formType } = formState;
@@ -142,6 +145,7 @@ export default function Home(props: any) {
       //@ts-ignore
       console.log(
         "Sucessfully created with codeID:",
+        //@ts-ignore
         newProject.data.createProject.projectCodeId
       );
     } catch (error) {
@@ -149,6 +153,7 @@ export default function Home(props: any) {
       setError(error.toString());
       console.log("there was an error creating project CodeID:", error);
     }
+    fetchProject();
   };
 
   const deleteProject = async (pid: string) => {
@@ -658,6 +663,7 @@ export default function Home(props: any) {
                     project.map((item) => {
                       const projectTime = new Date();
                       projectTime.setTime(Date.parse(item.updatedAt));
+                      console.log("map: ", item);
                       if (
                         searchInput === "" ||
                         item.projectName

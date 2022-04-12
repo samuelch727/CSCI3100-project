@@ -695,7 +695,7 @@ const SignIn = ({ children }: SignInProp) => {
                   <div className="h-14 justify-self-start">
                     <input
                       type="checkbox"
-                      value={passwordShown}
+                      // value={passwordShown}
                       onClick={() => {
                         setPasswordShown((state) => {
                           return !state;

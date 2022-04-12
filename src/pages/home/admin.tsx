@@ -470,6 +470,7 @@ export default function Admin(props: any) {
                                 value={user.Username}
                                 //@ts-ignore
                                 onClick={(e) =>
+                                  //@ts-ignore
                                   deleteUser(user.Username, index)
                                 }
                               >

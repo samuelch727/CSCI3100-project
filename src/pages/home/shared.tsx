@@ -41,13 +41,15 @@ export default function Home(props: any) {
     async function AccessLoggedInState() {
       try {
         const user = await Auth.currentAuthenticatedUser();
-        const group =
-          user.signInUserSession.accessToken.payload["cognito:groups"];
+        try {
+          const group =
+            user.signInUserSession?.accessToken?.payload["cognito:groups"];
 
-        if (group.includes("Admin")) {
-          setAdmin(true);
-          // console.log(group)
-        }
+          if (group.includes("Admin")) {
+            setAdmin(true);
+            // console.log(group)
+          }
+        } catch {}
         updateUser(user);
         setUsername(user.username);
         console.log(user);
@@ -134,6 +136,7 @@ export default function Home(props: any) {
       //@ts-ignore
       console.log(
         "Sucessfully created with codeID:",
+        //@ts-ignore
         newProject.data.createProject.projectCodeId
       );
     } catch (error) {
@@ -528,11 +531,12 @@ export default function Home(props: any) {
             )}
             {loggedIn &&
               !loading &&
-              sharedProject.map((item) => {
+              sharedProject.map((item, key) => {
                 const projectTime = new Date();
                 projectTime.setTime(Date.parse(item.updatedAt));
                 return (
                   <div
+                    key={key}
                     className={
                       isNavOpen
                         ? "pt-6 grid grid-cols-5 auto-cols-min auto-rows-min gap-4"
