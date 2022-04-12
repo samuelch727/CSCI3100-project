@@ -33,12 +33,20 @@ export default function Home(props:any) {
   const [user, updateUser] = useState(null)
   const [uname, setUsername] = useState(null)
   const [error, setError] = useState(null)
+  const [admin, setAdmin] = useState(false)
 
   useEffect(() => {
 
     async function AccessLoggedInState() {
       try {
           const user = await Auth.currentAuthenticatedUser();
+          const group =
+          user.signInUserSession.accessToken.payload["cognito:groups"];
+
+        if (group.includes("Admin")) {
+          setAdmin(true);
+          // console.log(group)
+        }
           updateUser(user);
           setUsername(user.username);
           console.log(user);
@@ -396,26 +404,7 @@ export default function Home(props:any) {
             Home
           </button>
         </div>
-        <div
-          className="row-span-1 col-start-1  border-y border-zinc-600 grid content-center justify-start"
-          style={{ height: "8vh" }}
-        >
-          <button
-            className="text-white text-xl font-bold flex text-white flex items-center justify-start"
-            style={{ height: "8vh" }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ height: "3vh" }}
-              className="pr-2 ml-6"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
-            </svg>
-            My Project
-          </button>
-        </div>
+        
         <div
           className="row-span-1 col-start-1  border-y border-zinc-600 grid content-center justify-start"
           style={{ height: "8vh" }}
@@ -436,6 +425,31 @@ export default function Home(props:any) {
             Shared Project
           </button>
         </div>
+        {admin && (
+              <div
+                className="row-span-1 col-start-1  border-y border-zinc-600 grid content-center justify-start"
+                style={{ height: "8vh" }}
+              >
+                <button
+                  className="text-white text-xl font-bold flex text-white flex items-center justify-start"
+                  style={{ height: "8vh" }}
+                  onClick={() => {
+                    router.push("/home/admin");
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="pr-2 ml-6"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    style={{ height: "3vh" }}
+                  >
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                  Manage User
+                </button>
+              </div>
+            )}
       </div>
     </div>
 
