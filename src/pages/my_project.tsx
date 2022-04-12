@@ -214,10 +214,9 @@ function my_project() {
             <span
               className={
                 isNavOpen
-                  ? "text-2xl text-homepagetitle font-semibold pl-3"
-                  : "text-2xl text-homepagetitle font-semibold pl-1"
+                  ? "text-2xl text-homepagetitle font-semibold pl-3 w-fit pr-4"
+                  : "text-2xl text-homepagetitle font-semibold pl-1 w-fit pr-4"
               }
-              style={{ width: "10vw" }}
             >
               My Project
             </span>
@@ -257,11 +256,11 @@ function my_project() {
               }
             >
               <form
-                className="border border-homepagetitle rounded-lg grid grid-rows-5 content-center justify-center"
+                className="border border-homepagetitle rounded-lg grid content-center justify-center"
                 style={
                   isNavOpen
-                    ? { width: "69vw", height: "50vh" }
-                    : { width: "79vw", height: "50vh" }
+                    ? { width: "69vw", height: "40vh" }
+                    : { width: "79vw", height: "40vh" }
                 }
               >
                 <div
@@ -292,19 +291,21 @@ function my_project() {
                   </button>
                 </div>
 
-                <div className="row-start-2 row-span-1 flex content-center justify-center items-center">
-                  <label className="text-homepagetitle mr-4">Title: </label>
+            
+                <div className="row-start-2 row-span-1 grid content-center justify-center items-center h-fit" style={{width:'80vw'}}>
+                  <span className="text-homepagetitle w-full text-xl p-1">Title: </span>
                   <input
                     placeholder="Your Project Title"
-                    style={{ width: "40vw", height: "4vh" }}
+                    style={{ width: "40vw", height: "5vh" }}
                     className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
                   ></input>
                 </div>
 
-                <div className="row-start-4 row-span-1 flex content-center justify-center items-center">
-                  <label className="text-homepagetitle">Language: </label>
+                <div className="row-start-3 row-span-1 grid content-center justify-center items-center pt-4 h-fit" >
+                  <span className="text-homepagetitle w-full text-xl p-1">Language:</span>
+
                   <Tab.Group>
-                    <Tab.List className="flex p-1 space-x-1 bg-homepagetitle rounded-xl mx-4">
+                    <Tab.List className="flex p-1 space-x-1 bg-homepagetitle rounded-xl" style={{width:'40vw'}}>
                       <Tab
                         className={({ selected }) =>
                           classNames(
@@ -360,6 +361,12 @@ function my_project() {
                     </Tab.List>
                   </Tab.Group>
                 </div>
+
+                <div className="grid content-center justify-center h-fit pt-6">
+                    <button className='text-white text-lg font-bold text-white flex items-center justify-center bg-homepagetitle border border-transparent rounded-lg w-fit' style={{height:'4vh',width:'14vw'}}>
+                        Create Project
+                    </button>
+                </div>
               </form>
             </div>
           </div>
@@ -382,6 +389,12 @@ function my_project() {
                 <span className="pl-6 text-lg"> Project Name</span>
                 <div className="grid grid-cols-2 content-center items-center justify-items-end justify-end">
                   <span className="pr-3">last edit time</span>
+                  <div className="flex content-center ">
+                  <button className="relative z-20 pr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -397,6 +410,7 @@ function my_project() {
                     />
                   </svg>
                 </div>
+                </div>
               </button>
             </div>
             <div className="grid content-center justify-center">
@@ -411,6 +425,12 @@ function my_project() {
                 <span className="pl-6 text-lg"> Project Name</span>
                 <div className="grid grid-cols-2 content-center items-center justify-items-end justify-end">
                   <span className="pr-3">last edit time</span>
+                  <div className="flex content-center ">
+                  <button className="relative z-20 pr-2" >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -425,6 +445,7 @@ function my_project() {
                       d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
                     />
                   </svg>
+                </div>
                 </div>
               </button>
             </div>
