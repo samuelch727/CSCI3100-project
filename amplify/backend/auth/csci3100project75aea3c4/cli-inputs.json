@@ -80,6 +80,7 @@
       "Ref": "AWS::StackId"
     },
     "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"csci3100project75aea3c4PostConfirmation\"\n  }\n]",
-    "permissions": []
+    "permissions": [],
+    "adminQueryGroup": "Admin"
   }
 }

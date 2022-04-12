@@ -29,6 +29,10 @@
         "csci3100project75aea3c4PostConfirmation": {
           "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
           "s3Key": "amplify-builds/csci3100project75aea3c4PostConfirmation-2f4d4e2b38432b54724b-build.zip"
+        },
+        "AdminQueriesb6b8fa45": {
+          "deploymentBucketName": "amplify-csci3100project-dev-160242-deployment",
+          "s3Key": "amplify-builds/AdminQueriesb6b8fa45-327a5477787657655750-build.zip"
         }
       }
     }
