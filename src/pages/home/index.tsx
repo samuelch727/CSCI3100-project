@@ -250,8 +250,7 @@ export default function Home(props:any) {
               </div>
 
 
-
-              <Button onClick={()=>createProject()}>Create</Button>
+              <Button className="bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center" onClick={()=>createProject()}>Create</Button>
               <Button className="cancelButton" onClick ={()=> {
                 updateFormState(()=> ({...formState, formType: ""}))}}>Cancel</Button>
               <div>New Project to be created: <br/>
@@ -429,8 +428,8 @@ export default function Home(props:any) {
                     </Tab.List>
                   </Tab.Group>
                 </div>
-
-                <div className="grid content-center justify-center h-fit pt-6">
+                 border-transparent rounded-lg flex items-center
+                <div className=" grid content-center justify-center h-fit pt-6 bg-navtextbottom text-white h-6 w-36 border-2">
             <Button className='text-white text-lg font-bold text-white flex items-center justify-center bg-homepagetitle border border-transparent rounded-lg w-fit' style={{height:'4vh',width:'14vw'}} onClick={()=>createProject()}>Create</Button>
                 </div>
               </form>
