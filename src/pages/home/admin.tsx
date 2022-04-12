@@ -236,7 +236,12 @@ export default function Admin(props: any) {
           </form>
         </div>
         <div className="flex content-center items-center">
-          <button className="pr-4 outline-none">
+          <button
+            className="pr-4 outline-none"
+            onClick={() => {
+              router.push("/home/user");
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="text-white active:text-gray-900"
