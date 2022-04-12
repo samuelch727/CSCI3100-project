@@ -161,7 +161,7 @@ export default function Home(props:any) {
 
       <main>        
       
-        <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"scroll", zIndex:"0"}}>
+        <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0",  zIndex:"0"}}>
         <Image src={Background} layout="fill"/>
         
         <Header />
@@ -214,7 +214,7 @@ export default function Home(props:any) {
 
         <div className='grid grid-cols-7'>
             <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
-            <div className='relative z-10 grid col-span-1 col-start-1 bg-zinc-700 grid-row-3 content-start' style={{height:'82.5vh'}}>
+            <div className='relative z-10 grid col-span-1 col-start-1 bg-zinc-700 grid-row-3 content-start' style={{height:'72.5vh'}}>
                 <style>{`
                  .hideMenuNav{
                   display:none
@@ -249,15 +249,15 @@ export default function Home(props:any) {
             </div>
             
 
-          <div className={isNavOpen?'relative z-10 ml-14 mt-14':'relative z-10 ml-40 mt-14'} style={isNavOpen?{width:'70vw'}:{width:'80vw'}}>
-            <div className={isNavOpen?'pt-6 grid grid-cols-5 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
-              <div className='grid content-start justify-start'>
+          <div className={isNavOpen?'grid relative z-10 ml-14 mt-14 ':'grid relative z-10 ml-40 mt-14 '} style={isNavOpen?{width:'70vw'}:{width:'80vw'}}>
+            <div className={isNavOpen?'pt-6 grid grid-cols-5 auto-cols-min auto-rows-min gap-4 ' :' pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4 '} >
+              <div className='grid content-start justify-start '>
 
 
           <div className="pt-8"></div>
           <div
-            className="flex pl-2 pr-4 items-center"
-            style={{ width: "80vw" }}
+            className="flex pr-4 items-center "
+            style={{ width: "80vw" }} 
           >
             <span
               className={
@@ -440,13 +440,16 @@ export default function Home(props:any) {
             </div>
 
 
-              <div className='pt-8'></div>
-              <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'20vw'}}>My Project</span>
 
-              {
-            loggedIn && project.map(item => {
+            <div className="grid content-center justify-center relative z-20" style={isNavOpen?{width:'70vw',height:'60vh'}:{width:'80vw',height:'60vh'}}>
+              <div className='pt-8'></div>
+    
+              
+              <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1 pb-5'} style={{width:'20vw'}}>My Project</span>
+                       
+              <div className="overflow-scroll" style={{height:"50vh"}}>{loggedIn && project.map(item => {
               return (
-                <div className={isNavOpen?'pt-6 grid grid-cols-5 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
+                <div className={isNavOpen?'pt-6 grid grid-cols-5 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'} >
                 <div className='flex content-start justify-start border border-homepagetitle rounded-lg' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
                   <button className='py-2 px-4  text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'59vw',height:'6vh'}:{width:'69vw',height:'6vh'}}>
                     <div style={{width:'12vw'}}>
@@ -478,7 +481,8 @@ export default function Home(props:any) {
             </div>
               )
             })
-          }
+          }</div>
+          </div> 
 
                 
             </div>       
