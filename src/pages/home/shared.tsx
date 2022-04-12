@@ -19,6 +19,7 @@ import awsconfig from "../../aws-exports"
 // import Logo from "next/image";
 import Logo from "../../../public/Logo.png"
 import Image from "next/image";
+import Background from "../../../public/login_background.png"
 // import {Paper} from "@material-ui/core";
 
 const initialFormState = {
@@ -456,28 +457,10 @@ export default function Home(props:any) {
               ? "text-2xl text-homepagetitle font-semibold pl-3"
               : "text-2xl text-homepagetitle font-semibold pl-1"
           }
-          style={{ width: "10vw" }}
+          style={{ }}
         >
-          My Project
+          Shared Project
         </span>
-        <button
-          className="grid content-center justify-center text-homepagetitle border border-homepagetitle rounded-lg w-6 h-6 subpixel-antialiased"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-            />
-          </svg>
-        </button>
       </div>
 
       <div
@@ -487,119 +470,6 @@ export default function Home(props:any) {
             : "pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4"
         }
       >
-        <div
-          className={
-            createProject
-              ? "grid content-center justify-center"
-              : "hidden grid content-center justify-center"
-          }
-        >
-          <form
-            className="border border-homepagetitle rounded-lg grid grid-rows-5 content-center justify-center"
-            style={
-              isNavOpen
-                ? { width: "69vw", height: "50vh" }
-                : { width: "79vw", height: "50vh" }
-            }
-          >
-            <div
-              style={isNavOpen ? { width: "59vw" } : { width: "69vw" }}
-              className="row-start-1 row-span-1 grid content-center justify-end"
-            >
-              <button
-                className="text-homepagetitle"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setCreateProject((prev) => false);
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <div className="row-start-2 row-span-1 flex content-center justify-center items-center">
-              <label className="text-homepagetitle mr-4">Title: </label>
-              <input
-                placeholder="Your Project Title"
-                style={{ width: "40vw", height: "4vh" }}
-                className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
-              ></input>
-            </div>
-
-            <div className="row-start-4 row-span-1 flex content-center justify-center items-center">
-              <label className="text-homepagetitle">Language: </label>
-              <Tab.Group>
-                <Tab.List className="flex p-1 space-x-1 bg-homepagetitle rounded-xl mx-4">
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
-                        "focus:outline-none  ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
-                        selected
-                          ? "bg-white shadow"
-                          : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                      )
-                    }
-                  >
-                    C
-                  </Tab>
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5 outline-none",
-                        "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
-                        selected
-                          ? "bg-white shadow outline-none"
-                          : "text-blue-100 hover:bg-white/[0.12] outline-none hover:text-white"
-                      )
-                    }
-                  >
-                    C++
-                  </Tab>
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
-                        "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
-                        selected
-                          ? "bg-white shadow"
-                          : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                      )
-                    }
-                  >
-                    Python
-                  </Tab>
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
-                        "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
-                        selected
-                          ? "bg-white shadow"
-                          : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                      )
-                    }
-                  >
-                    Java
-                  </Tab>
-                </Tab.List>
-              </Tab.Group>
-            </div>
-          </form>
-        </div>
       </div>
       <div
         className={
@@ -608,7 +478,12 @@ export default function Home(props:any) {
             : "pt-4 grid grid-cols-1 auto-cols-min auto-rows-min gap-4"
         }
       >
-        <div className="grid content-center justify-center">
+        
+        {loggedIn && sharedProject.map((project, key) => {
+            const projectTime = new Date()
+            projectTime.setTime(Date.parse(project.updatedAt))
+            console.log(projectTime.getDate())
+        return <div className="grid content-center justify-center" key={key}>
           <button
             className="py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center"
             style={
@@ -617,9 +492,9 @@ export default function Home(props:any) {
                 : { width: "79vw", height: "6vh" }
             }
           >
-            <span className="pl-6 text-lg"> Project Name</span>
-            <div className="grid grid-cols-2 content-center items-center justify-items-end justify-end">
-              <span className="pr-3">last edit time</span>
+            <span className="pl-6 text-lg">{project.projectName}</span>
+            <div className="flex content-center items-center justify-items-end justify-end">
+              <span className="pr-3 mr-3">{"Last edit time: " + projectTime.getDate() + "-" + projectTime.getMonth()  + " " + projectTime.getHours() + ":" + projectTime.getMinutes()}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -637,35 +512,7 @@ export default function Home(props:any) {
             </div>
           </button>
         </div>
-        <div className="grid content-center justify-center">
-          <button
-            className="py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center"
-            style={
-              isNavOpen
-                ? { width: "69vw", height: "6vh" }
-                : { width: "79vw", height: "6vh" }
-            }
-          >
-            <span className="pl-6 text-lg"> Project Name</span>
-            <div className="grid grid-cols-2 content-center items-center justify-items-end justify-end">
-              <span className="pr-3">last edit time</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-            </div>
-          </button>
-        </div>
+        })}
       </div>
     </div>
   </div>
