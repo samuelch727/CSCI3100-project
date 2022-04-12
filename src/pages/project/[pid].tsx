@@ -21,7 +21,6 @@ import awsconfig from "../../aws-exports";
 import stream from "../../components/stream";
 import Stream from "../../components/stream";
 import Chat from "../../components/Chat";
-import Document from "../../components/Document";
 
 interface CodeLocation {
   lineNumber: number;
@@ -93,7 +92,7 @@ export default function Code() {
     };
     setName();
   }, []);
-
+  //@ts-ignore
   const waitForConnection = function(callback, interval) {
     if (socket.current?.readyState === WebSocket.OPEN) {
       console.log("connected");
@@ -124,6 +123,7 @@ export default function Code() {
     if (data.initCode) {
       console.log(data.initCode);
       lastSentCode = data.initCode;
+      //@ts-ignore
       codeBlock.current.updateSourceCode(null, data.initCode);
     }
     if (data.sourceCode) {
@@ -138,19 +138,24 @@ export default function Code() {
           .patch_apply(dmp.patch_fromText(data.sourceCode), lastSentCode)[0]
           .toString();
         console.log("lastSentCode: ", lastSentCode);
+        //@ts-ignore
         codeBlock.current.updateSourceCode(data.sourceCode);
       }
     }
     if (data.disconnectId) {
+      //@ts-ignore
       StreamRef.current.disconnect(data.disconnectId);
     }
     if (data.callId) {
+      //@ts-ignore
       StreamRef.current.call(data.callId);
     }
     if (data.running != null) {
+      //@ts-ignore
       codeBar.current.setIsRunning(data.running);
     }
     if (data.result) {
+      //@ts-ignore
       CIORef.current.setOutPut(data.result);
     }
     if (data.chat) {
@@ -165,6 +170,7 @@ export default function Code() {
     if (socket.current?.readyState !== WebSocket.OPEN) {
       socket.current = new WebSocket(socketUrl);
       console.log(socket.current);
+      //@ts-ignore
       socket.current.addEventListener("open", onSocketOpen(pid, codeId));
       socket.current.addEventListener("close", onSocketClose);
       socket.current.addEventListener("message", (e) => {
@@ -183,7 +189,7 @@ export default function Code() {
     sendUpdatedCode(code, userLocation);
     console.log("lastSentCode: ", lastSentCode);
   }, []);
-
+  //@ts-ignore
   const sendUpdatedCode = throttle((code, userLocation) => {
     console.log("sendUpdatedCode: orgCode: ", lastSentCode);
     var patch = dmp.patch_make(lastSentCode, code);
@@ -203,24 +209,28 @@ export default function Code() {
     //   JSON.stringify({ action: "sendCodeLocation", codeLocation: "test" })
     // );
   });
-
+  //@ts-ignore
   function throttle(cb, delay = 1000) {
     let shouldWait = false;
     let originalCode = "";
     let init = false;
+    //@ts-ignore
     let waitingArgs;
     const timeoutFunc = () => {
+      //@ts-ignore
       if (waitingArgs == null) {
         shouldWait = false;
       } else {
         // console.log("waitingArgs: ", waitingArgs);
+        //@ts-ignore
         cb(waitingArgs[0], waitingArgs[1]);
+        //@ts-ignore
         originalCode = waitingArgs[0];
         waitingArgs = null;
         setTimeout(timeoutFunc, delay);
       }
     };
-
+    //@ts-ignore
     return (...args) => {
       console.log("trottle, should wait? ", shouldWait);
       if (shouldWait) {
@@ -242,6 +252,7 @@ export default function Code() {
 
   async function runCode() {
     console.log("run click");
+    //@ts-ignore
     codeBar.current.setIsRunning(true);
     socket.current?.send(
       JSON.stringify({
@@ -251,9 +262,11 @@ export default function Code() {
     );
     API.post("restapi", "/compile", {
       body: {
+        //@ts-ignore
         code: codeBlock.current.sourceCode,
         language: project?.language,
         input:
+          //@ts-ignore
           CIORef.current.inputValue === "" ? "\n" : CIORef.current.inputValue,
         expected: "",
       },
@@ -266,9 +279,11 @@ export default function Code() {
             result: res.output === "" ? res.status : res.output,
           })
         );
+        //@ts-ignore
         CIORef.current.setOutPut(res.output === "" ? res.status : res.output);
         setOutPut(res.output);
         console.log(res);
+        //@ts-ignore
         codeBar.current.setIsRunning(false);
       })
       .catch((err) => {
@@ -280,6 +295,7 @@ export default function Code() {
         );
         console.log("error when running code");
         console.log(err.response.data);
+        //@ts-ignore
         codeBar.current.setIsRunning(false);
       });
   }
@@ -342,10 +358,13 @@ export default function Code() {
         data: Project;
         error: any;
       };
-
+      //@ts-ignore
       if (project.data.getProject) {
+        //@ts-ignore
         setProject(project.data.getProject);
+        //@ts-ignore
         console.log(project.data.getProject);
+        //@ts-ignore
         let codeId = project.data.getProject.projectCodeId;
         // TODO: activate
         onConnect(pid.toString(), codeId.toString());
@@ -369,6 +388,7 @@ export default function Code() {
       graphqlOperation(updateProject, { input: projectDetail })
     );
     console.log("updated project: ", updatedProject);
+    //@ts-ignore
     setProject(updatedProject.data.updateProject);
     socket.current?.send(
       JSON.stringify({
@@ -398,7 +418,9 @@ export default function Code() {
         }
       `)
       );
+      //@ts-ignore
       console.log("Users fetched: ", users.data.listUsers.items);
+      //@ts-ignore
       setAvaUser(users.data.listUsers.items);
       // console.log("Users fetched: ", project.error);
       console.log("fetch user complete");
@@ -428,6 +450,7 @@ export default function Code() {
           userList={avaUser}
           sharedWith={project?.shareTo ?? []}
           owner={project?.owner ?? ""}
+          //@ts-ignore
           updateShareList={updateShareList}
         />
         {project?.language ? (
@@ -438,7 +461,9 @@ export default function Code() {
             height="74vh"
             connectionId={connectionId}
             id={project?.projectCodeId}
+            //@ts-ignore
             users={users}
+            //@ts-ignore
             updateCode={(code: string, userLocation: any) =>
               updateCode(code, userLocation)
             }

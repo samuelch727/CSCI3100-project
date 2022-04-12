@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "../styles/Home.module.css";
 // import { Auth } from "aws-amplify";
 import React from "react";
-import Login from "./component/login";
+// import Login from "../components";
 import Image from "next/image";
 import Logo from "../../public/icon.png";
 import background from "../../public/home-background.jpg";

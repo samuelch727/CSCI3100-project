@@ -13,14 +13,13 @@ import Logotry from "next/image";
 import Logo from "../../../public/Logo.png";
 import Background from "../../../public/login_background.png";
 // import SignUp from "../../component/signup";
-import Header from "../component/header";
 import Image from "next/image";
 import React from "react";
 
 Amplify.configure(awsExports);
 
 interface SignInProp {
-  children: any;
+  children?: any;
 }
 
 const initialFormState = {
@@ -50,9 +49,10 @@ const SignIn = ({ children }: SignInProp) => {
   const [formState, updateFormState] = useState(initialFormState);
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
+  const [successMessage, setUsccessMessage] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const passwordRef = useRef(null);
-
+  //@ts-ignore
   function onChange(e) {
     e.persist();
     updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }));
@@ -75,6 +75,7 @@ const SignIn = ({ children }: SignInProp) => {
       });
       updateFormState(() => ({ ...formState, formType: "confirmSignUp" }));
     } catch (error) {
+      //@ts-ignore
       setError(error.toString());
       console.log("there was an error signing up", error);
     }
@@ -85,9 +86,11 @@ const SignIn = ({ children }: SignInProp) => {
     try {
       const { username, authCode } = formState;
       const userSignUp = await Auth.confirmSignUp(username, authCode);
-      setUser(userSignUp);
-      if (router.asPath === "/signin") router.push("/home");
+      // setUser(userSignUp);
+      setUsccessMessage("Created account successfully, please login");
+      updateFormState(() => ({ ...formState, formType: "signIn" }));
     } catch (error) {
+      //@ts-ignore
       setError(error.toString());
       console.log("there was an error", error);
     }
@@ -101,6 +104,7 @@ const SignIn = ({ children }: SignInProp) => {
       setUser(userLogin);
       if (router.asPath === "/signin") router.push("/home");
     } catch (error) {
+      //@ts-ignore
       setError(error.toString());
       console.log("there was an error logging in", error);
     }
@@ -116,6 +120,7 @@ const SignIn = ({ children }: SignInProp) => {
       await Auth.forgotPassword(username);
       updateFormState(() => ({ ...formState, formType: "forgotPasswordSent" }));
     } catch (error) {
+      //@ts-ignore
       setError(error.toString());
       console.log("there was an error", error);
     }
@@ -132,6 +137,7 @@ const SignIn = ({ children }: SignInProp) => {
       await Auth.forgotPasswordSubmit(username, resetCode, password);
       updateFormState(() => ({ ...formState, formType: "signIn" }));
     } catch (error) {
+      //@ts-ignore
       setError(error.toString());
       console.log("there was an error", error);
     }
@@ -598,7 +604,8 @@ const SignIn = ({ children }: SignInProp) => {
                 </form>
                 <div className="text-right pt-2">
                   <span className="text-gray-300 text-xs font-thin">
-                    clicking "Verify" means user accept our service agreement
+                    clicking &quot;Verify&quot; means user accept our service
+                    agreement
                   </span>
                 </div>
               </div>
@@ -692,6 +699,9 @@ const SignIn = ({ children }: SignInProp) => {
                   </div>
                   <div className="text-red-500 justify-items-start justify-self-start mx-7 pt-3">
                     {error !== "" ? "Error: " + error : null}
+                  </div>
+                  <div className="text-green-500 justify-items-start justify-self-start mx-7 py-3">
+                    {successMessage !== "" ? successMessage : null}
                   </div>
                   <button
                     className="bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center"

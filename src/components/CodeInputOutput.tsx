@@ -78,10 +78,6 @@ export default function CodeInputOutput({
           disabled
           defaultValue={outPutState}
         >
-          {console.log(
-            "UI: ",
-            outPutState === expectOut.toString().concat("\n")
-          )}
           {/* {outPutState.toString()} */}
         </textarea>
       </div>

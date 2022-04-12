@@ -20,8 +20,6 @@ interface streamInterface {
   width: string;
   height: string;
   user: UserData[];
-  selectedPid: string;
-  setSelectedPid: any;
   setPeerId: (id: string | null) => void;
   disPeerId: (id: string) => void;
   refFromParent: any;
@@ -74,6 +72,7 @@ function Stream({
             console.log("user id: ", id);
           }
         });
+        //@ts-ignore
         peerInstance.current = peer;
       }
     });
@@ -99,12 +98,14 @@ function Stream({
     let storageSelectedPid = localStorage.getItem("selectedPid");
     console.log("selected: ", storageSelectedPid);
     console.log("is currently selected? ", storageSelectedPid === pid);
+    //@ts-ignore
     let index = calledId.indexOf(pid);
     setClalledId((temp) => {
       return temp.splice(index, 1);
     });
     if (storageSelectedPid === pid) {
       setSelectedPid("");
+      //@ts-ignore
       currentUserVideoRef.current.srcObject = null;
     }
   }
@@ -114,6 +115,7 @@ function Stream({
     localStream?.getAudioTracks()[0].stop();
     localStream?.getVideoTracks()[0].stop();
     if (selectedPid === userPid) {
+      //@ts-ignore
       currentUserVideoRef.current.srcObject = null;
     }
     disPeerId(userPid);
@@ -125,7 +127,9 @@ function Stream({
     import("peerjs").then(({ default: Peer }) => {
       if (navigator.mediaDevices.getUserMedia === undefined) {
         navigator.mediaDevices.getUserMedia = function(constraints) {
+          //@ts-ignore
           var getUserMedia =
+            //@ts-ignore
             navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
           if (!getUserMedia) {
@@ -144,12 +148,14 @@ function Stream({
         .then((mediaStream) => {
           if (!currentUserVideoRef.current) return;
           setLocalStream(mediaStream);
+          //@ts-ignore
           currentUserVideoRef.current.srcObject = mediaStream;
+          //@ts-ignore
           currentUserVideoRef.current.play();
 
           setPeerId(userPid);
           setSelectedPid(userPid);
-
+          //@ts-ignore
           peerInstance.current.on("call", (call) => {
             console.log("call");
             call.answer(mediaStream);
@@ -170,15 +176,17 @@ function Stream({
     const oscillator = ctx.createOscillator();
     const dst = oscillator.connect(ctx.createMediaStreamDestination());
     oscillator.start();
+    //@ts-ignore
     const track = dst.stream.getAudioTracks()[0];
     return Object.assign(track, { enabled: false });
   };
-
+  //@ts-ignore
   const createEmptyVideoTrack = ({ width, height }) => {
     const canvas = Object.assign(document.createElement("canvas"), {
       width,
       height,
     });
+    //@ts-ignore
     canvas.getContext("2d").fillRect(0, 0, width, height);
 
     const stream = canvas.captureStream();
@@ -189,25 +197,31 @@ function Stream({
 
   const call = (remotePeerId: string) => {
     if (remotePeerId === userPid || remoteAudioRef.current.length === 0) return;
+    //@ts-ignore
     if (calledId.includes(remotePeerId)) {
       console.log("already called this id");
       return;
     }
     console.log("calling new user checked");
+    //@ts-ignore
     var call = peerInstance.current.call(
       remotePeerId,
       localStream ? localStream : createMediaStreamFake()
     );
     console.log(call);
+    //@ts-ignore
     call.on("stream", (remoteStream) => {
       if (remoteAudioRef.current.length == 0) return;
       console.log(remoteAudioRef.current);
+      //@ts-ignore
       remoteAudioRef.current[numOfConnection]?.srcObject = remoteStream;
+      //@ts-ignore
       remoteAudioRef.current[numOfConnection]?.play();
       setNumOfConnection((numOfConnection) => numOfConnection + 1);
       console.log("calling new user, stream: ", remoteStream);
       // let temp = remoteUserPid;
       setRemoteUserPid((temp) => {
+        //@ts-ignore
         temp[remotePeerId] = remoteStream;
         console.log("calling new user, temp: ", temp);
         return temp;
@@ -215,6 +229,7 @@ function Stream({
     });
     console.log("done");
     setClalledId((temp) => {
+      //@ts-ignore
       temp.push(remotePeerId);
       return temp;
     });
@@ -224,14 +239,19 @@ function Stream({
     if (selectedPid === peerId) return;
     console.log("displayChanging: ", peerId);
     console.log("remoteUserPid: ", Object.keys(remoteUserPid));
+    //@ts-ignore
     console.log("target: ", remoteUserPid[peerId]);
     setSelectedPid(peerId);
     localStorage.setItem("selectedPid", peerId);
     if (peerId === userPid) {
+      //@ts-ignore
       currentUserVideoRef.current.srcObject = localStream;
+      //@ts-ignore
       currentUserVideoRef.current.play();
     } else {
+      //@ts-ignore
       currentUserVideoRef.current.srcObject = remoteUserPid[peerId];
+      //@ts-ignore
       currentUserVideoRef.current.play();
     }
   }
@@ -252,8 +272,10 @@ function Stream({
   }
 
   function addToAudioRef(el: any) {
+    //@ts-ignore
     if (el && !remoteAudioRef.current.includes(el)) {
       console.log("add to audio ref: ", el);
+      //@ts-ignore
       remoteAudioRef.current.push(el);
     }
   }
@@ -287,7 +309,8 @@ function Stream({
             style={{ width, height, zIndex: 3 }}
           />
           {console.log("currentUserVideoRef", currentUserVideoRef)}
-          {currentUserVideoRef.current?.srcObject ? null : (
+          {//@ts-ignore
+          currentUserVideoRef.current?.srcObject ? null : (
             <div
               style={{ height, width, position: "absolute", top: "0px" }}
               className="bg-slate-500 grid place-items-center"

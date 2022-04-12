@@ -1,14 +1,17 @@
 import { Auth } from "aws-amplify";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import awsconfig from "../../../aws-exports";
 import { API, graphqlOperation } from "aws-amplify";
 import Image from "next/image";
 import Logo from "../../../../public/icon.png";
 import Background from "../../../../public/login_background.png";
 import { useRouter } from "next/router";
+import { SingoutContext } from "../../../components/context/singout";
 
 export default function User(props: any) {
   API.configure(awsconfig);
+  const { signOut } = useContext(SingoutContext);
+  // console.log(tempContext);
   const [user, updateUser] = useState(null);
   const [uname, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
@@ -134,38 +137,6 @@ export default function User(props: any) {
             />
           </svg>
         </button>
-        <div
-          className="flex border border-transparent rounded-lg bg-inputboxcolor bg-opacity-20 pl-4"
-          style={{ width: "20vw" }}
-        >
-          <div
-            style={{ height: "4vh", width: "2vw" }}
-            className=" grid content-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-zinc-500 pr-12"
-              style={{ height: "3vh" }}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </div>
-          <form>
-            <input
-              placeholder="Search"
-              className="text-white bg-transparent outline-none"
-              style={{ height: "4vh", width: "16vw" }}
-            />
-          </form>
-        </div>
         <div className="flex content-center items-center">
           <button
             className="pr-4 outline-none"
@@ -303,14 +274,7 @@ export default function User(props: any) {
                 onClick={(e) => {
                   e.preventDefault();
                   console.log("clicked signout");
-                  Auth.signOut()
-                    .then(() => {
-                      console.log("signed out success");
-                      router.push("/");
-                    })
-                    .catch((err) => {
-                      console.log("singout error: ", err);
-                    });
+                  signOut();
                 }}
               >
                 Sing out

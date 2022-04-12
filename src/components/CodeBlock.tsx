@@ -90,6 +90,7 @@ export default function CodeBlock({
         sourceCode
       );
       console.log("patch result: ", patchResult[0]);
+      //@ts-ignore
       setSourceCode((code) => dmp.patch_apply(
         dmp.patch_fromText(patch),
         code
@@ -111,8 +112,10 @@ export default function CodeBlock({
     getId: () => "my.content.widget",
     getDomNode: function () {
       if (!this.domNode) {
+        //@ts-ignore
         this.domNode = document.createElement("div");
         // const userName = await Auth.currentUserInfo();
+        //@ts-ignore
         this.domNode.innerHTML =
           '<div class="bg-yellow-500 rounded-full px-2">' + "samuel" + '</div>';
         // this.domNode.style.background = "grey";
@@ -136,7 +139,9 @@ export default function CodeBlock({
   const[userContentWidget, setUserContentWidget] = useState<any>([]);
 
   function setOtherUserTag() {
+    //@ts-ignore
     userContentWidget.forEach((element) => {
+      //@ts-ignore
       editorRef.current?.removeContentWidget(element);
     })
     setUserContentWidget([]);
@@ -148,8 +153,10 @@ export default function CodeBlock({
         getId: () => index,
         getDomNode: function () {
           if (!this.domNode) {
+            //@ts-ignore
             this.domNode = document.createElement("div");
             // const userName = await Auth.currentUserInfo();
+            //@ts-ignore
             this.domNode.innerHTML =
               '<div class="rounded-full px-2' + userColors[index % userColors.length] + '">' + element.userName + '</div>';
             // this.domNode.style.background = "grey";
@@ -170,7 +177,9 @@ export default function CodeBlock({
           };
         },
       }
+      //@ts-ignore
       editorRef.current?.addContentWidget(tempElement);
+      //@ts-ignore
       setUserContentWidget((prevState) => [...prevState, tempElement]);
     })
   }
@@ -185,11 +194,14 @@ export default function CodeBlock({
         value={sourceCode}
         options={{ fontSize: 16 }}
         onChange={(e) => {
+          //@ts-ignore
           setPosition(editorRef?.current?.getPosition());
           // editorRef?.current?.removeContentWidget(myContentWidget);
           // editorRef?.current?.addContentWidget(myContentWidget);
+          //@ts-ignore
           setSourceCode(escapeHtml(e));
           setOtherUserTag();
+          //@ts-ignore
           updateCode(escapeHtml(e), editorRef?.current?.getPosition());
         }}
         onMount={handleEditorDidMount}

@@ -15,11 +15,13 @@ import React from 'react';
 import SignIn from '../pages/signin'
 import {useRouter} from "next/router";
 import { Sign } from "crypto";
+import {SingoutContext} from "../components/context/singout";
 // import console from "console";
 
 Amplify.configure(awsconfig);
 
 export default function Login(props:any) {
+  const MyContext = React.createContext<any>(null);
   const [loggedIn,setLoggedIn] = useState(false)
   // const [auth,checkAuth] = useState('')
   
@@ -84,9 +86,11 @@ export default function Login(props:any) {
       <div>
       { (loggedIn && checkAuth()) || !checkAuth() ? 
         <div>
-          {props.children}
+          <SingoutContext.Provider value={{signOut}}>
+            {props.children}
+          </SingoutContext.Provider>
           {/* {loggedIn ? <div><Button onClick={()=> signOut()}>Sign Out</Button></div> : <div></div>}           */}
-        </div> : <div><SignIn children = {props.children}/></div>
+        </div> : <div><SignIn>{props.children}</SignIn></div>
       }
       </div>
     </div>

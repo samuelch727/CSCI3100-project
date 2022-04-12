@@ -21,6 +21,7 @@ export default function Admin(props: any) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [createProject, setCreateProject] = useState(false);
   const [adminList, setAdminList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -38,8 +39,11 @@ export default function Admin(props: any) {
         if (group.includes("Admin")) {
           setAdmin(true);
           // console.log(group)
+        } else {
+          router.push("/home");
         }
-      } catch {
+      } catch (err) {
+        router.push("/home");
         setLoggedIn(false);
       }
     }
@@ -49,6 +53,7 @@ export default function Admin(props: any) {
   }, []);
 
   // list user in admin page
+  //@ts-ignore
   let nextToken;
 
   async function listUser() {
@@ -56,6 +61,7 @@ export default function Admin(props: any) {
     let path = "/listUsers";
     let myInit = {
       queryStringParameters: {
+        //@ts-ignore
         token: nextToken,
       },
       headers: {
@@ -69,6 +75,7 @@ export default function Admin(props: any) {
     let getAdmin = {
       queryStringParameters: {
         groupname: "Admin",
+        //@ts-ignore
         token: nextToken,
       },
       headers: {
@@ -84,7 +91,9 @@ export default function Admin(props: any) {
       "/listUsersInGroup",
       getAdmin
     );
+    //@ts-ignore
     rest2.Users.map((value) => {
+      //@ts-ignore
       if (!adminList.includes(value.Username)) adminList.push(value.Username);
     });
     const { NextToken, ...rest } = await API.get(apiName, path, myInit);
@@ -94,6 +103,7 @@ export default function Admin(props: any) {
     // setAdmin(rest2.Users);
     console.log(adminList);
     // console.log(userList)
+    setLoading(false);
   }
 
   // add user to admin grp by search bar
@@ -115,6 +125,7 @@ export default function Admin(props: any) {
     API.post(apiName, path, myInit)
       .then(() => {
         console.log("Success add user", uname, "to Admin Group");
+        //@ts-ignore
         setAdminList([...adminList, uname]);
       })
       .catch((err) => {
@@ -203,38 +214,6 @@ export default function Admin(props: any) {
             />
           </svg>
         </button>
-        <div
-          className="flex border border-transparent rounded-lg bg-inputboxcolor bg-opacity-20 pl-4"
-          style={{ width: "20vw" }}
-        >
-          <div
-            style={{ height: "4vh", width: "2vw" }}
-            className=" grid content-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-zinc-500 pr-12"
-              style={{ height: "3vh" }}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </div>
-          <form>
-            <input
-              placeholder="Search"
-              className="text-white bg-transparent outline-none"
-              style={{ height: "4vh" }}
-            />
-          </form>
-        </div>
         <div className="flex content-center items-center">
           <button
             className="pr-4 outline-none"
@@ -281,7 +260,7 @@ export default function Admin(props: any) {
                 className="text-white text-xl font-bold flex text-white flex items-center justify-start"
                 style={{ height: "8vh" }}
                 onClick={() => {
-                  router.push("/");
+                  router.push("/home");
                 }}
               >
                 <svg
@@ -333,12 +312,23 @@ export default function Admin(props: any) {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="pr-2 ml-6"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
                     style={{ height: "3vh" }}
+                    className="pr-2 ml-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
                   >
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
                   </svg>
                   Manage User
                 </button>
@@ -393,66 +383,118 @@ export default function Admin(props: any) {
             }
           >
             <div className="grid content-center justify-center">
-              {userList.map((user, index) => {
-                if (!user.Enabled) return;
-                if (
-                  searchUserInput === "" ||
-                  user.Username.includes(searchUserInput)
-                ) {
-                  return (
-                    <div
-                      className="py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center my-2"
-                      key={index}
-                      style={
-                        isNavOpen
-                          ? { width: "69vw", height: "6vh" }
-                          : { width: "79vw", height: "6vh" }
-                      }
-                    >
-                      <span className="pl-6 text-lg">{user.Username}</span>
-                      <div className="flex items-center justify-items-end justify-end">
-                        {adminList.includes(user.Username) ? (
-                          <div className=" w-fit relative z-20 mr-4 text-gray-300">
-                            Admin
-                          </div>
-                        ) : (
-                          <button
-                            className="relative z-20 underline hover:text-navtexttop mr-4"
-                            value={user.Username}
-                            onClick={(e) => addToGroup(e.target.value)}
-                          >
-                            Promote to Admin
-                          </button>
-                        )}
-                        <div className="flex content-center ">
-                          {adminList.includes(user.Username) ? null : (
+              {loading && (
+                <>
+                  <div
+                    className="animate-pulse py-2 px-4 border border-homepagetitle bg-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center my-2"
+                    style={
+                      isNavOpen
+                        ? { width: "69vw", height: "6vh" }
+                        : { width: "79vw", height: "6vh" }
+                    }
+                  ></div>
+                  <div
+                    className="animate-pulse py-2 px-4 border border-homepagetitle bg-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center my-2"
+                    style={
+                      isNavOpen
+                        ? { width: "69vw", height: "6vh" }
+                        : { width: "79vw", height: "6vh" }
+                    }
+                  ></div>
+                  <div
+                    className="animate-pulse py-2 px-4 border border-homepagetitle bg-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center my-2"
+                    style={
+                      isNavOpen
+                        ? { width: "69vw", height: "6vh" }
+                        : { width: "79vw", height: "6vh" }
+                    }
+                  ></div>
+                  <div
+                    className="animate-pulse py-2 px-4 border border-homepagetitle bg-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center my-2"
+                    style={
+                      isNavOpen
+                        ? { width: "69vw", height: "6vh" }
+                        : { width: "79vw", height: "6vh" }
+                    }
+                  ></div>
+                </>
+              )}
+              {!loading &&
+                userList.map((user, index) => {
+                  //@ts-ignore
+                  if (!user.Enabled) return;
+                  if (
+                    searchUserInput === "" ||
+                    //@ts-ignore
+                    user.Username.includes(searchUserInput)
+                  ) {
+                    return (
+                      <div
+                        className="py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center my-2"
+                        key={index}
+                        style={
+                          isNavOpen
+                            ? { width: "69vw", height: "6vh" }
+                            : { width: "79vw", height: "6vh" }
+                        }
+                      >
+                        <span className="pl-6 text-lg">
+                          {
+                            //@ts-ignore
+                            user.Username
+                          }
+                        </span>
+                        <div className="flex items-center justify-items-end justify-end">
+                          {//@ts-ignore
+                          adminList.includes(user.Username) ? (
+                            <div className=" w-fit relative z-20 mr-4 text-gray-300">
+                              Admin
+                            </div>
+                          ) : (
                             <button
-                              className="relative z-20 pr-2 hover:text-navtexttop"
+                              className="relative z-20 underline hover:text-navtexttop mr-4"
+                              //@ts-ignore
                               value={user.Username}
-                              onClick={(e) => deleteUser(user.Username, index)}
+                              //@ts-ignore
+                              onClick={(e) => addToGroup(e.target.value)}
                             >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                />
-                              </svg>
+                              Promote to Admin
                             </button>
                           )}
+                          <div className="flex content-center ">
+                            {//@ts-ignore
+                            adminList.includes(user.Username) ? null : (
+                              <button
+                                className="relative z-20 pr-2 hover:text-navtexttop"
+                                //@ts-ignore
+                                value={user.Username}
+                                //@ts-ignore
+                                onClick={(e) =>
+                                  deleteUser(user.Username, index)
+                                }
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-6 w-6"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  strokeWidth={2}
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                  />
+                                </svg>
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                }
-              })}
+                    );
+                  }
+                })}
             </div>
           </div>
         </div>

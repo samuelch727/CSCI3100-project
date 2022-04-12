@@ -86,6 +86,7 @@ export default function CodeControlBar({
     setUpdatingShare(true);
     const newList = sharedWith;
     newList.push(userList[index].username);
+    //@ts-ignore
     updateShareList(newList);
     userList.splice(index, 1);
     console.log(newList);
@@ -96,6 +97,7 @@ export default function CodeControlBar({
     setUpdatingShare(true);
     const newList = sharedWith;
     newList.splice(index, 1);
+    //@ts-ignore
     updateShareList(newList);
     console.log(newList);
     setUpdatingShare(false);
@@ -122,6 +124,7 @@ export default function CodeControlBar({
                 className={"h-7 w-7 rounded-full text-center grid content-center mx-1 border-2 select-none".concat(
                   userColors[key % userColors.length]
                 )}
+                key={key}
               >
                 {value.userName[0].toUpperCase()}
               </div>
@@ -211,7 +214,8 @@ export default function CodeControlBar({
                               owner
                             </div>
                           </li>
-                          {sharedWith.map((value, key) => {
+                          {//@ts-ignore
+                          sharedWith.map((value, key) => {
                             return (
                               <li
                                 className="py-4 flex first:pt-0 last:pb-0 items-center justify-between px-1"
@@ -258,7 +262,7 @@ export default function CodeControlBar({
                 cy="12"
                 r="10"
                 stroke="currentColor"
-                stroke-width="4"
+                strokeWidth="4"
               ></circle>
               <path
                 className="opacity-75"

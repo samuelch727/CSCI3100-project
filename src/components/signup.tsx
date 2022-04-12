@@ -21,6 +21,7 @@ function SignUp() {
   //   checkUser()
   //   setAuthListener()
   // }, [])
+  //@ts-ignore
   function onChange(e) {
     e.persist()
     updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
