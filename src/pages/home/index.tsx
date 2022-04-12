@@ -239,7 +239,6 @@ export default function Home(props:any) {
           {console.log("Login Status in home:",loggedIn)}
           <div>Welcome on9 {uname}!</div>
         {console.log("formType: ", formType)}
-            <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'20vw'}}>Recent Project</span>
             <div className={isNavOpen?'pt-6 grid grid-cols-5 grid-rows-2 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
               <div className='grid content-center justify-center'>
               {
@@ -260,7 +259,7 @@ export default function Home(props:any) {
 
 
               <div className='pt-8'></div>
-              <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'20vw'}}>Recent Project</span>
+              <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'20vw'}}>My Project</span>
 
               {
             loggedIn && project.map(item => {
@@ -360,7 +359,7 @@ export default function Home(props:any) {
           }
           
         </div>
-        <div>
+        <div className="relative z-10">
           <Button onClick={()=>signOut()}>Sign Out</Button>
         </div>
 
