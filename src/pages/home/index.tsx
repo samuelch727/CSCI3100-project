@@ -33,6 +33,7 @@ export default function Home(props:any) {
   const [user, updateUser] = useState(null)
   const [uname, setUsername] = useState(null)
   const [error, setError] = useState(null)
+  const [ searchInput, setSearchInput ] = useState("")
 
   useEffect(() => {
 
@@ -231,12 +232,13 @@ export default function Home(props:any) {
             </div>
 
 
-            {console.log("Login Status in home:",loggedIn)}
-        <div>Welcome on9 {uname}!</div>
-        {console.log("formType: ", formType)}
+
 
 
           <div className={isNavOpen?'relative z-10 ml-14 mt-14':'relative z-10 ml-40 mt-14'} style={isNavOpen?{width:'70vw'}:{width:'80vw'}}>
+          {console.log("Login Status in home:",loggedIn)}
+          <div>Welcome on9 {uname}!</div>
+        {console.log("formType: ", formType)}
             <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'20vw'}}>Recent Project</span>
             <div className={isNavOpen?'pt-6 grid grid-cols-5 grid-rows-2 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
               <div className='grid content-center justify-center'>
@@ -259,12 +261,12 @@ export default function Home(props:any) {
 
               <div className='pt-8'></div>
               <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'20vw'}}>Recent Project</span>
-            <div className={isNavOpen?'pt-6 grid grid-cols-5 grid-rows-2 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
-              <div className='grid content-center justify-center'>
+
               {
             loggedIn && project.map(item => {
               return (
-                
+                <div className={isNavOpen?'pt-6 grid grid-cols-5 grid-rows-2 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
+                <div className='grid content-start justify-start'>
                   <button className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
                         <span className='pl-6 text-lg'>{item.projectName}</span>
                         <span>{item.language}</span> 
@@ -277,12 +279,12 @@ export default function Home(props:any) {
                     
                   <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
                 </button>
+            </div>
+            </div>
               )
             })
           }
-              </div>
-                
-            </div>
+
 
 
 
@@ -464,6 +466,7 @@ function Project_home() {
                 </div>
             </div>
             </div>
+
 
 
 
