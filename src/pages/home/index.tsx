@@ -208,14 +208,6 @@ export default function Home(props:any) {
                 <div className='row-span-1 col-start-1  border-y border-zinc-600 grid content-center justify-start' style={{height:'8vh'}}>
                     <button className='text-white text-xl font-bold flex text-white flex items-center justify-start' style={{height:'8vh'}}>
                         <svg xmlns="http://www.w3.org/2000/svg" style={{height:'3vh'}} className='pr-2 ml-6' viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
-                        </svg>
-                        My Project
-                    </button>
-                </div>
-                <div className='row-span-1 col-start-1  border-y border-zinc-600 grid content-center justify-start' style={{height:'8vh'}}>
-                    <button className='text-white text-xl font-bold flex text-white flex items-center justify-start' style={{height:'8vh'}}>
-                        <svg xmlns="http://www.w3.org/2000/svg" style={{height:'3vh'}} className='pr-2 ml-6' viewBox="0 0 20 20" fill="currentColor">
                         <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
                         </svg>
                         Shared Project
@@ -229,21 +221,6 @@ export default function Home(props:any) {
         <div>Welcome on9 {uname}!</div>
         {console.log("formType: ", formType)}
 
-        <div className="projectList">
-          <h1><b>All Projects</b></h1>
-          {
-            loggedIn && project.map(item => {
-              return (
-                <li key={item.id}>
-                  {item.projectName}{item.language}{item.updatedAt}
-                  {item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>}
-                  <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
-                </li>
-              )
-            })
-          }
-        </div>
-
 
           <div className={isNavOpen?'relative z-10 ml-14 mt-14':'relative z-10 ml-40 mt-14'} style={isNavOpen?{width:'70vw'}:{width:'80vw'}}>
             <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'20vw'}}>Recent Project</span>
@@ -252,11 +229,40 @@ export default function Home(props:any) {
               {
             loggedIn && project.map(item => {
               return (
+                <div className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle grid content-center justify-center' style={{width:'12vw',height:'auto'}} >
                 <li key={item.id}>
-                  {item.projectName}{item.language}{item.updatedAt}
+                  {item.projectName}
                   {item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>}
-                  <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
                 </li>
+                </div>
+              )
+            })
+          }
+              </div>
+                
+            </div>
+
+
+              <div className='pt-8'></div>
+              <span className={isNavOpen?'text-2xl text-homepagetitle font-semibold pl-3':'text-2xl text-homepagetitle font-semibold pl-1'} style={{width:'20vw'}}>Recent Project</span>
+            <div className={isNavOpen?'pt-6 grid grid-cols-5 grid-rows-2 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
+              <div className='grid content-center justify-center'>
+              {
+            loggedIn && project.map(item => {
+              return (
+                
+                  <button className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
+                        <span className='pl-6 text-lg'>{item.projectName}</span>
+                        <span>{item.language}</span> 
+                        <div className='grid grid-cols-2 content-center items-center justify-items-end justify-end'>
+                        <span className='pr-3'>{item.updatedAt}</span> 
+                        <svg onClick={item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        </div>
+                    
+                  <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
+                </button>
               )
             })
           }
@@ -282,17 +288,7 @@ export default function Home(props:any) {
                         </div>
                     </button>
                  </div>
-                 <div  className='grid content-center justify-center' >
-                    <button className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
-                        <span className='pl-6 text-lg'> Project Name</span>
-                        <div className='grid grid-cols-2 content-center items-center justify-items-end justify-end'>
-                        <span className='pr-3'>last edit time</span> 
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        </div>
-                    </button>
-                 </div>
+
                 
                 </div>
                 
@@ -300,6 +296,8 @@ export default function Home(props:any) {
 
             
         </div>
+
+        
 
 
         {/* <div><Button onClick={()=>createCode()}>Create Code</Button></div> */}
