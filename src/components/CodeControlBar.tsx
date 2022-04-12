@@ -7,6 +7,7 @@ import {
 import { useEffect, useState, Fragment } from "react";
 import { TrashIcon, PlusIcon } from "@heroicons/react/outline";
 import { Popover, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 
 interface CodeLocation {
   lineNumber: number;
@@ -70,6 +71,7 @@ export default function CodeControlBar({
   const [isRunning, setIsRunning] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [updatingShare, setUpdatingShare] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     refFromParent.current = {
       setIsRunning: setIsRunning,
@@ -104,7 +106,12 @@ export default function CodeControlBar({
       className="flex flex-row content-center px-3 bg-gray-100 justify-between items-center"
     >
       <div className="flex items-center">
-        <button className="w-8 mr-4 rounded bg-gray-300 hover:bg-black transition ease-in-out duration-300">
+        <button
+          className="w-8 mr-4 rounded bg-gray-300 hover:bg-black transition ease-in-out duration-300"
+          onClick={() => {
+            router.push("/home");
+          }}
+        >
           <HomeIcon className="w-8 h-8 text-gray-700 rounded p-1 hover:text-white" />
         </button>
         <div className="">{title}</div>

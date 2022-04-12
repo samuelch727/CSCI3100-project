@@ -8,7 +8,7 @@ import Login from "./component/login";
 import Image from "next/image";
 import Logo from "../../public/icon.png";
 import background from "../../public/home-background.jpg";
-import Header from "./component/header";
+import Header from "../components/header";
 // import Login from "./login";
 
 // const LoginButton = React.forwardRef(({ onClick, href }, ref) => {

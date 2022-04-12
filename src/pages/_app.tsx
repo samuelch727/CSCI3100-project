@@ -8,24 +8,16 @@ import { API, graphqlOperation } from "aws-amplify";
 import { listProjects } from "../graphql/queries";
 import "@aws-amplify/ui-react/styles.css";
 import { useEffect } from "react";
+import Login from "../components/login"
 
 Amplify.configure(awsconfig);
 
-function MyApp({ Component, pageProps, signOut }: any) {
-  useEffect(() => {
-    async function fetchProject() {
-      try {
-        const project = await API.graphql(graphqlOperation(listProjects));
-        console.log(project);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    fetchProject();
-  });
-
-  return <Component {...pageProps} signOut={signOut} />;
-  // return <Component {...pageProps} />;
-}
+function MyApp({ Component , pageProps } : AppProps) {
+  return (
+    <Login>
+      <Component {...pageProps} />
+    </Login>
+  );
+} 
 
 export default MyApp;

@@ -159,7 +159,12 @@ export default function User(props: any) {
           </form>
         </div>
         <div className="flex content-center items-center">
-          <button className="pr-4 outline-none">
+          <button
+            className="pr-4 outline-none"
+            onClick={() => {
+              router.push("/home/user");
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="text-white active:text-gray-900"
@@ -241,6 +246,9 @@ export default function User(props: any) {
               <button
                 className="text-white text-xl font-bold flex text-white flex items-center justify-start"
                 style={{ height: "8vh" }}
+                onClick={() => {
+                  router.push("/home/shared");
+                }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -269,14 +277,33 @@ export default function User(props: any) {
               : { height: "82.5vh", width: "100vw" }
           }
         >
-          <div className="relative z-20 grid content-center justify-center mb-10">
-            <span className="text-homepagetitle text-2xl">Change Password</span>
-          </div>
           <form
             className="grid bg-zinc-800 bg-opacity-60 justify-center content-center border border-transparent rounded-lg"
             style={{ height: "45vh", width: "60vw" }}
           >
-            <div className=" pt-2 pb-5 px-5">
+            <div className="px-5 flex justify-between">
+              <span className="text-homepagetitle text-2xl">
+                Change Password
+              </span>
+              <button
+                className="py-1 px-6 text-white bg-homepagetitle border border-transparent rounded-lg text-lg "
+                onClick={(e) => {
+                  e.preventDefault();
+                  console.log("clicked signout");
+                  Auth.signOut()
+                    .then(() => {
+                      console.log("signed out success");
+                      router.push("/");
+                    })
+                    .catch((err) => {
+                      console.log("singout error: ", err);
+                    });
+                }}
+              >
+                Sing out
+              </button>
+            </div>
+            <div className="p-5">
               <input
                 placeholder="Old Password"
                 className="bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"

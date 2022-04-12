@@ -339,7 +339,9 @@ export default function Home(props:any) {
       </form>
     </div>
     <div className="flex content-center items-center">
-      <button className="pr-4 outline-none">
+      <button className="pr-4 outline-none" onClick={() => {
+              router.push("/home/user");
+            }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="text-white active:text-gray-900"
@@ -378,6 +380,9 @@ export default function Home(props:any) {
           <button
             className="text-white text-xl font-bold flex text-white flex items-center justify-start"
             style={{ height: "8vh" }}
+            onClick={() => {
+                router.push("/home");
+              }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -491,6 +496,10 @@ export default function Home(props:any) {
                 ? { width: "69vw", height: "6vh" }
                 : { width: "79vw", height: "6vh" }
             }
+            onClick={(e) => {
+                e.preventDefault();
+                router.push(`/project/${project.id}`)
+            }}
           >
             <span className="pl-6 text-lg">{project.projectName}</span>
             <div className="flex content-center items-center justify-items-end justify-end">
