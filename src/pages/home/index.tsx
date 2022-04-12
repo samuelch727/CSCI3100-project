@@ -78,6 +78,7 @@ export default function Home(props:any) {
   const [ newcode, setCreateCode ] = useState();
   const [ codeID, setCode ] = useState();
   const [isNavOpen, setIsNavOpen] = useState(false); 
+  const [createMenu, setCreateMenu] = useState(false);
 
   // const allProjects = await API.graphql(graphqlOperation(listProjects));
   // project = 10 setProject(10)
@@ -235,6 +236,15 @@ export default function Home(props:any) {
                         Shared Project
                     </button>
                 </div>
+                <div className='row-span-1 col-start-1  border-y border-zinc-600 grid content-center justify-start' style={{height:'8vh'}}>
+                    <button className='text-white text-xl font-bold flex text-white flex items-center justify-start' style={{height:'8vh'}}>
+                      <svg xmlns="http://www.w3.org/2000/svg" style={{height:'3vh'}} className="pr-2 ml-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                        Manage User
+                    </button>
+                </div>
             </div>
             </div>
             
@@ -260,7 +270,7 @@ export default function Home(props:any) {
             </span>
             <button
               className="grid content-center justify-center text-homepagetitle border border-homepagetitle rounded-lg w-6 h-6 subpixel-antialiased"
-              onClick={() => setCreateProject(() => true)}
+              onClick={() => setCreateMenu(() => true)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -288,7 +298,7 @@ export default function Home(props:any) {
           >
             <div
               className={
-                createProject
+                createMenu
                   ? "grid content-center justify-center"
                   : "hidden grid content-center justify-center"
               }
@@ -309,7 +319,7 @@ export default function Home(props:any) {
                     className="text-homepagetitle"
                     onClick={(e) => {
                       e.preventDefault();
-                      setCreateProject((prev) => false);
+                      setCreateMenu((prev) => false);
                     }}
                   >
                     <svg
@@ -336,6 +346,10 @@ export default function Home(props:any) {
                     placeholder="Your Project Title"
                     style={{ width: "40vw", height: "5vh" }}
                     className="outline-none text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg py-2 px-4"
+                    onChange={(e) => {
+                      setTitle(e.target.value)
+                    }}
+                    value={title}
                   ></input>
                 </div>
 
@@ -413,7 +427,7 @@ export default function Home(props:any) {
               
 
                 <div className="grid content-center justify-center h-fit pt-6">
-                    <button className='text-white text-lg font-bold text-white flex items-center justify-center bg-homepagetitle border border-transparent rounded-lg w-fit'  onClick={()=>createProject()} style={{height:'4vh',width:'14vw'}}>
+                    <button className='text-white text-lg font-bold text-white flex items-center justify-center bg-homepagetitle border border-transparent rounded-lg w-fit'  onClick={(e)=>{e.preventDefault();createProject()}} style={{height:'4vh',width:'14vw'}}>
                         Create Project
                     </button>
                 </div>
@@ -435,16 +449,26 @@ export default function Home(props:any) {
                 <div className={isNavOpen?'pt-6 grid grid-cols-5 grid-rows-2 auto-cols-min auto-rows-min gap-4':'pt-6 grid grid-cols-6 grid-rows-1 auto-cols-min auto-rows-min gap-4'}>
                 <div className='grid content-start justify-start'>
                   <button className='py-2 px-4 border border-homepagetitle rounded-lg text-homepagetitle flex content-center justify-between items-center' style={isNavOpen?{width:'69vw',height:'6vh'}:{width:'79vw',height:'6vh'}}>
-                        <span className='pl-6 text-lg'>{item.projectName}</span>
-                        <span>{item.language}</span> 
-                        <div className='grid grid-cols-2 content-center items-center justify-items-end justify-end'>
+                        <span className='pl-6 text-lg w-fit'>{item.projectName}</span>
+                        <span className="w-fit">{item.language}</span> 
+                        <div className='grid  content-center items-center justify-items-end justify-end'>
                         <span className='pr-3'>{item.updatedAt}</span> 
-                        <svg onClick={item.shareTo!=null ? <p>{item.shareTo}</p> : <p></p>} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
                         </div>
-                    
-                  <button value={item.id} onClick={e=>deleteProject(e.target.value)}>Delete</button>
+                        <div className="flex content-center items-center" >
+                          {item.shareTo!=null ? 
+                          <div>
+                            <svg  xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                          </div> : null}
+                          <div className="pl-4">
+                            <button value={item.id} onClick={e=>deleteProject(e.target.value)} className="grid content-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
                 </button>
             </div>
             </div>
@@ -460,32 +484,6 @@ export default function Home(props:any) {
 
 
         {/* <div><Button onClick={()=>createCode()}>Create Code</Button></div> */}
-        <div><Button onClick ={()=> {
-                updateFormState(()=> ({...formState, formType: "createProject"}))
-                }}>+</Button></div>
-        { formType==='createProject' && (
-          <div>
-            {/* <form className="createProject" onSubmit={()=>createProject()}> */}
-              <h1>Enter your Project Title:</h1>
-              <input id="title" name="title" placeholder="Enter project title" onChange={e=> setTitle(e.target.value)}/><br />
-              <h1>Choose language:</h1>
-              <button value="PYTHON" id="python" name="python" onClick={e=> setLanguage(e.target.value)}>PYTHON</button><br />
-              <button value="C" id="c" name="c" onClick={e=> setLanguage(e.target.value)}>C</button><br />
-              <button value="C++" id="c++" name="c++" onClick={e=> setLanguage(e.target.value)}>C++</button><br />
-              <button value="JAVA" id="java" name="java" onClick={e=> setLanguage(e.target.value)}>JAVA</button><br />
-              <Button onClick={()=>createProject()}>Create</Button>
-              <Button className="cancelButton" onClick ={()=> {
-                updateFormState(()=> ({...formState, formType: ""}))}}>Cancel</Button>
-              <div>New Project to be created: <br/>
-                Title: {title} <br />
-                Language: {language}
-              </div>
-              <div>
-              { error != null ? error : <div></div> }
-              </div>
-          </div>
-          )
-        }
         
         <br/>
 
@@ -503,10 +501,7 @@ export default function Home(props:any) {
           }
           
         </div>
-        <div className="relative z-10">
-          <Button onClick={()=>signOut()}>Sign Out</Button>
-        </div>
-
+        
           {/* <div>
             <button onClick={props.signUp}>Help</button>
           </div> */}
