@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^2.10.3",
+    "@headlessui/react": "^1.5.0",
     "aws-amplify": "^4.3.16",
     "bcrypt": "^5.0.1",
+    "headless": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.4",
     "next": "12.1.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "ui": "^0.2.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

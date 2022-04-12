@@ -345,9 +345,9 @@ export default function Home(props:any) {
                   <Tab.Group>
                     <Tab.List className="flex p-1 space-x-1 bg-homepagetitle rounded-xl" style={{width:'40vw'}}>
                       <Tab
-                        onSelect={()=>setLanguage(()=>'C')}
+                        
                         className={({ selected }) =>
-                          { 
+                          { selected && setLanguage("C")
                             return classNames(
                             "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
                             "focus:outline-none  ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
@@ -362,7 +362,7 @@ export default function Home(props:any) {
                       <Tab
                         onSelect={()=>setLanguage(()=>'C++')}
                         className={({ selected }) =>
-                          {
+                          {selected && setLanguage("C++")
                             return classNames(
                             "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5 outline-none",
                             "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
@@ -375,9 +375,9 @@ export default function Home(props:any) {
                         C++
                       </Tab>
                       <Tab
-                        onSelect={()=>setLanguage(()=>'PYTHON')}
+
                         className={({ selected }) =>
-                          {
+                          {selected && setLanguage("PYTHON")
                             return classNames(
                             "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
                             "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
@@ -393,6 +393,7 @@ export default function Home(props:any) {
                         className={({ selected }) =>
                         
                           { 
+                           selected && setLanguage("JAVA")
                            return classNames(
                             "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5",
                             "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
@@ -409,11 +410,7 @@ export default function Home(props:any) {
                 </div>
 
 
-                <div>
-                  <span className="text-white">
-                    Language: {language}
-                  </span>
-                </div>
+              
 
                 <div className="grid content-center justify-center h-fit pt-6">
                     <button className='text-white text-lg font-bold text-white flex items-center justify-center bg-homepagetitle border border-transparent rounded-lg w-fit'  onClick={()=>createProject()} style={{height:'4vh',width:'14vw'}}>
