@@ -132,12 +132,14 @@ export default function Home(props: any) {
       // setCode()
       console.log(
         "Sucessfully created code! Code id:",
+        //@ts-ignore
         newCode.data.createCode.id
       );
 
       const projectDetails = {
         projectName: title,
         language: language,
+        //@ts-ignore
         projectCodeId: newCode.data.createCode.id,
       };
 
