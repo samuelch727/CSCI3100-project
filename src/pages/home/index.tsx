@@ -93,6 +93,7 @@ export default function Home(props: any) {
   // project = 10 setProject(10)
   const fetchProject = async () => {
     const project = await API.graphql(graphqlOperation(queries.listProjects));
+    //@ts-ignore
     console.log("fetched project", project.data.listProjects.items);
     //@ts-ignore
     setProject(project.data.listProjects.items);
