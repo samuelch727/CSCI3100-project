@@ -130,12 +130,15 @@ export default function Home(props: any) {
       setCode(newCode.data.createCode.id);
       // const codeID = newCode.id
       // setCode()
-      console.log("Sucessfully created code! Code id:", codeID);
+      console.log(
+        "Sucessfully created code! Code id:",
+        newCode.data.createCode.id
+      );
 
       const projectDetails = {
         projectName: title,
         language: language,
-        projectCodeId: codeID,
+        projectCodeId: newCode.data.createCode.id,
       };
 
       const newProject = await API.graphql(
