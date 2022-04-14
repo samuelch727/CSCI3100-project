@@ -82,17 +82,17 @@ export default function Login(props:any) {
   //  });
  // });
   return (
+        <SingoutContext.Provider value={{signOut}}>
     <div> 
       <div>
       { (loggedIn && checkAuth()) || !checkAuth() ? 
         <div>
-          <SingoutContext.Provider value={{signOut}}>
             {props.children}
-          </SingoutContext.Provider>
           {/* {loggedIn ? <div><Button onClick={()=> signOut()}>Sign Out</Button></div> : <div></div>}           */}
         </div> : <div><SignIn>{props.children}</SignIn></div>
       }
       </div>
     </div>
+      </SingoutContext.Provider>
   );
 }
