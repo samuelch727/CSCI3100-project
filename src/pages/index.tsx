@@ -9,6 +9,7 @@ import Image from "next/image";
 import Logo from "../../public/icon.png";
 import background from "../../public/home-background.jpg";
 import Header from "../components/header";
+import { useRouter } from "next/router";
 // import Login from "./login";
 
 // const LoginButton = React.forwardRef(({ onClick, href }, ref) => {
@@ -18,6 +19,7 @@ import Header from "../components/header";
 // })
 
 export default function Home(props: any) {
+  const router = useRouter();
   return (
     <div>
       <div style={{ background: "black", width: "100vw", height: "100vh" }}>
@@ -47,8 +49,10 @@ export default function Home(props: any) {
               </span>
             </div>
             <div className="p-8">
-              <button className="relative z-10 text-white rounded-lg bg-navtextbottom  px-24 py-1.5 hover:shadow">
-                <Link href="./home">Click here to start coding now</Link>
+              <button className="relative z-10 text-white rounded-lg bg-navtextbottom  px-24 py-1.5 hover:shadow" onClick={() => {
+                router.push("/home");
+              }}>
+                Click here to start coding now
               </button>
             </div>
           </div>
