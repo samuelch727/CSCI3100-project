@@ -80,7 +80,7 @@ export default function Code() {
             JSON.stringify({
               action: "setName",
               userName: user.username,
-              roomId: project?.projectCodeId,
+              roomId: pid,
               codeId: codeId,
             })
           );
