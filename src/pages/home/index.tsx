@@ -169,6 +169,7 @@ export default function Home(props: any) {
       );
       //@ts-ignore
       setDeleteProject(deletedProject);
+      fetchProject();
       console.log("Successfully deleted!");
     } catch (e) {
       console.log("There is error in deleting!", e);
@@ -594,6 +595,7 @@ export default function Home(props: any) {
                             onClick={(e) => {
                               e.preventDefault();
                               createProject();
+                              setCreateMenu(false);
                             }}
                             style={{ height: "4vh", width: "14vw" }}
                           >
