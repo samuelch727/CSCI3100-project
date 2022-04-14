@@ -8,16 +8,23 @@ import { API, graphqlOperation } from "aws-amplify";
 import { listProjects } from "../graphql/queries";
 import "@aws-amplify/ui-react/styles.css";
 import { useEffect } from "react";
-import Login from "../components/login"
+import Login from "../components/login";
+import Head from "next/head";
 
 Amplify.configure(awsconfig);
 
-function MyApp({ Component , pageProps } : AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Login>
-      <Component {...pageProps} />
-    </Login>
+    <div>
+      <Head>
+        <title>Code Code Guide</title>
+        <link rel="icon" href="/icon.png" />
+      </Head>
+      <Login>
+        <Component {...pageProps} />
+      </Login>
+    </div>
   );
-} 
+}
 
 export default MyApp;

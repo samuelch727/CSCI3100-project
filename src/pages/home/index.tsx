@@ -542,9 +542,9 @@ export default function Home(props: any) {
                                 C
                               </Tab>
                               <Tab
-                                onSelect={() => setLanguage(() => "C++")}
+                                onSelect={() => setLanguage(() => "CPP")}
                                 className={({ selected }) => {
-                                  selected && setLanguage("C++");
+                                  selected && setLanguage("CPP");
                                   return classNames(
                                     "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg px-5 outline-none",
                                     "focus:outline-none ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
