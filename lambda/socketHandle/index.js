@@ -2577,6 +2577,9 @@ exports.handler = async (event) => {
         // await sendToAll(room[body.roomId].ids, {
         //   systemMessage: `${user[connectionId].userName} has joined`,
         // });
+        console.log("Debug: user, ", user);
+        console.log("Debug: room, ", room);
+        console.log("Debug: code, ", code);
         break;
       case "sendVideoStream":
         {

@@ -138,8 +138,10 @@ export default function Code() {
           .patch_apply(dmp.patch_fromText(data.sourceCode), lastSentCode)[0]
           .toString();
         console.log("lastSentCode: ", lastSentCode);
-        //@ts-ignore
-        codeBlock.current.updateSourceCode(data.sourceCode);
+        if (data.sourceCode !== "undefined") {
+          //@ts-ignore
+          codeBlock.current.updateSourceCode(data.sourceCode);
+        }
       }
     }
     if (data.disconnectId) {
