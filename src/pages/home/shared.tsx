@@ -1,3 +1,9 @@
+/**
+ * @description Shared Project page displaying project shared to the user
+ * @author Lee Yu Hin, Hui Nga Yin, Kwong Wai Hang
+ * @version 1.0 (20 April 22)
+ */
+
 // import type { NextPage } from "next";
 import Head from "next/head";
 // import Image from "next/image";
@@ -27,7 +33,12 @@ const initialFormState = {
   language: "",
   formType: "",
 };
-
+/**
+ * Shared Project Component
+ * The function allow user to check the list of project shared to them
+ * and click into those pojects
+ * @returns {JSX Element} - Shared Project Component Page
+ */
 export default function Home(props: any) {
   API.configure(awsconfig);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -80,6 +91,7 @@ export default function Home(props: any) {
   const [newcode, setCreateCode] = useState();
   const [codeID, setCode] = useState();
   const [searchInput, setSearchInput] = useState("");
+  // variable store and change the status of the hambuger menu
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   // const allProjects = await API.graphql(graphqlOperation(listProjects));

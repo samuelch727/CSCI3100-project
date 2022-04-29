@@ -100,6 +100,7 @@ export default function Home(props: any) {
   const [deletedProject, setDeleteProject] = useState();
   const [newcode, setCreateCode] = useState();
   const [codeID, setCode] = useState();
+  // variable store and change the status of the hambuger menu
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [createMenu, setCreateMenu] = useState(false);
 

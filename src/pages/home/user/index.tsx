@@ -20,6 +20,7 @@ export default function User(props: any) {
   const [newPassword, setNewPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  // variable store and change the status of the hambuger menu
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const [error, setError] = useState("");
