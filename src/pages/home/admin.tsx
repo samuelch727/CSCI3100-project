@@ -9,6 +9,14 @@ import Image from "next/image";
 import { UserGroupIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 
+/**
+ * Admin Page Component 
+ * The Admin function check the users if they are admin
+ * and allow admin user to promote or delete other non-admin 
+ * users on the user list
+ * 
+ * @returns {JSX.Element} - Admin Page Component
+ */
 export default function Admin(props: any) {
   API.configure(awsconfig);
   // const [user, updateUser] = useState(null)
@@ -18,6 +26,7 @@ export default function Admin(props: any) {
   const [admin, setAdmin] = useState(false);
   const [userList, setUserList] = useState([]);
   const [searchUserInput, setSearchUser] = useState("");
+  // variable store and change the status of the hambuger menu
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [createProject, setCreateProject] = useState(false);
   const [adminList, setAdminList] = useState([]);

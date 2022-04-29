@@ -1,3 +1,9 @@
+/**
+ * @description home page after user login to their account
+ * @author Lee Yu Hin, Hui Nga Yin, Kwong Wai Hang
+ * @version 1.0 (29 April 22)
+ */
+
 // import type { NextPage } from "next";
 import Head from "next/head";
 // import Image from "next/image";
@@ -33,6 +39,14 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+/**
+ * Home Page Component 
+ * The function get the user's login status, allow
+ * logged-in user create new projects, click into the project
+ * they own or shared to them
+ * 
+ * @returns {JSX.Element} - Hoem Page Component 
+ */
 export default function Home(props: any) {
   API.configure(awsconfig);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -76,7 +90,7 @@ export default function Home(props: any) {
   // const { pid, pName } = router.query;
   // console.log(pid);
   // console.log(pName);
-  //const { user } = useUser();
+  // const { user } = useUser();
 
   const [project, setProject] = useState<any[]>([]);
   const [sharedProject, setSharedProject] = useState<any[]>([]);
