@@ -1,3 +1,12 @@
+/**
+ * @description Code control bar on top of code editor
+ * @author Samuel Chan Sze Nok
+ * @version 1.0 (2022-04-29)
+ *
+ * INTERFACE chatData
+ * INTERFACE chatInterface
+ * FUNCTION Chat(props: chatData)
+ */
 import {
   ChevronDownIcon,
   PlayIcon,
@@ -46,6 +55,22 @@ const userColors = [
   " bg-rose-100 border-rose-700 text-rose-900",
 ];
 
+/**
+ * CodeControlBar
+ * This function render the top control bar of the code editor
+ * @param {string} props.title - title of the project
+ * @param {string} props.height - height of the code editor
+ * @param {string} props.width - width of the code editor
+ * @param {() => {}} runCode - function that execute code
+ * @param refFromParent - reference to set if the program is executing
+ * @param {UserData} users - list of users current editing the project
+ * @param userList - list of users registed the platform
+ * @param {string} owner - owner of the project
+ * @param sharedWith - list of users that the project is shared with
+ * @param {() => {}} updateShareList - function callback that update the shared list
+ *
+ * @returns {JSX.Element} - return chat box render
+ */
 export default function CodeControlBar({
   title,
   height,
