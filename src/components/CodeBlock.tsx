@@ -1,3 +1,15 @@
+/**
+ * @discription CodeBlock which render the code box
+ * @author Samuel Chan Sze Nok
+ * @version 1.0 (2022-04-29)
+ * 
+ * INTERFACE CodeBlockProps
+ * INTERFACE UserData
+ * INTERFACE CodeLocation
+ * CONST userColors
+ * FUNCTION CodeBlock(props: CodeBlockProps)
+ */
+
 import Editor, { useMonaco } from "@monaco-editor/react";
 import React, { useRef, useEffect, useState, useImperativeHandle } from "react";
 import {API, graphqlOperation} from "aws-amplify";
@@ -14,7 +26,6 @@ interface CodeBlockProps {
   updateCode: (code: string) => void;
   updateCodeFromSocket: any;
   defaultValue?: string;
-  id: string | undefined | null;
   width: string;
   height: string;
   connectionId: string;
@@ -54,12 +65,26 @@ const userColors = [
   " bg-rose-300 text-rose-900",
 ];
 
+/**
+ * CodeBlock component
+ * CodeBlock renders a code editor
+ * 
+ * @param {string} props.language - language of the code
+ * @param {(code: string) => void} props.updateCode - A function takes in a string and updates the code in the CodeBlock
+ * @param props.updateCodeFromSocket - HTML reference which is used to update the code in the CodeBlock from socket message
+ * @param {string} props.defaultValue - Optional default value of the code
+ * @param {string} props.width - Width of the CodeBlock
+ * @param {string} props.height - Height of the CodeBlock
+ * @param {string} props.connectionId - User's socket connection id
+ * @param {[{userName: string, codeLocation: CodeLocation, peerId: string, id: string}]} props.users - Array of users in the CodeBlock
+ * 
+ * @returns {JSX.Element} - CodeBlock component
+ */
 export default function CodeBlock({
   language,
   defaultValue,
   width,
   height,
-  id,
   users,
   updateCode,
   updateCodeFromSocket,
@@ -78,26 +103,44 @@ export default function CodeBlock({
     updateCodeFromSocket.current = {updateSourceCode: updateSourceCode, sourceCode: sourceCode};
   })
 
+  /**
+   * Handle code editor when page first render
+   * 
+   * @param editor - monaco editor
+   * @param monaco 
+   */
   function handleEditorDidMount(editor: any, monaco: any) {
     editorRef.current = editor;
     setOtherUserTag();
   }
 
-    function updateSourceCode(patch: string, code: string) {
-      if (code) return setSourceCode(code);
-      let patchResult = dmp.patch_apply(
-        dmp.patch_fromText(patch),
-        sourceCode
-      );
-      console.log("patch result: ", patchResult[0]);
-      //@ts-ignore
-      setSourceCode((code) => dmp.patch_apply(
-        dmp.patch_fromText(patch),
-        code
-      )[0]);
-    }
+  /**
+   * Update source code in the CodeBlock
+   * 
+   * @param {string} patch - delta of the source code
+   * @param {string} code - original source code
+   */
+  function updateSourceCode(patch: string, code: string) {
+    if (code) return setSourceCode(code);
+    let patchResult = dmp.patch_apply(
+      dmp.patch_fromText(patch),
+      sourceCode
+    );
+    console.log("patch result: ", patchResult[0]);
+    //@ts-ignore
+    setSourceCode((code) => dmp.patch_apply(
+      dmp.patch_fromText(patch),
+      code
+    )[0]);
+  }
 
-
+  /**
+   * escapeHtml function
+   * remove string will cause string escape
+   * 
+   * @param {string} str - input string
+   * @returns {string} - output string that removes all string will cause string escape
+   */
   function escapeHtml(str: string) {
     return str
       .replace(/&/g, "\&")
@@ -107,6 +150,9 @@ export default function CodeBlock({
       .replace(/'/g, "\'");
   }
 
+  /**
+   * myContentWidget - function that renders user;s name tag
+   */
   var myContentWidget = {
     domNode: null,
     getId: () => "my.content.widget",
@@ -134,10 +180,11 @@ export default function CodeBlock({
     },
   };
 
-  const demoData = []
-
   const[userContentWidget, setUserContentWidget] = useState<any>([]);
 
+  /**
+   * setOtherUserTag - function that renders other user's name tag
+   */
   function setOtherUserTag() {
     //@ts-ignore
     userContentWidget.forEach((element) => {
