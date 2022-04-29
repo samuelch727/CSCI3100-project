@@ -277,7 +277,7 @@ export default function User(props: any) {
                   signOut();
                 }}
               >
-                Sing out
+                Sign out
               </button>
             </div>
             <div className="p-5">
