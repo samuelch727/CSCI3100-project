@@ -2,38 +2,39 @@
  * @description home page after user login to their account
  * @author Lee Yu Hin, Hui Nga Yin, Kwong Wai Hang
  * @version 1.0 (29 April 22)
+ * 
+ * CONST initialFormState
+ * FUNCTION classNames
+ * FUNCTION Home(props: any)
  */
 
-// import type { NextPage } from "next";
 import Head from "next/head";
-// import Image from "next/image";
-// import styles from "../styles/Project.module.css";
 import { Auth } from "aws-amplify";
 import { Button } from "@aws-amplify/ui-react";
 import Link from "next/link";
 import { ConsoleLogger } from "@aws-amplify/core";
-//import CodeBlock from "../../components/CodeBlock";
 import { useRouter } from "next/router";
-//import CodeControlBar from "../../components/CodeControlBar";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import * as mutations from "../../graphql/mutations";
 import { Project, ListProjectsQuery } from "../../API";
 import { useEffect, useState } from "react";
-//import { useUser } from "../context/AuthContext"
 import awsconfig from "../../aws-exports";
-// import {Paper} from "@material-ui/core";
 import React from "react";
 import Image from "next/image";
 import Background from "../../../public/login_background.png";
 import Header from "../../components/header";
 import { Tab } from "@headlessui/react";
 
+/**
+ * Initialize the form state
+ */
 const initialFormState = {
   title: "",
   language: "",
   formType: "",
 };
+
 //@ts-ignore
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -58,6 +59,9 @@ export default function Home(props: any) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    /**
+     * Check the login status of a user
+     */
     async function AccessLoggedInState() {
       try {
         const user = await Auth.currentAuthenticatedUser();
@@ -87,10 +91,6 @@ export default function Home(props: any) {
   }, []);
 
   const router = useRouter();
-  // const { pid, pName } = router.query;
-  // console.log(pid);
-  // console.log(pName);
-  // const { user } = useUser();
 
   const [project, setProject] = useState<any[]>([]);
   const [sharedProject, setSharedProject] = useState<any[]>([]);
@@ -104,8 +104,9 @@ export default function Home(props: any) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [createMenu, setCreateMenu] = useState(false);
 
-  // const allProjects = await API.graphql(graphqlOperation(listProjects));
-  // project = 10 setProject(10)
+  /**
+   * Get project of the user from the database
+   */
   const fetchProject = async () => {
     const project = await API.graphql(graphqlOperation(queries.listProjects));
     //@ts-ignore
@@ -134,9 +135,10 @@ export default function Home(props: any) {
   const [formState, updateFormState] = useState(initialFormState);
   const { formType } = formState;
 
+  /**
+   * Handle the process of creating a new project
+   */
   const createProject = async () => {
-    // e.preventDefault()
-    // updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     try {
       const newCode = await API.graphql(
         graphqlOperation(mutations.createCode, { input: {} })
@@ -177,6 +179,10 @@ export default function Home(props: any) {
     fetchProject();
   };
 
+  /**
+   * Handle the process of deleting an existing project
+   * @param {string} pid - The project ID of the project.
+   */
   const deleteProject = async (pid: string) => {
     try {
       const deletedProject = await API.graphql(
@@ -200,8 +206,6 @@ export default function Home(props: any) {
       console.log("error signing out ", error);
     }
   };
-
-  // <CodeBlock language="python" width="100vw" height="90vh" />
 
   return (
     <div className="bg-black opacity-100" style={{ height: "100vh" }}>
