@@ -1,18 +1,24 @@
-// import "../styles/globals.css";
+/**
+ * @description SignIn which render the sign in page
+ * @author Hui Nga Yin
+ * @version 1.0 (2022-04-29)
+ * 
+ * INTERFACE SignInProp
+ * CONST initialFormState
+ * FUNCTION SignIn(props: SignInProp)
+ */
+
 import Head from "next/head";
 import Amplify, { Auth } from "aws-amplify";
 import awsExports from "../../aws-exports";
 import { Authenticator, Button } from "@aws-amplify/ui-react";
-//import "../project/index.css"
 import { AppProps } from "next/app";
 import { useState, useEffect, useRef } from "react";
 import { TextField } from "@aws-amplify/ui-react";
-// import Index from "../pages/index";
 import { useRouter } from "next/router";
 import Logotry from "next/image";
 import Logo from "../../../public/Logo.png";
 import Background from "../../../public/login_background.png";
-// import SignUp from "../../component/signup";
 import Image from "next/image";
 import React from "react";
 
@@ -22,6 +28,9 @@ interface SignInProp {
   children?: any;
 }
 
+/**
+ * Initialize the form state as "signIn"
+ */
 const initialFormState = {
   username: "",
   password: "",
@@ -33,16 +42,14 @@ const initialFormState = {
   resetCode: "",
 };
 
+/**
+ * SignIn component
+ * handle the signUp, confirmSignUp, signIn, forgotPassword procedure of a user
+ * 
+ * @param {props.children} children - wrapped content of SignIn
+ * @returns {JSX.Element} - SignIn component
+ */
 const SignIn = ({ children }: SignInProp) => {
-  // const AccessLoggedInState = () => {
-  //   Auth.currentAuthenticatedUser()
-  //   .then(() => {
-  //     setLoggedIn(true);
-  //   })
-  //   .catch(() => {
-  //     setLoggedIn(false);
-  //   })
-  // }
   const router = useRouter();
   //const [username, setUsername] = useState('');
   //const [password, setPassword] = useState('');
@@ -52,6 +59,11 @@ const SignIn = ({ children }: SignInProp) => {
   const [successMessage, setUsccessMessage] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const passwordRef = useRef(null);
+  
+  /**
+   * Handles the content inputted to the input box.
+   * @param {string} e - The element enter in the input box.
+   */
   //@ts-ignore
   function onChange(e) {
     e.persist();
@@ -60,6 +72,9 @@ const SignIn = ({ children }: SignInProp) => {
 
   const { formType } = formState;
 
+  /**
+   * Handles sign up procedure of a new user
+   */
   async function signUp() {
     const { username, email, password, name, verifypassword } = formState;
     if (password !== verifypassword) {
@@ -79,9 +94,11 @@ const SignIn = ({ children }: SignInProp) => {
       setError(error.toString());
       console.log("there was an error signing up", error);
     }
-
-    // if (router.asPath === "/signin") router.push("/home");
   }
+
+  /**
+   * Handles the confimation process of sign up by verification code
+   */
   async function confirmSignUp() {
     try {
       const { username, authCode } = formState;
@@ -96,6 +113,9 @@ const SignIn = ({ children }: SignInProp) => {
     }
   }
 
+  /**
+   * Handles the process of sign in and render the home HTML
+   */
   const signIn = async () => {
     try {
       const { username, password } = formState;
@@ -110,6 +130,9 @@ const SignIn = ({ children }: SignInProp) => {
     }
   };
 
+  /**
+   * Handles the process of forgot password
+   */
   const forgotPassword = async () => {
     const { username } = formState;
     if (!username || username === "") {
@@ -126,6 +149,9 @@ const SignIn = ({ children }: SignInProp) => {
     }
   };
 
+  /**
+   * Handles the submission of new password by new verification code
+   */
   const forgotPasswordSubmit = async () => {
     console.log("clicked forgot password submit");
     const { username, resetCode, password, verifypassword } = formState;
@@ -143,316 +169,6 @@ const SignIn = ({ children }: SignInProp) => {
     }
   };
 
-  //<div className="fixed inset-0 overflow-y-auto p-4 pt-[25vh]">
-  // return (
-  //   <div className="bg-black opacity-100" style={{ height: "100vh" }}>
-  //     <div
-  //       style={{
-  //         position: "absolute",
-  //         width: "100vw",
-  //         height: "100vh",
-  //         top: "0",
-  //         right: "0",
-  //         overflow: "hidden",
-  //       }}
-  //     >
-  //       <Image src={Background} layout="fill" />
-  //       <Header />
-  //     </div>
-
-  //     <div className="grid justify-center content-center p-32">
-  //       <span className="text-homepagetitle text-center text-4xl pb-8 z-10">
-  //         Log in your CodeCodeGuide Account
-  //       </span>
-  //       <div className="flex justify-end p-8"></div>
-  //       <form
-  //         className=" relative z-20 grid bg-zinc-800 bg-opacity-60 justify-items-center content-center rounded-lg border-2 border-transparent"
-  //         style={{ width: "60vw", height: "50vh" }}
-  //       >
-  //         <div className=" grid self-center items-center justify-items-center pt-4">
-  //           {console.log("formType: ", formType)}
-  //           {
-  //             user ? (
-  //               children
-  //             ) : (
-  //               <div className="">
-  //                 {formType === "signIn" && (
-  //                   <div>
-  //                     <div className="h-14">
-  //                       <input
-  //                         className="bg-gray-100 border-2 border-slate-800 w-96 border-2 border-transparent rounded-lg p-1"
-  //                         onChange={onChange}
-  //                         placeholder="Your Username"
-  //                       />
-  //                       <br />
-  //                     </div>
-
-  //                     <div className="h-14">
-  //                       <input
-  //                         type="password"
-  //                         ref={passwordRef}
-  //                         className="bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 p-1"
-  //                         onChange={onChange}
-  //                         placeholder="Your Password"
-  //                       ></input>
-  //                     </div>
-
-  //                     <div className="h-14">
-  //                       <input
-  //                         type="checkbox"
-  //                         className="bg-black text-white"
-  //                       ></input>
-  //                       <span
-  //                         className="pl-2 text-slate-300 h-24"
-  //                         onClick={() => {
-  //                           updateFormState(() => ({
-  //                             ...formState,
-  //                             formType: "password",
-  //                           }));
-  //                           setError("");
-  //                         }}
-  //                       >
-  //                         show password
-  //                       </span>
-  //                     </div>
-
-  //                     <button
-  //                       className="bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center"
-  //                       style={{ color: "white", backgroundColor: "#534F82" }}
-  //                       onClick={() => signIn()}
-  //                     >
-  //                       Log in Account
-  //                     </button>
-
-  //                     {/* <TextField
-  //               id = 'username'
-  //               label = 'Username'
-  //               value = {username}
-  //               onChange = {e => setUsername(e.target.value)}
-  //               />
-  //               <TextField
-  //                 id = 'password'
-  //                 label = 'Password'
-  //                 type = 'password'
-  //                 value = {password}
-  //                 onChange = {e => setPassword(e.target.value)}
-  //               /> */}
-
-  //                     <div className="h-6 pt-16 select-none flex justify-self-end justify-content-end">
-  //                       <button className="bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center">
-  //                         Forget Password?
-  //                       </button>
-  //                       <button
-  //                         id="SignUpButton"
-  //                         onClick={() => {
-  //                           updateFormState(() => ({
-  //                             ...formState,
-  //                             formType: "signUp",
-  //                           }));
-  //                           setError("");
-  //                         }}
-  //                         className="bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center"
-  //                       >
-  //                         New to CodeCodeGuide?
-  //                       </button>
-  //                     </div>
-  //                   </div>
-  //                 )}
-  //                 {formType === "signUp" && (
-  //                   <div
-  //                     className="bg-black opacity-100"
-  //                     style={{ height: "100vh" }}
-  //                   >
-  //                     <div
-  //                       style={{
-  //                         position: "absolute",
-  //                         width: "100vw",
-  //                         height: "100vh",
-  //                         top: "0",
-  //                         right: "0",
-  //                         overflow: "hidden",
-  //                         zIndex: "0",
-  //                       }}
-  //                     >
-  //                       <Image src={Background} layout="fill" />
-  //                     </div>
-  //                     {/* <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden"}}>
-  //                   <Image src={background} className="opacity-30"/>
-  //                   </div> */}
-  //                     <div
-  //                       className="flex justify-center items-center bg-navbg relative z-10 bg-opacity-80"
-  //                       id="navbar"
-  //                     >
-  //                       <div className="inline-block w-20 h-20 px-2 flex justify-center items-center">
-  //                         <Image src={Logo} alt="logo" />
-  //                       </div>
-  //                       <h1 className="z-10 inline text-4xl text-transparent bg-clip-text bg-gradient-to-b from-navtexttop via-navtextmiddle to-navtextbottom">
-  //                         CodeCodeGuide
-  //                       </h1>
-  //                     </div>
-
-  //                     <div className="relative z-20 flex justify-end p-8">
-  //                       <button className="text-white bg-homepagetitle border-2 border-transparent rounded-lg px-4 py-2 text-center">
-  //                         Log In
-  //                       </button>
-  //                     </div>
-
-  //                     <div className="relative z-20 grid content-center justify-start pl-48">
-  //                       <span className="text-homepagetitle text-2xl font-semibold">
-  //                         Create Your CodeCodeGuide Account
-  //                       </span>
-  //                     </div>
-
-  //                     <div className="relative z-20 pt-8 grid content-center justify-center">
-  //                       <form
-  //                         className="grid bg-zinc-800 bg-opacity-60 justify-center content-center border border-transparent rounded-lg"
-  //                         style={{ height: "55vh", width: "70vw" }}
-  //                       >
-  //                         <div
-  //                           className="grid justify-center content-center justify-items-center"
-  //                           style={{ height: "55vh", width: "55vw" }}
-  //                         >
-  //                           <div
-  //                             style={{ width: "55vw" }}
-  //                             className="flex justify-between"
-  //                           >
-  //                             <input
-  //                               placeholder="First Name"
-  //                               className="text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 py-1 md:text-sm"
-  //                               style={{ width: "25vw" }}
-  //                             />
-  //                             <input
-  //                               placeholder="Last Name"
-  //                               className="text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 py-1 md:text-sm"
-  //                               style={{ width: "25vw" }}
-  //                             />
-  //                           </div>
-  //                           <div className="pt-8">
-  //                             <input
-  //                               placeholder="Your Email Address"
-  //                               className="text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 mx-6 py-1 md:text-xs"
-  //                               style={{ width: "55vw" }}
-  //                             />
-  //                           </div>
-  //                           <div className="pt-8">
-  //                             <input
-  //                               placeholder="User Name"
-  //                               className="text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 mx-6 py-1 md:text-xs"
-  //                               style={{ width: "55vw" }}
-  //                             />
-  //                           </div>
-  //                           <div className="pt-8">
-  //                             <input
-  //                               type="password"
-  //                               placeholder="Password"
-  //                               className="text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg  px-2 mx-6 py-1 md:text-xs"
-  //                               style={{ width: "55vw" }}
-  //                             />
-  //                           </div>
-  //                           <div className="pt-8">
-  //                             <input
-  //                               type="password"
-  //                               placeholder="Confirm Password"
-  //                               className="text-white bg-inputboxcolor bg-opacity-20 border-transparent rounded-lg px-2 mx-6 py-1 md:text-xs"
-  //                               style={{ width: "55vw" }}
-  //                             />
-  //                           </div>
-  //                           <div className="justify-items-start justify-self-start mx-7 pt-3">
-  //                             <input type="checkbox" />
-  //                             <span className="text-white pl-2">
-  //                               Show Password
-  //                             </span>
-  //                           </div>
-  //                           <div className="pt-6">
-  //                             <button className="text-white bg-homepagetitle border border-transparent rounded-lg px-6 py-2">
-  //                               Create Account
-  //                             </button>
-  //                           </div>
-  //                         </div>
-  //                       </form>
-  //                     </div>
-  //                   </div>
-  //                 )}
-  //                 {formType === "confirmSignUp" && (
-  //                   <div>
-  //                     <div className="grid justify-center content-center p-2">
-  //                       <span className="text-homepagetitle text-center text-4xl pb-8 z-10">
-  //                         Please verify your Account
-  //                       </span>
-  //                     </div>
-  //                     <div className="grid content-center p-10">
-  //                       <input
-  //                         className=" text-xl pb-1 z-5"
-  //                         name="authCode"
-  //                         onChange={onChange}
-  //                         placeholder="Confirmation code"
-  //                       />
-  //                     </div>
-  //                     <div className="grid content-center p-10">
-  //                       <div>
-  //                         <button
-  //                           className="bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center"
-  //                           style={{
-  //                             color: "white",
-  //                             backgroundColor: "#534F82",
-  //                           }}
-  //                           onClick={() => {
-  //                             confirmSignUp();
-  //                             setError("");
-  //                           }}
-  //                         >
-  //                           Confirm Sign Up
-  //                         </button>
-  //                         <button
-  //                           id="SignInButton"
-  //                           style={{
-  //                             color: "white",
-  //                             backgroundColor: "#534F82",
-  //                           }}
-  //                           className="bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center"
-  //                           onClick={() => {
-  //                             updateFormState(() => ({
-  //                               ...formState,
-  //                               formType: "signUp",
-  //                             }));
-  //                             setError("");
-  //                           }}
-  //                         >
-  //                           Back to Sign Up
-  //                         </button>
-  //                       </div>
-  //                     </div>
-  //                   </div>
-  //                 )}
-  //                 <div className="text-rose-400 py-2">
-  //                   {error !== "" ? "Error: " + error : null}
-  //                 </div>
-  //               </div>
-  //             )
-
-  //             /* <TextField
-  //      id = 'username'
-  //      label = 'Username'
-  //       value = {username}
-  //      onChange = {e => setUsername(e.target.value)}
-  //     />
-  //     <TextField
-  //       id = 'password'
-  //      label = 'Password'
-  //       value = {password}
-  //       onChange = {e => setPassword(e.target.value)}
-
-  //     /> */
-  //             /* <Button id = 'SignInButton' onClick ={()=>signIn()}>Sign In</Button> */
-  //             /* <Button id = 'SignUpButton' onClick ={()=> updateFormState(()=> ({
-  //       ...formState, formType: "signUp"
-  //       }))}>Sign Up</Button> */
-  //           }
-  //         </div>
-  //       </form>
-  //     </div>
-  //   </div>
-  // );
   return (
     <div>
       {user ? (
@@ -855,72 +571,3 @@ const SignIn = ({ children }: SignInProp) => {
 };
 
 export default SignIn;
-
-{
-  /* import React from 'react'
-import Image from 'next/image'
-import Logo from '../../public/icon.png'
-import Background from '../../public/login_background.png'
-
-function login() {
-  return (
-    <div className='bg-black opacity-100' style={{height:"100vh"}}>
-        <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden"}}>
-        <Image src={Background} layout="fill"/>
-        </div>
-
-
-        <div style={{position: "absolute", width:"100vw", height: "100vh", top:"0", right:"0", overflow:"hidden"}}>
-        <Image src={background} className="opacity-30"/>
-        </div> 
-        <div className='flex justify-center items-center bg-navbg relative z-10 bg-opacity-80' id='navbar'> 
-          <div className='inline-block w-20 h-20 px-2 flex justify-center items-center'>
-            <Image src={Logo}
-                  alt="logo"
-                  />
-          </div>
-            <h1 className='z-10 inline text-4xl text-transparent bg-clip-text bg-gradient-to-b from-navtexttop via-navtextmiddle to-navtextbottom'>CodeCodeGuide</h1>
-        </div>
-
-
-        <div className='grid justify-center content-center p-32'>
-
-            <span className='text-homepagetitle text-center text-4xl pb-8 z-10'>Log in your CodeCodeGuide Account</span>
-            <form className=' relative z-20 grid bg-zinc-800 bg-opacity-60 justify-items-center content-center rounded-lg border-2 border-transparent' style={{width:"60vw" ,height:"50vh"}}>   
-                
-            
-            <div className=" grid self-center items-center justify-items-center pt-4">  
-                <div className='h-14'>
-                <input className='bg-gray-100 border-2 border-slate-800 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' placeholder='Your Email Address or Your Username'></input>
-                </div>
-
-
-
-                <div className='h-14'>
-                <input type="password" className='bg-gray-100 border-2 w-96 border-2 border-transparent rounded-lg py-0.5 px-1' placeholder='Your Password'></input>
-                </div>
-                <div className='h-14'>
-                <input type="checkbox" className='bg-black text-white'></input>
-                <span className='pl-2 text-slate-300 h-24'>show password</span> 
-                </div>
-                    <button className='bg-navtextbottom text-white h-6 w-36 border-2 border-transparent rounded-lg flex items-center justify-center'>Log in Account</button>
-            
-                    
-                <div className='h-6 pt-16 select-none flex justify-self-end justify-content-end'>
-                    <button className='flex text-homepagetitle items-center'>Forget Password?</button>
-                </div>
-                <div className='h-6 pt-8 select-none flex justify-self-end justify-content-end'>
-                    <button className='flex text-homepagetitle pl-4 items-center'>New to CodeCodeGuide?</button>
-                </div>
-                </div>
-                
-            </form>
-        </div>
-
-        
-    </div>
-  );
-};
-
-export default login */
-}
