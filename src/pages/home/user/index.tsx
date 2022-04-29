@@ -1,3 +1,11 @@
+/**
+ * @description User which render the user page
+ * @author Hui Nga Yin
+ * @version 1.0 (2022-04-29)
+ * 
+ * FUNCTION User(props: any)
+ */
+
 import { Auth } from "aws-amplify";
 import { useEffect, useState, useContext } from "react";
 import awsconfig from "../../../aws-exports";
@@ -8,6 +16,12 @@ import Background from "../../../../public/login_background.png";
 import { useRouter } from "next/router";
 import { SingoutContext } from "../../../components/context/singout";
 
+/**
+ * User component
+ * Manage user information
+ * 
+ * @returns {JSX.Element} - User component
+ */
 export default function User(props: any) {
   API.configure(awsconfig);
   const { signOut } = useContext(SingoutContext);
@@ -28,6 +42,9 @@ export default function User(props: any) {
   const [admin, setAdmin] = useState(false);
   const router = useRouter();
 
+  /**
+   * Handle the process of user password changing
+   */
   async function changePw() {
     if (newPassword !== verifyPassword) {
       setError("Passwords do not match");
@@ -70,20 +87,6 @@ export default function User(props: any) {
     AccessLoggedInState();
   }, []);
 
-  // return (
-  //   <div>
-  //     Hello {user}!<br />
-  //     Username: {uname}<br />
-  //     Email: {email}<br />
-  //     Password: {oldPassword}<br />
-  //     <div>
-  //       <input value={oldPassword} type="password" placeholder="Enter Your Old Password" onChange={e=> setOldPassword(e.target.value)} />
-  //       <input type="password" placeholder="Enter New Password" value = {newPassword}onChange={e=> setNewPassword(e.target.value)} /><br />
-  //       {newPassword}<br />
-  //       <button onClick={()=>changePw()}>Change</button>
-  //     </div>
-  //   </div>
-  // )
   return (
     <div className="bg-black opacity-100" style={{ height: "100vh" }}>
       <div
