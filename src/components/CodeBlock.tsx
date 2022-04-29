@@ -1,5 +1,5 @@
 /**
- * @discription CodeBlock which render the code box
+ * @description CodeBlock which render the code box
  * @author Samuel Chan Sze Nok
  * @version 1.0 (2022-04-29)
  * 

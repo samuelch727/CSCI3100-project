@@ -1,3 +1,12 @@
+/**
+ * @description Chat component which renders a chat box
+ * @author Samuel Chan Sze Nok
+ * @version 1.0 (2022-04-29)
+ *
+ * INTERFACE chatData
+ * INTERFACE chatInterface
+ * FUNCTION Chat(props: chatData)
+ */
 import { useState } from "react";
 
 interface chatData {
@@ -14,6 +23,15 @@ interface chatInterface {
   sendMessage: (message: string) => void;
 }
 
+/**
+ *
+ * @param {string} props.height - height of the chat box
+ * @param {string} props.width - width of the chat box
+ * @param {chatData} props.data - chat data
+ * @param {string} props.connectionId - user's socket connection id
+ *
+ * @returns {JSX.Element} - Chat component
+ */
 export default function Chat({
   height,
   width,
