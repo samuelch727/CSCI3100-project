@@ -1,3 +1,11 @@
+/**
+ * @description Code input output box at the bottom
+ * @author Samuel Chan Sze Nok
+ * @version 1.0 (2022-04-29)
+ *
+ * INTERFACE CIOInterface
+ * FUNCTION CodeInputOutput(props: CIOInterface)
+ */
 import { useEffect, useState } from "react";
 
 interface CIOInterface {
@@ -7,6 +15,15 @@ interface CIOInterface {
   outPut: string;
 }
 
+/**
+ * CodeInputOutput
+ * this function renders the code input output box
+ * @param {string} props.height - height of the code input output box
+ * @param {string} props.width - width of the code input output box
+ * @param {string} props.outPut - code output
+ * @param {any} props.refFromParent - ref from parent
+ * @returns
+ */
 export default function CodeInputOutput({
   height,
   width,
