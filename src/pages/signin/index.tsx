@@ -1,6 +1,6 @@
 /**
  * @description SignIn which render the sign in page
- * @author Hui Nga Yin
+ * @author Lee Yu Hin, Hui Nga Yin, Kwong Wai Hang
  * @version 1.0 (2022-04-29)
  * 
  * INTERFACE SignInProp
