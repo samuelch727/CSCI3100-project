@@ -1,4 +1,11 @@
-// import "../styles/globals.css";
+/**
+ * @description Login which check the authentication to access of webpages
+ * @author Hui Nga Yin, Chan Sze Nok
+ * @version 1.0 (2022-04-29)
+ * 
+ * FUNCTION Login(props: SignInProp)
+ */
+
 import type { AppProps } from "next/app";
 import Amplify from "aws-amplify";
 import awsconfig from "../aws-exports";
@@ -20,6 +27,12 @@ import {SingoutContext} from "../components/context/singout";
 
 Amplify.configure(awsconfig);
 
+/**
+ * Login component
+ * handle the authentication of accessing the pages under CodeCodeGuide
+ * 
+ * @returns {JSX.Element} - SignIn component or {prop.children} depends on authentication
+ */
 export default function Login(props:any) {
   const MyContext = React.createContext<any>(null);
   const [loggedIn,setLoggedIn] = useState(false)
@@ -30,7 +43,9 @@ export default function Login(props:any) {
   //console.log("LoggedIn:", loggedIn)
 
   useEffect(() => {
-
+    /**
+     * Check the login status of a user
+     */
     async function AccessLoggedInState() {
         try {
             await Auth.currentAuthenticatedUser();
@@ -47,6 +62,9 @@ export default function Login(props:any) {
     AccessLoggedInState()
   }, [])
 
+  /**
+   * Handle the sign out process of a logged in user
+   */
   const signOut = async () => {
     try {
       await Auth.signOut();
@@ -57,8 +75,10 @@ export default function Login(props:any) {
     }
   }
 
-  // useEffect(() => {
-    const checkAuth = () => {
+  /**
+   * Check whether a particular webpage need authentication to access
+   */
+  const checkAuth = () => {
     // const path = console.log("router", router.pathname)
     if (router.asPath.includes("project")|| router.asPath.includes("home")) {
       console.log("need auth");
@@ -68,19 +88,7 @@ export default function Login(props:any) {
       return false 
     } 
   }
-  //   checkAuth()
-  // }, [])
-
-  // const onSignIn = () => {
-  //   setLoggedIn(true)
-  // };
-
- // useEffect(() => {
-   // Hub.listen("auth event", (event:any) =>{
-   //   console.log("auth event", event);
-   //   setCurrentUser(event.payload.data);
-  //  });
- // });
+  
   return (
         <SingoutContext.Provider value={{signOut}}>
     <div> 
