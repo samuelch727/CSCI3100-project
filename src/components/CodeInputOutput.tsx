@@ -1,3 +1,4 @@
+// 願有一天，自由如雨。
 /**
  * @description Code input output box at the bottom
  * @author Samuel Chan Sze Nok
@@ -22,7 +23,7 @@ interface CIOInterface {
  * @param {string} props.width - width of the code input output box
  * @param {string} props.outPut - code output
  * @param {any} props.refFromParent - ref from parent
- * @returns
+ * @returns {JSX.Element} - return code input output box
  */
 export default function CodeInputOutput({
   height,

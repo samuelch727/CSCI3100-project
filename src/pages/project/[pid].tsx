@@ -1,3 +1,14 @@
+// 願有一天，自由如雨。
+/**
+ * @description Project page which renders a project page including code editor, chat, and live streaming
+ * @author Samuel Chan Sze Nok
+ * @version 1.0 (2022-04-29)
+ *
+ * INTERFACE CodeLocation
+ * INTERFACE UserData
+ * INTERFACE chatData
+ * FUNCTION Code
+ */
 import CodeBlock from "../../components/CodeBlock";
 import { useRouter } from "next/router";
 import CodeControlBar from "../../components/CodeControlBar";
@@ -38,6 +49,12 @@ interface chatData {
   id: string;
 }
 
+/**
+ * Code
+ * this function renders a project page including code editor, chat, and live streaming.
+ * this function connects user to the server and listens to the server via websocket.
+ * @returns {JSX.Element} - retrun code page
+ */
 export default function Code() {
   API.configure(awsconfig);
   const socket = useRef<WebSocket | null>(null);
@@ -211,8 +228,8 @@ export default function Code() {
     //   JSON.stringify({ action: "sendCodeLocation", codeLocation: "test" })
     // );
   });
-  //@ts-ignore
-  function throttle(cb, delay = 1000) {
+
+  function throttle(cb: any, delay = 1000) {
     let shouldWait = false;
     let originalCode = "";
     let init = false;

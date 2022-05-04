@@ -1,3 +1,4 @@
+// 願有一天，自由如雨。
 /**
  * @description CodeBlock which render the code box
  * @author Samuel Chan Sze Nok

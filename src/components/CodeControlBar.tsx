@@ -1,3 +1,4 @@
+// 願有一天，自由如雨。
 /**
  * @description Code control bar on top of code editor
  * @author Samuel Chan Sze Nok

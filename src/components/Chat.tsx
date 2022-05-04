@@ -1,3 +1,4 @@
+// 願有一天，自由如雨。
 /**
  * @description Chat component which renders a chat box
  * @author Samuel Chan Sze Nok
