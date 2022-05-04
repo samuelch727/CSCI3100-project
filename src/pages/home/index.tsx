@@ -46,7 +46,7 @@ function classNames(...classes) {
  * logged-in user create new projects, click into the project
  * they own or shared to them
  * 
- * @returns {JSX.Element} - Hoem Page Component 
+ * @returns {JSX.Element} - Home Page Component 
  */
 export default function Home(props: any) {
   API.configure(awsconfig);

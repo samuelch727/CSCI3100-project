@@ -1,3 +1,11 @@
+/**
+ * @description Admin which render the admin page for user management
+ * @author Lee Yu Hin, Hui Nga Yin, Kwong Wai Hang
+ * @version 1.0 (2022-04-29)
+ * 
+ * FUNCTION Admin(props: any)
+ */
+
 import { Auth, API } from "aws-amplify";
 import { setDefaultResultOrder } from "dns";
 import { useEffect, useState } from "react";
@@ -34,6 +42,9 @@ export default function Admin(props: any) {
   const router = useRouter();
 
   useEffect(() => {
+    /**
+     * Check the login status of a user
+     */
     async function AccessLoggedInState() {
       // if user is admin?
       try {
@@ -65,6 +76,7 @@ export default function Admin(props: any) {
   //@ts-ignore
   let nextToken;
 
+  // List all users in the database
   async function listUser() {
     let apiName = "AdminQueries";
     let path = "/listUsers";
@@ -115,7 +127,7 @@ export default function Admin(props: any) {
     setLoading(false);
   }
 
-  // add user to admin grp by search bar
+  // Add user to admin grp by search bar
   async function addToGroup(uname: String) {
     let apiName = "AdminQueries";
     let path = "/addUserToGroup";
@@ -143,7 +155,7 @@ export default function Admin(props: any) {
     return;
   }
 
-  // delete user by admin
+  // Delete user by admin
   async function deleteUser(uname: String, index: number) {
     let apiName = "AdminQueries";
     let path = "/disableUser";

@@ -1,6 +1,6 @@
 /**
- * @description User which render the user page
- * @author Hui Nga Yin
+ * @description User which render the user information management page
+ * @author Lee Yu Hin, Hui Nga Yin, Kwong Wai Hang
  * @version 1.0 (2022-04-29)
  * 
  * FUNCTION User(props: any)
